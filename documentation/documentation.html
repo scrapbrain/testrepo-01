@@ -1,0 +1,3203 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Documentation - Git Integration for JIRA v2.7.1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The JIRA Git Plugin is an add-on for JIRA that combines Git repository data JIRA projects and issues." />
+	<meta name="keywords" content="git, jira, git for jira, jira git add-on, jira git plugin, jira git addon, jira git integration, git integration plugin" />
+
+	<!--[if lte IE 9]>
+		<style>
+		@font-face {
+ 			font-family: 'Open Sans';
+			src: url('https://themes.googleusercontent.com/static/fonts/opensans/v5/cJZKeOuBrn4kERxqtaUH3fY6323mHUZFJMgTvxaG2iE.eot?');
+			src: local("☺"),
+			     local('Open Sans'),
+			     local('OpenSans'),
+			     url(https://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+			}
+		</style>
+	<![endif]-->
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+  <link href="css/bbb/pbcapi.css" rel="stylesheet" type="text/css">
+	<link href="css/bbb/gpicons.css" rel="stylesheet" type="text/css">
+	<link href="css/bbb/docu.css" rel="stylesheet" type="text/css">
+	<link rel="shortcut icon" href="/favicon.ico" />
+</head>
+
+<!--[if lte IE 8]>
+        <div id="imbox" class="bxalert">
+          <span class="alertx ibx-fl liner2">
+            <img src="docimgs/gpicons.png" alt="" />
+          </span>
+          <div id="wraps">
+            This page is best viewed with the latest versions of Chrome, Firefox, Safari or IE9+.
+          </div>
+        </div>
+<![endif]-->
+<body>
+<div style="margin-top: 20px;"></div>
+<!--[if lte IE 8]>
+	<hr style="margin-top: 7px;">
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+<![endif]-->
+
+<div class="clear"></div>
+<div id="titlegroup" class="tgbg">
+  <div class="tlogo">
+  	<span class="image001 plogo">
+  	  <a href="/"><img src="docimgs/gpicons.png" alt=""></a>
+  	</span>
+  </div>
+  <div class="title1">Git Integration for JIRA</div>
+  <div class="title2">Version 2.7.1</div>
+</div>
+<div id="sidebar" class="clear">
+  <h3 class="uvx" style="margin-bottom: 10px; padding-left: 12px;">Installation Guide</h3>
+  <ul class="vbar">
+    <li><a href="#gitctrlvwr_intro">Introduction</a></li>
+    <li><a href="#gitctrlvwr_plugreq">Add-on Requirements</a></li>
+    <li><a href="#gitctrlvwr_getstJA">Getting Started for Git Administrators</a></li>
+    <li><a href="#gitctrlvwr_inst">Installation</a></li>
+    <ul>
+      <li><a href="#gitctrlvwr_inst_mktplc">Installation through Atlassian Marketplace</a></li>
+      <li><a href="#gitctrlvwr_inst_jira">Installation through JIRA Plugin Manager</a></li>
+      <li><a href="#gitctrlvwr_inst_manual">Manual Installation</a></li>
+    </ul>
+    <li><a href="#gitctrlvwr_licdetails">Managing License Key</a></li>
+    <li><a href="#gitctrlvwr_cfgsshkeys">Working with SSH Keys</a></li>
+    <ul>
+      <li><a href="#gitctrlvwr_listsshkeys">List of SSH Keys</a></li>
+      <li><a href="#gcv_privpubssh">Public Key and Private Key with SSH</a>
+          <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+      <li><a href="#generate_SSH_keys">Generating SSH Keys</a>
+          <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+      <ul>
+        <li><a href="#gitctrlvwr_bnstlk_ssh">Beanstalk</a></li>
+        <li><a href="#gitctrlvwr_github_ssh">GitHub</a></li>
+        <li><a href="#gitctrlvwr_bbckt_ssh">BitBucket</a></li>
+        <li><a href="#gitctrlvwr_gitscm_ssh">Git-scm (Windows)</a></li>
+        <li><a href="#gitctrlvwr_gitlab_ssh">GitLab</a></li>
+        <li><a href="#gitctrlvwr_gitolite_ssh">Gitolite</a></li>
+        <li><a href="#gitctrlvwr_gerrit_ssh">Gerrit</a></li>
+        <li><a href="#gitctrlvwr_gitblit_ssh">GitBlit</a>
+          <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+        <li><a href="#gitctrlvwr_tfs_ssh">Team Foundation Server</a>
+          <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+      </ul>
+      <li><a href="#gitctrlvwr_addsshkeys">Adding a SSH Key</a></li>
+      <li><a href="#ssh_assockey">Associating a SSH Key to a Repository
+        <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></a></li>
+      <li><a href="#gitctrlvwr_del_ssh">Removing SSH Keys</a></li>
+      <li><a href="#gcv_recfgssh">Reconfigure Git Repository and SSH Key</a>
+          <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+      <li><a href="#gitctrlvwr_giturlports">Git URL Ports</a>
+          <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+    </ul>
+    <li><a href="#gitctrlvwr_setuprepo">Setting Up Repositories</a></li>
+    <ul>
+      <li><a href="#gitctrlvwr_addrepo">Using the Add Repository Wizard</a></li>
+      <ul>
+        <li><a href="#gitctrlvwr_detectcfg">Detection of Remote Origin Setting</a></li>
+        <li><a href="#gcv_repoview">Repository Browser Setting</a></li>
+        <li><a href="#gcv_httpsauth">HTTPS Authentication</a>
+      <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+        <li><a href="#gcv_passphr">Passphrase Input</a></li>
+      </ul>
+      <li><a href="#gitctrlvwr_repoadvcfg">Adding a Repository via Advanced Setup</a></li>
+      <li><a href="#gitctrlvwr_reporef">Setup Repository Root Not Located in JIRA Home Directory</a></li>
+      <li><a href="#gitctrlvwr_managerepo">Editing a Repository</a></li>
+      <ul>
+        <li><a href="#gitctrlvwr_editgit">Managing Add-on Settings with Git Repositories</a></li>
+      </ul>
+      <li><a href="#gitctrlvwr_repodel">Removing a Repository</a></li>
+      <li><a href="#gitctrlvwr_repoeditor">Bulk Change</a></li>
+       <ul>
+      	<li><a href="#gitctrlvwr_repoedit0">Exporting Repository Configuration via Bulk Change</a></li>
+      	<li><a href="#gitctrlvwr_repoedit1">Adding Existing Repositories via Bulk Change</a></li>
+      	<li><a href="#gitctrlvwr_repoeditn">Adding New Repositories via Bulk Change</a></li>
+      	<li><a href="#gitctrlvwr_repoeditx">Editing Existing Repositories via Bulk Change</a></li>
+      	<li><a href="#gitctrlvwr_repodel">Removing Existing Repositories via Bulk Change</a></li>
+      	<li><a href="#gitctrlvwr_bulkauto">Bulk Change Automation</a></li>
+      </ul>
+    </ul>
+    <li><a href="#gitctrlvwr_commitnotif">Commit Email Notifications</a>
+      <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+    <ul>
+      <li><a href="#notif_acl">Permissions</a></li>
+      <li><a href="#notif_cfg">Settings</a></li>
+      <li><a href="#notif_watch">Watching</a></li>
+      <li><a href="#notif_profile">User Profile Settings</a></li>
+    </ul>
+    <li><a href="#gitctrlvwr_gitcloneurl">View Git Clone URL and How to Cache HTTP Credentials</a>
+      <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+    <li><a href="#gitctrlvwr_gpcfg">Git Add-on General Settings</a>
+        <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+    <li><a href="#gitctrlvwr_weblinking">Web Linking</a>
+        <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+    <li><a href="#gitctrlvwr_ctabs">Disabling Source and <br>Commits Tabs</a></li>
+    <li><a href="#gitctrlvwr_linkcom2issues">Linking Git Commits to JIRA Issues</a></li>
+    <li><a href="#gitctrlvwr_sc">Smart Commits</a>
+      <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+    <li><a href="#gitctrlvwr_repovwr">The Repository Browser</a>
+        <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+    <ul>
+        <li><a href="#repovw_commits_tab">Viewing List of Commits via Repository Browser</a></li>
+        <li><a href="#repovw_compare_tab">Comparing Commit Branches via Repository Browser</a></li>
+        <li><a href="#gitctrlvwr_onoffrepovwr">Enable/Disable Repository
+	    	Browser via Repository Configuration</a></li>
+    </ul>
+    <li><a href="#gitctrlvwr_permsreq">Permissions Requirement to Display Commit Information</a></li>
+    <li><a href="#gitctrlvwr_vwdiffs">Viewing Commit Code Diffs</a>
+        <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></li>
+    <li><a href="#gitctrlvwr_gituserid">Git User Identity</a></li>
+    <li><a href="#gitctrlvwr_uicard">JIRA User Information Card</a> </li>
+    <li><a href="#gitctrlvwr_issuetab">The Issue Tab</a></li>
+    <ul>
+      <li><a href="#gitctrlvwr_issue_gcv">Git Code Review</a></li>
+      <li><a href="#gitctrlvwr_issue_gru">Git Roll Up</a></li>
+      <li><a href="#gitctrlvwr_issue_gc">Git Commits</a></li>
+      <li><a href="#gitctrlvwr_issue_gn">Git Notes
+        <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></a></li>
+	  <li><a href="#gitctrlvwr_diffcolor">Code Syntax Highlighter</a></li>
+    </ul>
+    <li><a href="#gitctrlvwr_projtab">The Project Tab</a></li>
+    <ul>
+      <li><a href="#gitctrlvwr_projtab_allver">All Versions</a></li>
+      <li><a href="#gitctrlvwr_projtab_selver">Commits for Select Version</a></li>
+    </ul>
+    <li><a href="#gitctrlvwr_codervw_devpanel">Code Review Developer Panel
+      <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></a></li>
+    <li><a href="#gitctrlvwr_createpullrequests">Creating Pull Requests
+      <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></a></li>
+    <ul>
+      <li><a href="#create_codereview_comments">Adding Code Review Comments
+      <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></a></li>
+    </ul>
+    <li><a href="#gitctrlvwr_reindexing">Reindexing</a></li>
+    <ul>
+    	<li><a href="#gitctrlvwr_lastidxrev">LastIndexed Revision</a></li>
+        <li><a href="#gitctrlvwr_ridxupd">Reindex and updatedDate <br>Filter</a></li>
+    </ul>
+    <li><a href="#gitctrlvwr_jqlsrch">JQL Searching <span class="gpj_new_icon pimg-ul">
+        <img src="docimgs/gpicons.png" alt=""></span></a></li>
+    <li><a href="#gitctrlvwr_webhook">Webhooks</a></li>
+    <li><a href="#gitctrlvwr_clusteringsupport">JIRA High Availability and Clustering (Data
+      Center compatibility) <span class="gpj_new_icon pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></a></li>
+    <li><a href="#gitctrlvwr_lang">Localization</a></li>
+    <li><a href="#gitctrlvwr_upgoldver">Upgrading from Old Versions of the Add-on</a></li>
+    <li><a href="#gitctrlvwr_terms">Terms</a></li>
+    <ul>
+      <li><a href="#terms_urepo">Remote Repository</a></li>
+      <li><a href="#terms_lrepo">Local Repository Clone</a></li>
+      <li><a href="#terms_lucidx">Lucene Indexes</a></li>
+      <li><a href="#terms_grij">Gitrevisionindexerjob</a></li>
+    </ul>
+    <li><a href="#atlicnote">Licensing Notice</a></li>
+  </ul>
+</div>
+
+<div id="main_content">
+    <!--[if lte IE 8]>
+		<p style="margin-top: 25px;"> </p>	
+	<![endif]-->
+  
+  <h2 style="margin-top: 20px;"><a name="gitctrlvwr_intro">Introduction</a></h2>
+  <p>The
+	<a target="_blank" href="https://marketplace.atlassian.com/plugins/com.xiplink.jira.git.jira_git_plugin">
+    Git Integration for JIRA <span class="image012 pimg-ul"><img src="docimgs/gpicons.png" alt="newwin_icon12.png">
+    </span></a> add-on is intended for displaying list of commits
+    linked with particular a JIRA issue. It is often useful to figure out real issue
+    progress as well as contributors involved in the real work of an issue.</p>
+  <p>The Git Integration add-on pulls data from a Git source code control repository. Your
+    JIRA users will be able to see code in Git in context with JIRA projects and 
+    issues. Even non-technical users without Git access will be able to work with
+    Git in the familiar JIRA interface.</p>
+  <p>New tabs are added to the <b>Issue</b> view called <!-- <b><i>Git Code Review</i></b>, -->
+    <b><i>Git Roll Up</i></b> and <i><b><i>Git Commits</i></b></i>. The <i><b>Git Commits</b></i>
+    tab is also added to the <b>Project</b> view. Users who
+    access these tabs will see the Git activities. </p>
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      Ask your Git administrator if you need access to the Git repository just like
+      a regular developer would have. <a
+    	href="mailto:?Subject=Request%20for%20Git%20access%3A%20Git%20Viewer%20for%20JIRA&amp;Body=Hello%20Git%20Admin%2C%0A%0AI%20am%20configuring%20our%20JIRA%20server%20to%20show%20Git%20activity.%20You%20can%20find%20out%20more%20about%20it%20here%3A%20https%3A%2F%2Fwww.bigbrassband.com%2FGitViewerForJIRAForGitAdmins%0A%0AI%20need%3A%20%0A1%29%20The%20Git%20server%20URL%20for%20access%0A2%29%20Git%20username%2Fpassword%20OR%20SSH%20private%20key%20for%20a%20new%20JIRA%20server%20Git%20user%0A%0A%0AThanks%21"
+    	title="Follow link">Click here <span class="image002 pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></a> to send an e-mail using the default email program to the Git administrator.<br>
+      <p style="margin-bottom: -1px;">If you are the Git administrator, define a new Git user for this JIRA server.</p>
+    </div>
+  </div>
+  <h2><a name="gitctrlvwr_plugreq">Add-on Requirements</a></h2>
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+        The <b>Git Integration for JIRA v2.5.23</b> add-on requires Atlassian JIRA 5.2 up
+        to 6.3.15.<br><br>
+        Starting from <b>v2.6.0</b> of the Git add-on, Atlassian JIRA 6.0 or later
+        is required. Support for upcoming Atlassian JIRA 7.0 is introduced starting Git add-on <b>v2.6.24</b>.<br><br>
+        <b>Universal Plugin Manager 2.2</b> or later is required to properly install this add-on.
+    </div>
+  </div>
+
+  <!-- JIRA 6 charset on downlevel git client --
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      <b><a style="font-size: 16px;" name="gitctrlvwr_detectcfg">
+      	Command Line Git Client</a></b><br>
+      <div style="margin-top: 8px;">
+  	  	The Git Integration for JIRA add-on requires users to use a command line <b>Git Client
+        v2.1.0</b> or newer to connect to the Git Repositories at <code>&lt;JIRA_BASE_URL&gt;</code>.
+  	   </div>
+    </div>
+  </div> -->
+
+  <h2><a name="gitctrlvwr_getstJA">Getting Started for Git Administrators</a></h2>
+  <p>For detailed information on this topic, see
+    <a href="https://bigbrassband.com/git-for-jira-for-git-admins.html" target="_blank">Git Integration
+    for JIRA for Git Administrators <span class="image012 pimg-ul"><img src="docimgs/gpicons.png" alt="newwin_icon12.png"></span></a>.</p>
+  <p>For information on troubleshooting known errors and issues,
+    see <a href="faqs.html" target="_blank">Git Integration for JIRA - Frequently Asked Questions
+    <span class="image012 pimg-ul"><img src="docimgs/gpicons.png" alt="newwin_icon12.png"></span></a>.</p>
+
+  <h2><a name="gitctrlvwr_inst">Installation</a></h2>
+  <p>If the Git server and JIRA server are installed on the same server, only the
+    path to the Git repository is needed.&nbsp; The URL and the access credentials
+    to the Git server will only be needed if it is located on another server.</p>
+  <p>If you have <b>Git Integration for JIRA</b> versions 1.03 and lower already installed, see section
+    &ndash; <a href="#gitctrlvwr_upgoldver">Upgrading from Old Versions of the Add-on</a>.</p>
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div id="wraps">
+      You must have the <b>JIRA System Administrators</b> <i>global permission</i> to
+      install add-ons.
+    </div>
+   </div>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      	If you have the previous version of the Git add-on and will upgrade to <b>v2.5+</b>, all existing
+      	repositories in the add-on configuration will have the <b>Repository Browser</b> feature
+      	<b>turned off</b> by default. For more information about this feature and how to enable it, see
+    	<a href="#gitctrlvwr_repovwr">The Repository Browser</a>.
+    </div>
+  </div>
+  
+  <h3><u><a name="gitctrlvwr_inst_mktplc">Installation via Atlassian 
+    Marketplace</a></u></h3>
+  <ol class="ordlst">
+    <li>Go to the <a target="_blank" href="https://marketplace.atlassian.com/plugins/com.xiplink.jira.git.jira_git_plugin">Git Integration for JIRA <span class="image012 pimg"><img src="docimgs/gpicons.png"></span></a> Atlassian Marketplace page.</li>
+    <img style="margin-top:5px; margin-bottom:0" border="0" src="docimgs/image004.png" width="580px">
+    <li>Buy or evaluate the add-on with a free 30 day trial.</li>
+    <li>Login to your JIRA account, if required, to proceed installation of the
+      add-on. The license key is automatically configured into the add-on
+      configuration for free trial licenses. For purchased license keys, see
+      <a href="#gitctrlvwr_licdetails">Managing License Key</a>.</li>
+  </ol>
+  <h3><u><a name="gitctrlvwr_inst_jira">Installation via JIRA Plugin Manager</a></u></h3>
+  <ol class="ordlst">
+    <li>In JIRA, go to <span class="image005 pimg"><img src="docimgs/gpicons.png"></span> <b><i> Administration</i></b> &gt; <b><i>Add-ons</i></b>.&nbsp; The <b><i>Find New Add-ons</i></b> page is
+      displayed.</li>
+    <img border=0 width="580px" src="docimgs/image006.png">
+    <li>Search the Marketplace with &#39;<b>git</b>&#39; search phrase.</li>
+    <li>Buy the add-on or start the free trial for 30 days.</li>
+    <li> Login to your JIRA account, if required, to proceed installation of the 
+      add-on. The license key is automatically configured into the add-on configuration 
+      for free trial licenses. For purchased license keys, see
+      <a href="#gitctrlvwr_licdetails">Managing License Key</a>. </li>
+  </ol>
+  <h3><u><a name="gitctrlvwr_inst_manual">Manual Installation</a></u></h3>
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span><div>
+  	To manually update the <b>Git add-on</b>, the user must have the
+  	<b>JIRA System Administrators</b> <i>global permission</i>.&nbsp; If the
+	user does not have this permission, the upload add-on and other system
+	administration functions will not be available.</div></div>
+
+  <p>Use manual install if you have a specific version of <b>Git Integration
+    for JIRA</b> downloaded from the marketplace or sent by some other file sharing method:</p>
+  <ol class="ordlst topm">
+    <li> In JIRA, go to <b><i> <span class="image005 pimg"><img src="docimgs/gpicons.png"></span> Administration</i></b> &gt; <b><i>Add-ons</i></b> &gt; <b>Manage Add-ons.</b> </li>
+    <li> Click&nbsp; <span class="image007 pimg"><img src="docimgs/gpicons.png"></span> <span style=color:#0070C0>Upload Add-on</span>&nbsp; and navigate to the 
+      jar file that you already have. </li>
+    <li>Click <span class="btnface bfnil">Upload</span>. Restart your application for changes to take effect.</li>
+    <li>Buy the add-on or start the free trial for 30 days.</li>
+    <li>Login to your JIRA account, if required, to proceed installation of the add-on.&nbsp;
+      The license key is automatically configured into the add-on configuration
+      for free trial licenses.&nbsp; For purchased license keys,
+      see <a title="Managing License Key" href="#gitctrlvwr_licdetails"><i>next section</i></a>. </li>
+  </ol>
+
+  <h2><a name="gitctrlvwr_licdetails">Managing License Key</a></h2>
+  <p>Go to the <b>Git Integration Plugin for JIRA</b> add-on configuration (Manage Add-ons).</p>
+  <img class="imgfigs" border="0" src="docimgs/image008.png" width="236" height="143">
+  <p> Click the <span class="image009 pimg"><img src="docimgs/gpicons.png"></span> <b>Edit</b> icon to enter/change the
+	<b>License key</b>.</p>
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      If the <i><b>License key</b></i> field is blank, you need to obtain a license
+      for the Git Integration add-on. Click <b>Buy now</b> or <b>Free trial</b>. Login to your
+      Atlassian account, when prompted, to acquire the license based on
+      your selected license mode.
+    </div>
+  </div>
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      Old versions of the add-on may require you to enter the license in the add-on
+      configuration <i>(Administration/Git Integration for JIRA/License).</i>
+    </div>
+  </div>
+  
+  <h2><a name="gitctrlvwr_cfgsshkeys">Working with SSH Keys</a></h2>
+  <p>SSH keys are required in order to provide secure connection with the remote 
+    git host specified in the <b><i>Repository Origin</i></b> field.&nbsp; The 
+    add-on uses one set of keys for accessing all configured repositories.</p>
+  <p>There are two options available for specifying SSH keys:</p>
+  <ul class="bulst">
+    <li> <b>SSH keys stored on server filesystem are located in the home folder of
+      the user which account is used to run JIRA.</b>&nbsp; This option provides 
+      better compatibility with installation of the previous versions of the 
+      add-on. This option does not support passphrases. </li>
+    <li> <b>SSH keys are stored in the add-on configuration.</b> Keys are added
+      using the add-on configuration.&nbsp; This option supports passphrases. </li>
+  </ul>
+  <h3><a name="gitctrlvwr_listsshkeys"><u>List of SSH Keys</u></a></h3>
+  <p>Both types of SSH keys are displayed on the <b>SSH Keys</b> <i>tab</i>.&nbsp;
+    Legacy filesystem-based keys contain directory path in the <b><i>Private key</i></b> column.</p>
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+     <div id="wraps">
+    	You cannot delete filesystem-based key using add-on configuration.
+     </div>
+  </div>
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    	The SSH keys are also automatically added to this list when adding new repositories that
+    require SSH keys.
+  </div>
+
+  <h3><a name="gcv_privpubssh"><u>Public Key and Private Key with SSH</u></a></h3>
+  <p>Generated ssh keys always come in pair. (Example: <code>id_rsa.pub</code> and
+    <code>id_rsa</code>)</p>
+  <p>For establishing safety connection with SSH, upload a Public Key to the SSH server and set the Private
+    Key to the SSH client.</p>
+  <p>Take note that the SSH server is the Git server and the SSH client is the JIRA server.</p>
+  <ul class="bulst">
+    <li>Git server &nbsp;&mdash;&nbsp; Public Key</li>
+    <li>JIRA server&nbsp;&mdash;&nbsp;Private Key <i>(Git Integration Plugin for JIRA &gt; SSH Keys)</i></li>
+  </ul>
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div id="wraps">
+    	The developer's local system should not have the same private key.
+    </div>
+  </div>
+
+  <h3><a name="generate_SSH_keys"><u>Generating SSH Keys</u></a></h3>
+  <p style="margin-top: 26px">Configure and generate
+  SSH keys for the following git hosting systems by following the reference links on
+  each sub-section:</p>
+  <h4 class="tabindent"><a name="gitctrlvwr_bnstlk_ssh"><i><u> Beanstalk</u></i></a></h4>
+  <ul class="tabindent" class="slinebul">
+    <li> For OS X, see <a href="http://guides.beanstalkapp.com/version-control/git-on-mac.html"
+		target="_blank">Working with Git on OS X <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For Windows, see <a target="_blank" href="http://guides.beanstalkapp.com/version-control/git-on-windows.html">Working with Git on Windows <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For Linux, see <a target="_blank" href="http://guides.beanstalkapp.com/version-control/git-on-linux.html">Working with Git on Linux <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+  </ul>
+  <h4 class="tabindent"><a name="gitctrlvwr_github_ssh"><i><u> Github</u></i></a></h4>
+  <ul class="tabindent" class="slinebul">
+    <li> For OS X, see <a target="_blank" href="https://help.github.com/articles/generating-ssh-keys#platform-mac">Generating SSH Keys on OS X <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For Windows, see <a target="_blank" href="https://help.github.com/articles/generating-ssh-keys#platform-windows">Generating SSH Keys on Windows <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For Linux, see <a target="_blank" href="https://help.github.com/articles/generating-ssh-keys#platform-linux">Generating SSH Keys on Linux <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+  </ul>
+  <h4 class="tabindent"><a name="gitctrlvwr_bbckt_ssh"><i><u>Bitbucket</u></i></a></h4>
+  <ul class="tabindent" class="slinebul">
+    <li> For OS X/Linux, see <a target="_blank" href="https://confluence.atlassian.com/pages/viewpage.action?pageId=270827678">Setting up SSH for Git on OSX/Linux <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For Windows, see <a target="_blank" href="https://confluence.atlassian.com/display/BITBUCKET/Set+up+Git+and+Mercurial">Installing Git - Step 1<span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>&nbsp; then&nbsp; <a target="_blank" href="https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git">Set up SSH for Git <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+  </ul>
+  <h4 class="tabindent"><a name="gitctrlvwr_gitscm_ssh"><i><u>Git-scm (Windows)</u></i></a></h4>
+  <ul class="tabindent" class="slinebul">
+    <li> See reference, <a target="_blank" href="http://git-scm.com/book/en/Getting-Started-Installing-Git">Installing Git for OSX/Windows/Linux <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For creating SSH keys, see <a target="_blank" href="http://github.com/guides/providing-your-ssh-key">Generating SSH Public Key <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+  </ul>
+  <h4 class="tabindent"><a name="gitctrlvwr_gitlab_ssh"><i><u>GitLab</u></i></a></h4>
+  <ul class="tabindent" class="slinebul">
+    <li> See reference, <a target="_blank" href="http://git-scm.com/book/en/Getting-Started-Installing-Git">
+	Installing Git for OSX/Windows/Linux <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For creating SSH keys, see <a target="_blank" href="http://doc.gitlab.com/ce/ssh/README.html">Generating SSH Public Key <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.&nbsp; Also see the video demonstration
+	<a href="https://about.gitlab.com/2014/03/04/add-ssh-key-screencast/">here</a>.</li>
+  </ul>
+  <h4 class="tabindent"><a name="gitctrlvwr_gitolite_ssh"><i><u>Gitolite</u></i></a></h4>
+  <ul class="tabindent" class="slinebul">
+    <li> For full reference and installation, see <a target="_blank" href="http://gitolite.com/gitolite/index.html">All About Gitolite <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For information on SSH on Gitolite, see <a target="_blank" href="http://gitolite.com/gitolite/ssh.html">SSH and Gitolite <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For details on user key management, see <a target="_blank" href="http://gitolite.com/gitolite/ukm.html">Managing User Keys in Gitolite <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+  </ul>
+  <h4 class="tabindent"><a name="gitctrlvwr_gerrit_ssh"><i><u>Gerrit</u></i></a></h4>
+  <p class="tabindent">By <b>v2.6.1</b> of the Git add-on, the Gerrit web linking support is added.</p>
+  <ul class="tabindent" class="slinebul">
+    <li> For information about Gerrit software, see <a target="_blank" href="http://en.wikipedia.org/wiki/Gerrit_(software)">Gerrit Software Wiki <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a> and <a target="_blank" href="https://code.google.com/p/gerrit/">Gerrit at Code Review <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For general reference and installation, see <a target="_blank" href="http://gerrit-documentation.googlecode.com/svn/Documentation/2.4.2/index.html">Gerrit documentation <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.&nbsp; <a target="_blank" href="http://gerrit-documentation.googlecode.com/svn/Documentation/2.4.2/index.html">Ubuntu installation <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a> and fixing <a href="https://code.google.com/p/gerrit/issues/detail?id=1549">registration error</a>.</li>
+    <li> For information on SSH on Gerrit, see <a target="_blank" href="https://gerrit-documentation.storage.googleapis.com/Documentation/2.11/user-upload.html#_ssh">SSH and Gerrit <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For details on User Change-Ids, see <a target="_blank" href="http://gerrit-documentation.googlecode.com/svn/Documentation/2.4.2/user-changeid.html">Change-Ids in Gerrit <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+  </ul>
+  <h4 class="tabindent"><a name="gitctrlvwr_gitblit_ssh"><i><u>GitBlit</u></i></a></h4>
+  <ul class="tabindent" class="slinebul">
+    <li> For information about Gitblit, see <a target="_blank" href="http://gitblit.com">GitBlit <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For general reference and installation, see <a target="_blank" href="http://gitblit.com/administration.html">GitBlit Configuration <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>,&nbsp; <a target="_blank" href="http://gitblit.com/setup_transport_http.html">Using HTTP/HTTPS Transport <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a> and <a href="http://gitblit.com/setup_authentication.html">Built-in Authentication</a>.</li>
+    <li> For information on SSH on GitBlit, see <a target="_blank" href="http://gitblit.com/setup_transport_ssh.html">GitBlit: Using the SSH Transport <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For GitBlit related FAQ, see <a target="_blank" href="http://gitblit.com/faq.html">GitBlit Frequently Asked Questions <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+  </ul>
+  <h4 class="tabindent"><a name="gitctrlvwr_tfs_ssh"><i><u>Team Foundation Server</u></i></a></h4>
+  <p class="tabindent">The SSH support starts with TFS 2013 and later versions.</p>
+  <ul class="tabindent" class="slinebul">
+    <li> For information about Team Foundation Server, see
+      <a target="_blank" href="https://msdn.microsoft.com/en-us/vstudio/ff637362.aspx">MS Team Foundaton Server <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+  		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For general reference and installation, see <a target="_blank" href="http://blogs.msdn.com/b/visualstudioalm/archive/2015/08/27/git-experience-futures.aspx">
+      Application Lifecycle <br>Management <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+    <li> For information on SSH on TFS, see <a target="_blank" href="https://msdn.microsoft.com/en-us/library/6f05ezxy%28v=vs.110%29.aspx">
+      How to create a Public/Private Key <br>Pair <span class="image012 pimg-ul"><img src="docimgs/gpicons.png"
+		alt="newwin_icon12.png"></span></a>.</li>
+  </ul>
+
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="">
+    </span>
+    <div id="wraps">
+    	SSH keys are required to allow you to securely connect to your git repositories.
+    </div>
+  </div>
+
+  <h3 style="margin-top: 25px"><a name="gitctrlvwr_addsshkeys"><u>Adding a SSH Key</u></a></h3>
+  <p style="margin-top: 20px;">Go to <span class="image005 pimg">
+  <img src="docimgs/gpicons.png" alt=""></span><b><i> Administration&nbsp; </i></b>&gt;
+	<b><i>Add-ons</i></b>. Click <b>Manage Add-ons</b> on the sidebar. Under
+    <i>Git Integration Plugin for JIRA</i>, select <b>SSH Keys</b>.</p>
+
+  <!-- for jira 7 -->
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="">
+    </span>
+    <div>
+    	If using JIRA 7, go to <b>Administration&nbsp; </b>&gt;
+    	<b>Add-ons</b>. Select <b>Applications</b> on the page tab. Under
+      <i>Git Integration Plugin for JIRA</i> on the sidebar, select <b>SSH Keys</b>.
+    </div>
+  </div>
+  <img style='margin: -10px 0 10px 0.25in;' src="docimgs/image010.png" width="624px">
+
+  <table id="vtable">
+    <thead>
+      <th>Column</th>
+      <th>Description</th>
+    </thead>
+    <body>
+      <tr>
+        <td width="138px"><b>Name</b></td>
+        <td width="438px">Name of the added SSH key</td>
+      </tr>
+      <tr>
+        <td><b>Private key</b></td>
+        <td>This is the SSH key in hex mode.</td>
+      </tr>
+      <tr>
+        <td><b>Passphrase</b></td>
+        <td>Defines true if the SSH key has a passphrase.</td>
+      </tr>
+      <tr>
+        <td><b>Associations</b></td>
+        <td>Lists the associated repositories with this SSH key.</td>
+      </tr>
+      <tr>
+        <td><b>Last Used By</b></td>
+        <td>Defines the repository that is using this SSH key.</td>
+      </tr>
+      <tr>
+        <td><b>Operations</b></td>
+        <td>Click the icon to perform <b>Delete</b> and <b>Associations</b> functions.</td>
+      </tr>
+    </body>
+  </table>
+
+  <p>Click <span class="btnface bfdef">Add SSH Key</span>&nbsp;to configure the SSH key. The following screen is
+    displayed:</p>
+  <img class="imgfigs" border="0" src="docimgs/image011.png" width="355px">
+
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	You can upload the private key file via <b>Browse...</b> or paste the key
+      into the <i><b>Private key</b></i> field.
+    </div>
+  </div>
+  <p>Utilize the following options for the new SSH key:</p>
+  <table id="vtable">
+    <thead>
+    <th>Option</th>
+      <th>Description</th>
+        </thead>
+    <tbody>
+      <tr>
+        <td width=138 valign=middle><i>Name</i></td>
+        <td width=438 valign=middle> Enter a meaningful name for this private SSH key. </td>
+      </tr>
+      <tr>
+        <td><i>Private key</i></td>
+        <td> This is the actual private SSH key.<br>
+          Paste private key from clipboard or load from a private key 
+          file. </td>
+      </tr>
+      <tr>
+        <td><i>Passphrase</i></td>
+        <td><i>Optional</i>.&nbsp; Enter the passphrase that you have assigned to this private key.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3><a name="ssh_assockey"><u>Associating a SSH Key to a Repository</u></a></h3>
+  <p>Limit the usage of the SSH key only to the selected repositories.&nbsp; As of <b>v2.6.9</b> of the
+    Git add-on, the option to strictly map keys to repositories is available.</p>
+  <p>On the SSH Keys page, click <span class="image015 pimg">
+  <img src="docimgs/gpicons.png" alt=""></span><b>&nbsp;Actions</b> &gt; <b>Associations</b> for
+      the selected SSH key.</p>
+  <p>The following screen is displayed:</p>
+  <img class="imgfigs" width="420px" src="docimgs/image045.png" alt="Associate SSH key">
+  <p>Mark the required repository or repositories to associate the SSH key.</p>
+  <p>Clicking the &nbsp;<b><u><span style="color: #1E6DCC">Select All</span></u></b> &nbsp;text
+    label marks all repositories that will be associated to this SSH key.</p>
+  <p>Clicking the &nbsp;<b><u><span style="color: #1E6DCC">Select None</span></u></b> &nbsp;text
+    label deselects all repositores.</p>
+  <p>Click <span class="btnface bfnil"><b>Save</b></span> to save the settings.</p>
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	If an SSH key is strictly associated with some repository, that SSH key is an
+        associated key.
+    </div>
+  </div>
+  <p>If you have multiple repositories that uses the same SSH key that you want to connect
+      with the Git add-on, you need to:</p>
+    <ol class="ordlst topm">
+      <li>Configure a repository that requires an SSH key via <a href="#gitctrlvwr_addrepo">
+        Add Repository Wizard</a>.</li>
+      <li>Associate that SSH key with currently configured repository via <a href="#ssh_assockey">
+        SSH Keys</a>.</li>
+      <li>Add another repository that requires the same SSH key.&nbsp; You will be presented
+        with the following screen:</li>
+        <img class="topt" src="docimgs/image047.png" width="550px"alt="">
+      <li>Select the SSH key that you have associated to the previously added repository from the
+        <b>Existing key</b> list.</li>
+      <li>Click <span class="btnface bfdef">Next</span> to continue.&nbsp; Complete the
+        wizard and add another repository as desired.</li>
+    </ol>
+  <p></p>
+
+  <h3><a name="gitctrlvwr_del_ssh"><u>Removing SSH Keys</u></a></h3>
+  <p>SSH keys cannot be modified or updated. &nbsp;To change the keys, remove and add them
+    again.</p>
+
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	If the key is deleted, all repository references will also be removed.&nbsp; Repositories
+        that don't have the key associated to them will use the common keys by default.
+    </div>
+  </div>
+
+  <h3><a name="gcv_recfgssh"><u>Reconfigure Git Repository and SSH Key</u></a></h3>
+  <p>Perform the following steps to reconfigure repositories and SSH key:</p>
+  <ol class="ordlst" style="margin-top: -5px;">
+    <li>Remove any old SSH keys configured with the Git add-on via <code>&lt;JIRAHOSTNAME&gt;
+    /secure/ViewSshKeys.jspa</code></li>
+    <li>Restart JIRA.</li>
+    <li>Get the following file from your JIRA server to your Windows workstation:
+    <code>/home/jira/.ssh/id_rsa</code></li>
+    <li><a href="#gitctrlvwr_setuprepo">Set up the git repository in JIRA</a> using the repository location and upload the
+    private key that was downloaded above.</li>
+  </ol>
+  <p>For multiple repository configuration, see <a href="#gitctrlvwr_repoeditor"><b>Bulk Change</b></a>.</p>
+
+  <h2><a name="gitctrlvwr_giturlports">Git URL Ports</a></h2>
+  <p>If your JIRA and Git servers are running through a firewall, configure the firewall to
+    allow access using the URL schemes for git repositories. For authentication issues, make
+    sure to check first the correct port for its connection.</p>
+  <p>Below are the default ports for common git URL protocols:</p>
+  <table id="vtable">
+    <thead>
+      <th>Protocol</th>
+      <th>Default Port</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td width=138>ssh://</td>
+        <td width=448>port 22</td>
+      </tr>
+      <tr>
+        <td>git://</td>
+        <td>port 9418</td>
+      </tr>
+      <tr>
+        <td>http://</td>
+        <td>port 80</td>
+      </tr>
+      <tr>
+        <td>https://</td>
+        <td>port 443</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Test git connection and repository URL by doing the following:</p>
+  <ol class="ordlst topm">
+    <li>Install git client (<i>or run </i><code>sudo apt-get install git</code>)</li>
+    <li>Place your ssh key into <code>~/.ssh</code></li>
+    <li>Clone the repository (or run <code>git clone &lt;your_repository_url&gt;</code>)</li>
+  </ol>
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	The Git Integration for JIRA will run successfully if the above connection test ran
+      without errors.
+    </div>
+  </div>
+
+  <h2><a name="gitctrlvwr_setuprepo">Setting Up Repositories</a></h2>
+  <p>Setup repositories and manage them in the add-on configuration in JIRA.</p>
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+     <div>
+    	When setting up repositories with the Git add-on, you need to have the necessary
+        access permissions on the private key on the Git server to proceed.
+     </div>
+  </div>
+
+  <h3><a name="gitctrlvwr_addrepo"><u>Using the Add Repository Wizard</u></a></h3>
+  <p style="margin-top: 18px;">Go to <b> <span class="image005 pimg">
+  <img src="docimgs/gpicons.png" alt=""></span><i> Administration&nbsp; </i></b>&gt;
+  <i><b>Add-ons</b></i>&nbsp; &gt;&nbsp; <i>Git Integration Plugin for JIRA</i><b>&nbsp;
+    &gt; Git Repositories</b>.</p>
+
+  <!-- for jira 7 -->
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="">
+    </span>
+    <div>
+    	If using JIRA 7, go to <b>Administration&nbsp; </b>&gt;
+    	<b>Add-ons</b>. Select <b>Applications</b> on the page tab. Under
+      <i>Git Integration Plugin for JIRA</i> on the sidebar, select <b>Git Repositories</b>.
+    </div>
+  </div>
+
+  <p>Click <span class="btnface bfdef">Connect to Git Repository</span>.&nbsp; The <b>Add Git Repository wizard</b> is displayed.</p>
+  <img class="imgfigs" border="0" src="docimgs/image025.png" width="530px">
+  <p>Enter required repository location.</p>
+  <p>Click <span class="btnface bfdef">Next</span>. The wizard will automatically detect the entered
+    repository location type.</p>
+    
+  <!-- Detection of remote origin -->
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      <b><a style="font-size: 16px;" name="gitctrlvwr_detectcfg">
+      	Detection of Remote Origin Setting</a></b><br>
+      <div style="margin-top: 8px;">
+  	  	The detection works for most repositories. If a repository root points to a
+  		valid git repository, the repository origin is detected automatically.&nbsp;
+  		When a repository has no origin, the user has to specify it manually.
+  	   </div>
+    </div>
+  </div>
+
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      Do note that the repository wizard <b>clones the remote repository by default</b>.&nbsp;
+      It does not clone local repositories. For local repositories, it sets <i>root</i> to
+      local path and disables fetches.<br><br>
+      Starting <b>v2.6.7</b> of the Git add-on, the default identities are not used and the
+      repository is created without the additional key upload.
+    </div>
+  </div>
+
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      If the Git repository file system is somehow available to the JIRA server, you can save
+      the clone step and save the disk space on a JIRA server by pointing the JIRA server
+      straight at it.
+    </div>
+  </div>
+
+  <h4><a name="gcv_repoview">Repository Browser Setting</a></h4>
+  <p>In the <b>Repository Browser</b> screen, enable or disable the Git Viewer feature as required.</p>
+  <img class="imgfigs" src="docimgs/image033.png" width="530px" alt="">
+  <p>Enter available projects as required in the <b><i>Associate Project
+	Permissions</i></b> field or check the <i><b>Associate to All projects</b></i>
+	checkbox to associate all projects. </p>
+
+  <div id="imbox" class="bxnote mpad">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	The <b>View Development Tools</b> <i>project permission</i> must be granted to <b>Users</b> &gt;
+    	<b>Group</b> &gt; <i><b>Project Roles</b></i>.
+    </div>
+  </div>
+  <p>Click <span class="btnface bfdef">Next</span>.</p>
+
+  <h4><a name="gcv_httpsauth">HTTPS Authentication</a></h4>
+  <p>If the entered git host requires http credentials, the following screen
+    appears:</p>
+  <img class="imgfigs" src="docimgs/image029.png" width="537px" alt="">
+  <p style="margin-left: 0.25in;">Provide <i><b>Username</b></i> and <i><b>Password</b></i> in the respective
+    fields then click <span class="btnface bfdef">Next</span> to continue.</p>
+  <img class="imgfigs" src="docimgs/image030.png" width="570px" alt="">
+  <p style="margin-left: 0.25in;">Configure the required SSH private key by navigating to
+  the private key file or pasting the private key text into the pastebox.</p>
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	For establishing safety connection with SSH, upload a Public Key to the SSH server and
+      set the Private Key to the SSH client.
+      Take note that the SSH server is the Git server and the SSH client is the JIRA server.
+    </div>
+  </div>
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      When adding a new repo that requires an SSH key, you can now pick an existing associated
+      key in the <i><b>Existing key</b></i> list.
+    </div>
+  </div>
+  <p>Click <span class="btnface bfdef">Next</span> to proceed.</p>
+
+  <h4><a name="gcv_passphr">Passphrase Input</a></h4>
+  <p style="margin-left: 0.25in;"> <img src="docimgs/image031.png" width="471px" alt=""></p>
+  <p style="margin-left: 0.25in;">Enter the <b><i>Passphrase</i></b>, if required.
+    Click <span class="btnface bfdef">Next</span> to continue.</p>
+
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      The passphrase screen only appears if the user has added an SSH key that
+      requires a passphrase.
+    </div>
+  </div>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      The Git add-on will try first to use the keys provided by the user before using the
+      keys from the home directory.
+    </div>
+  </div>
+
+  <p style="margin-top: 25px;">After the above requirements are fulfilled, the wizard will:</p>
+  <ul style="margin-top: -10px;" class="slinebul">
+    <li>create a local copy of the git repository; and</li>
+    <li>index the git repository to build change history.</li>
+  </ul>
+  <p>Click <span class="btnface bfdef">Finish</span> to close the wizard.&nbsp; The newly added
+    repository appears on the git repositories list of the add-on.</p>
+  <h3><a name="gitctrlvwr_repoadvcfg"><u>Adding a Repository via Advanced Setup</u></a></h3>
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      Starting <b>v2.6.12</b>, the Git add-on supports repositories that don't have a branch
+      named "master".
+    </div>
+  </div>
+  <p>Use the <font color="#0070C0"><u>Advanced setup</u></font>, if you have set up the Git
+    repository ahead of time outside of the JIRA Git add-on.&nbsp; Configure repositories via
+    <font color="#0070C0"><u>Advanced setup</u></font> in order to manage advanced options.</p>
+  <p>Open the <b>Add Git Repository</b> <b>wizard</b> then click the <font color="#0070C0"><u>
+	Advanced Setup</u></font> label.</p>
+  <p>The <b>Connect to Git Repository</b> screen is displayed.</p>
+  <p class="tabindent"> <img border="0" src="docimgs/image013a.png" width="580px" alt="[Adv Repository settings]"></p>
+  <p>Enter the required information.</p>
+  <p>Utilize the following options for adding new git repositories:</p>
+  <table id="vtable">
+    <tbody>
+      <tr class="vpane">
+        <td><b>Repository Settings</b></td>
+      </tr>
+      <tr>
+        <td class="nbb"><b><a name="repo_root">Repository Root</a></b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;This
+          is the local path to the repository on the server where your JIRA
+          service is running.&nbsp; This will point the Git add-on to a
+          clone of the repository hosted locally with JIRA.</td>
+      </tr>
+      <tr class="vpane">
+        <td><b><a name="do_fetches">Enable Fetches</a></b></td>
+      </tr>
+      <tr>
+        <td>
+        <b>Git repository hosted on remote server</b><br>
+          In this mode, fetches are enabled using any external source.
+          The reindex background service will initiate the fetch then add 
+          the new commits to the plugin index.</td>
+      </tr>
+      <tr>
+        <td>
+          <b>Git repository hosted on same server as JIRA</b><br>
+          Fetches are enabled when the repository is hosted locally. In this mode, no fetches 
+          are made. The reindex service runs in the background and process every new commit found. </td>
+      </tr>
+      <tr>
+        <td><b><a name="repo_origin">Repository Origin</a></b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;This is
+          the URL to the hosted git service used on the project.<br>
+          For example, you might host your repository on GitHub, Beanstalk or your own server.
+          <div class="tblinfo" style="margin-top: 12px;">
+            <span class="info-sm ibx-sm">
+              <img src="docimgs/gpicons.png" alt="" />
+            </span>
+            <div>
+              The repository origin may not be hosted on the same server as JIRA.
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td><b><a name="rev_idx">Revision Indexing</a></b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;This option
+          turns on the memory cache which is used when list of
+          commits are displayed.</td>
+      </tr>
+      <tr>
+        <td><b><a name="rev_csize">Revision Cache Size</a></b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;This
+          is the size of the memory cache. If some particular commit
+          is not cached, it is fetched from the Lucene index which
+          involves some disk activity.</td>
+      </tr>
+      <tr>
+        <td><b><a name="mbranch">Main Branch</a></b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;Specified
+          branch will intend to organize the git commit tab. A
+          commit will not be shown in other branches if it is a part of
+          the main branch. By default, &quot;master&quot; will be used if a main
+          branch is not specified.</td>
+      </tr>
+      <tr>
+        <td><b><a name="h_auth">Use basic http authentication</a></b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;Most
+          git hosts provide http access to git repositories.
+          Enter required credentials to configure basic http 
+          authentication to remote git repositories.</td>
+      </tr>
+      <tr>
+        <td class="nbb"><img class="imgfigs topm botm" src="docimgs/image013b.png" width="570px" alt="[Adv - Repo Browser and Proj Permissions]">
+        </td>
+      </tr>
+      <tr class="vpane">
+      	<td><b>Repository Browser</b></td>
+      </tr>
+      <tr>
+      	<td class="nbb">Enables or disables the <b>Git Viewer</b> feature for this repository.
+      	The default setting for this option is <i><b>Enabled</b></i>.&nbsp; Users must have
+        the <b>View Development Tools</b> <i>project permission</i> in order to use this
+        feature.&nbsp; Consult your JIRA System Administrator on permissions.&nbsp; For more
+        information, see section, <a href="#gitctrlvwr_repovwr">The Repository Browser</a>.</td>
+      </tr>
+      <tr class="vpane">
+      	<td><b>Project Permissions</b></td>
+      </tr>
+      <tr>
+        <td><b>Associate Project Permissions</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;One or more
+          projects must be mapped to this repository to make <b>Git Code Review</b>
+      		and <b>Git Commits</b> tabs available in the <b>Issue</b> screens of the associated 
+      		projects.
+            <div class="tblinfo" style="margin-top: 10px;">
+              <span class="info-sm ibx-sm">
+                <img src="docimgs/gpicons.png" alt="" />
+              </span>
+      		  <div>
+	      		This field requires at least one existing project if the <b>Repository Browser</b>
+      			for this repository is enabled.
+      		  </div>
+            </div>
+		</td>
+      </tr>
+      <tr>
+      	<td><b>Associate with all projects</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;Enable this
+        option to associate this repository to all projects.&nbsp;
+    		Disable this option if you want to use existing mapped projects from the <b><i>
+		    Associate Project Permissions</i></b> field.&nbsp; The default setting is <i><b>enabled</b></i> (checked).</td>
+      </tr>
+      <tr>
+        <td class="nbb"><img class="imgfigs topm botm" src="docimgs/image013c.png" width="420px" alt="[Adv - Smart Commits and Email Notifs]">
+        </td>
+      </tr>
+      <tr class="vpane">
+      	<td><b>Smart Commits</b></td>
+      </tr>
+      <tr><td class="nbb">
+        See section, <a href="#gitctrlvwr_sc">
+        Smart Commits</a>.<br>This setting is
+      	<i><b>enabled</b></i> by default (as of <b>v2.6.3</b> of the Git add-on).</td>
+      </tr>
+      <tr class="vpane">
+        <td><b>Commit Notification Emails</b></td>
+      </tr>
+      <tr>
+        <td><b>Send notifications</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;Enables or disables commit
+          notification emails for this repository.</td>
+      </tr>
+      <tr>
+        <td class="nbb"><b>Max. commit age in minutes</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;Set the desired
+          value in minutes, as to when commit notifications will be sent.&nbsp;
+          Commit notifications will be e-mailed if the age of the commit
+          is less than or equal to this value.</td>
+      </tr>
+      <tr class="vpane">
+      	<td><b>Weblinking</b></td>
+      </tr>
+      <tr>
+      	<td>See section, <a href="#gitctrlvwr_weblinking">Weblinking</a>.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Click <span class="btnface bfnil">Add</span> to save the settings.&nbsp; The newly added repository appears on the
+    git repositories list of the add-on.</p>
+
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="">
+    </span>
+    <div>
+    	For git server hosted repositories &mdash; to enable/disable strict commit checking:
+      <ol class="bulst-bx top0">
+        <li>Go to <b>Git Repositories</b> configuration then create/edit a repository.</li>
+        <li>Under Commit Message Validation, set/unset <b><i>Require JIRA issue key in
+          commit messages</i></b>.</li>
+        <li>Click <b>Save/Update</b> to save changes.</li>
+      </ol>
+
+      <div class="tblinfo" style="margin: 10px 0 0 0px">
+        <span class="info-sm ibx-sm line2">
+          <img src="docimgs/gpicons.png" alt="">
+        </span>
+        <div>
+          <b>JIRA 7 users</b> - Go to Add-ons &gt; Applications &gt; Git Integration Plugin
+          for JIRA &gt; Git Repositories.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3><a name="gitctrlvwr_reporef">Setup Repository Root Not Located in JIRA Home Directory</a></h3>
+  <p>There are three possible ways to setup a repository root that is not located in the
+    JIRA home directory:</p>
+  <ul class="bulst">
+    <li>Clone the repository outside of JIRA then connect to it via <b>Connect to
+      Git Repository</b>  &gt;  <b>Advanced Setup</b>.</li>
+    <li>Clone the repository with the standard <b>Connect to Git Repository Wizard</b> into
+      the JIRA home directory.&nbsp; Soon afterwards, move the cloned repository and update
+      the settings on the repository.</li>
+    <li>You could symlink the <code>{$JIRA_HOME}/data/git-plugin</code> directory to a
+      different volume.&nbsp; The standard <b>Connect to Git Repository Wizard</b> will still
+      write there, but the data will reside on the different volume.</li>
+  </ul>
+
+  <h2><a name="gitctrlvwr_managerepo">Editing a Repository</a></h2>
+  <p>Go to&nbsp; <b> <span class="image005 pimg"><img src="docimgs/gpicons.png" alt=""></span><i>
+  Administration&nbsp; </i></b>&gt; <i><b>Add-ons</b></i>&nbsp; &gt;&nbsp;
+  <i>Git Integration
+  Plugin for JIRA</i><b>&nbsp; &gt; Git Repositories</b>.</p>
+
+  <!-- for jira 7 -->
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="">
+    </span>
+    <div>
+    	If using JIRA 7, go to <b>Administration&nbsp; </b>&gt;
+    	<b>Add-ons</b>. Select <b>Applications</b> on the page tab. Under
+      <i>Git Integration Plugin for JIRA</i> on the sidebar, select <b>Git Repositories</b>.
+    </div>
+  </div>
+
+  <p style="margin-top: 20px; margin-left:0.25in"> <img border="0" src="docimgs/image016.png" width="550" height="140"> </p>
+  <div style="width: 600px; text-align: center; margin: -5px 0" class="example">List of configured repositories on the add-on
+    administration pages.</div>
+  <p style="margin-top: 30px;">Enable/disable a repository by clicking the checkbox under the <i><b>Enable</b></i> column
+    of the selected configured repository.</p>
+  <p>Click&nbsp; <span class="image015 pimg"><img src="docimgs/gpicons.png" alt=""></span><b>&nbsp;Actions</b> &gt;
+    <b>Edit repository</b> to modify repository settings.&nbsp; See
+  	<a href="#gitctrlvwr_repoadvcfg"><i>Adding a Repository via Advanced Setup</i></a> for detailed information on the option fields.</p>
+  <p>Click the view <span class="image017 pimg"><img src="docimgs/gpicons.png" alt=""></span> icon to see repository details:</p>
+  <table id=vtable style="margin-bottom: 22px;">
+    <thead>
+    <th>Setting</th>
+      <th>Description</th>
+        </thead>
+    <tbody>
+      <tr>
+        <td><i>Status</i></td>
+        <td> This is the repository status. It shows <span class="image022 pimg"><img src="docimgs/gpicons.png" alt=""></span> if <i>Repository Root</i> is configured correctly and the JIRA instance can access it. </td>
+      </tr>
+      <tr>
+        <td><i>Last Indexed</i></td>
+        <td> This is the date and time when synchronization was last executed. </td>
+      </tr>
+      <tr>
+        <td width=138 valign=middle><i>Repository Root</i></td>
+        <td width=438 valign=middle> See <a href="#gitctrlvwr_addrepo"><i>Adding a Repository</i></a>. </td>
+      </tr>
+      <tr>
+        <td><i>Repository Origin</i></td>
+        <td> See <a href="#gitctrlvwr_addrepo"><i>Adding a Repository</i></a>. </td>
+      </tr>
+      <tr>
+        <td>Changeset, File Added, File Modified, and File Deleted formats</td>
+        <td>Displays the weblinking format strings <i>(if set in the repository weblinking
+        configuration)</i>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	The displayed repositories can be sorted by clicking the corresponding list header.&nbsp; The
+        add-on will remember the sorting choice per user.
+    </div>
+  </div>
+
+  <h3><a name="gitctrlvwr_editgit"><u>Managing Add-on Settings with Git Repositories</u></a></h3>
+  <p>The following <span class="image015 pimg"><img src="docimgs/gpicons.png" alt=""></span> <b>Actions</b> are available in managing add-on configuration with the git repository:</p>
+  <table id=vtable style="margin-bottom: 22px;">
+    <thead>
+    <th> Action</th>
+      <th>Description</th>
+        </thead>
+    <tbody>
+      <tr>
+        <td width=138 valign=middle><i>Edit repository</i></td>
+        <td width=438 valign=middle> Edits the Git repository add-on configuration.</td>
+      </tr>
+      <tr>
+        <td><i>Delete repository</i></td>
+        <td> Deletes the Git repository add-on configuration.</td>
+      </tr>
+      <tr>
+        <td><i>Reset index</i></td>
+        <td> Clears the last indexed revision and rebuild Lucene index on next
+          synchronization.</td>
+      </tr>
+      <tr>
+        <td><i>Reindex repository</i></td>
+        <td> Immediately starts the synchronization with the selected repository.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2><a name="gitctrlvwr_repodel">Removing a Repository</a></h2>
+  <p>Delete a repository if it isn't needed or is broken in the Git Plugin configuration.</p>
+  <ol class="ordlst topm">
+	<li>Go to <span class="image005 pimg"><img src="docimgs/gpicons.png" alt=""></span> <b>Administration</b> > <b>Add-ons</b>.&nbsp;
+    Under <i>Git Integration Plugin for JIRA</i>,
+    select <b>Git Repositories</b>.</li>
+
+    <!-- for jira 7 -->
+    <div id="imbox" class="bxtip">
+      <span class="tips ibx-fl line2">
+        <img src="docimgs/gpicons.png" alt="">
+      </span>
+      <div>
+      	If using JIRA 7, go to <b>Administration&nbsp; </b>&gt;
+      	<b>Add-ons</b>. Select <b>Applications</b> on the page tab. Under
+        <i>Git Integration Plugin for JIRA</i> on the sidebar, select <b>Git Repositories</b>.
+      </div>
+    </div>
+
+      <img class="ul-img"src="docimgs/image043.png" alt="">
+    <li>Click <b>Delete repository</b> under the <b><i>Actions</i></b> column for the selected repository.</li>
+	<li>The confirmation screen is displayed.&nbsp; Uncheck the <b>Delete repository files...</b>
+    option to retain git repository files in the displayed path or leave it checked to also delete
+    the repository files from the displayed path.</li>
+    <li>Click <span class="btnface bfdef">Delete</span> to remove the repository.&nbsp;
+    Click <span class="btnface bfnil">Cancel</span> to abort this process.</li>
+  </ol>
+
+  <!--bulk edit-->
+  <h2><a name="gitctrlvwr_repoeditor">Bulk Change</a></h2>
+  <p>The <b>Bulk Change</b> feature provides an easier way to import or export
+	repository configuration.</p>
+
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      To perform the following steps in this section, <b>Git Add-on for JIRA v2.4</b>
+      or later is required.&nbsp; Please upgrade if you have a lower version of the add-on.
+    </div>
+  </div>
+
+  <h3><a name="gitctrlvwr_repoedit0"><u>Exporting Repository Configuration</u></a><u>
+	via Bulk Change</u></h3>
+  
+  <p>The bulk export function allows JIRA administrators to create a backup copy of the
+  	Git ad-on repository configuration into a tab-delimited file.</p>
+  
+  <ol class="ordlst topm">
+	<li>Go to <span class="image005 pimg"><img src="docimgs/gpicons.png" alt=""></span> <b>Administration</b> > <b>Add-ons</b>.&nbsp;
+    Under <i>Git Integration Plugin for JIRA</i>,
+    select <b>Git Repositories</b>.</li>
+
+    <!-- for jira 7 -->
+    <div id="imbox" class="bxtip">
+      <span class="tips ibx-fl line2">
+        <img src="docimgs/gpicons.png" alt="">
+      </span>
+      <div>
+      	If using JIRA 7, go to <b>Administration&nbsp; </b>&gt;
+      	<b>Add-ons</b>. Select <b>Applications</b> on the page tab. Under
+        <i>Git Integration Plugin for JIRA</i> on the sidebar, select <b>Git Repositories</b>.
+      </div>
+    </div>
+
+	<li>Click <span class="btnface bfnil">&nbsp;Bulk Change <span class="ddc pimg">
+    <img src="docimgs/gpicons.png" alt=""></span></span> then select
+    <b>Export Configuration</b>.</li>
+	<li>Click <span class="btnface bfdef">Download</span> to save the current configuration of your
+	repositories to a specified location.</li>
+	</ol>
+	
+  <p>For detailed instructions on importing multiple repositories in the Git
+	add-on configuration, click on the <span style="color: #5A5ADB">Detailed instructions</span> label or follow the steps in
+    the <a title="Adding Existing Repositories via Bulk Change" href="#gitctrlvwr_repoeditx"><i>next
+	section</i></a>.</p>
+    
+  <h3><a name="gitctrlvwr_repoedit1"><u>Adding Existing Repositories via Bulk Change</u></a></h3>
+  <p>For administrators who have several repositories, the <b>Git add-on</b>
+	allows you to import multiple repository configuration using a <b>.tsv</b> 
+	file.&nbsp; This will make managing large Git repository lists more
+	efficient.</p>
+  <ol class="ordlst topm">
+	<li>Click <span class="btnface bfnil">Choose File...</span> on the <b>Import
+  	repository configuration</b> screen.&nbsp; Navigate to the location of the .tsv file then click
+	<span class="btnface bfnil">Open</span>.</li>
+	<li>Click <span class="btnface bfdef">Upload</span> to start the import process.</li>
+  </ol>
+  
+  <p>The Git add-on will read the list from the file, detect the existing
+	configured repositories, and automatically update its 
+	settings.&nbsp; If an error is found, it will be displayed in the message 
+	log on the import screen and in the <b><i>Status</i></b> column on the 
+	repository configuration list.&nbsp; Make the required changes to correct the 
+	errors on the affected rows and redo the upload.</p>
+  
+  <h3><u><a name="gitctrlvwr_repoeditn">Adding New Repositories via Bulk Change</a></u></h3>
+  <p>Download the template file.&nbsp; Follow the <a title="Adding Existing Repositories via Bulk Change" href="#skip_upload">above section</a> if you already have the
+	.tsv file ready for import:</p>
+  
+  <div>
+  <ol class="ordlst">
+  <li>Go to <span class="image005 pimg"><img src="docimgs/gpicons.png" alt=""></span> <b>Administration</b> > <b>Add-ons</b>.&nbsp;
+    Under <i>Git Integration Plugin for JIRA</i>, select <b>Git Repositories</b>.</li>
+
+    <!-- for jira 7 -->
+    <div id="imbox" class="bxtip">
+      <span class="tips ibx-fl line2">
+        <img src="docimgs/gpicons.png" alt="">
+      </span>
+      <div>
+      	If using JIRA 7, go to <b>Administration&nbsp; </b>&gt;
+      	<b>Add-ons</b>. Select <b>Applications</b> on the page tab. Under
+        <i>Git Integration Plugin for JIRA</i> on the sidebar, select <b>Git Repositories</b>.
+      </div>
+    </div>
+
+  <li>Click <span class="btnface bfnil">Bulk Change <span class="ddc pimg"><img src="docimgs/gpicons.png" alt=""></span></span> then select
+    <b>Import Configuration</b>.</li>
+
+  <p>The following screen is displayed:</p>
+
+  <img style="margin-bottom: 10px;" src="docimgs/image032.png" width="602" height="402" alt="">
+
+  <p>Click one of the links under <b>How to use Bulk Change?</b> to download the
+    template file.</p>
+
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div id="wraps">
+      Bigbrassband recommends that you download the example with the full configuration.
+    </div>
+  </div>
+ </ol>
+ 
+ <h3><a name="gitctrlvwr_repoeditx"><u>Editing Existing Repositories in the TSV File</u></a></h3>
+ <ol class="ordlst">
+  <li>Navigate to the .tsv file and edit it with your favorite spreadsheet program.</li>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+     <div id="wraps">
+       <a target="_blank" href="http://drive.google.com">Google Drive</a> is also
+       a recommended place to <a href="#gg_drv">edit the .tsv file</a>.
+     </div>
+  </div>
+  
+  <p>Populate/edit the fields by utilizing the following options:</p>
+
+  <table id="vtable" class="tblx">
+    <thead>
+        <tr>
+            <th>Column/Field</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td width="138"><i>id</i></td>
+            <td width="438">Assign an ID number to a repository.&nbsp; This is
+			required if you wish to update or edit existing repositories by setting
+			this value to their equivalent IDs.&nbsp; If this field is left blank, the
+            repository will be created as new.
+            <div class="tblinfo">
+              <span class="info-sm ibx-sm">
+                <img src="docimgs/gpicons.png" alt="" />
+              </span>
+              <div>
+              	When importing to a new server, the &quot;id&quot; field must be blank.
+              </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td><i>root</i></td>
+            <td><b>Optional on existing servers</b>.&nbsp; See <a href="#repo_root"><i>Repository Root</i></a> in section,
+			<a href="#gitctrlvwr_repoadvcfg">Adding a Repository via Advanced Setup</a>.
+            <div class="tblinfo line2up" style="margin-top: 8px;">
+              <span class="info-sm ibx-sm">
+                <img src="docimgs/gpicons.png" alt="" />
+              </span>
+			  <div>
+				The &quot;root&quot; field may refer to an existing
+				repository on a new server. If &quot;root&quot; doesn't exist, this field must be blank.
+			  </div>
+              </div>
+			</td>
+        </tr>
+        <tr>
+            <td><i>origin</i></td>
+            <td>Required.&nbsp; See <a href="#repo_origin"><i>Repository Origin</i></a> in section,
+			<a href="#gitctrlvwr_repoadvcfg">Adding a Repository via Advanced Setup</a>.</td>
+        </tr>
+        <tr>
+            <td><i>displayName</i></td>
+            <td>Optional.&nbsp; Define a meaningful name for this repository configuration.
+                &nbsp;If this field is left blank, the default value is obtained from the origin.
+            </td>
+        </tr>
+        <tr>
+            <td><i>enableFetches</i></td>
+            <td>Optional.&nbsp; See <a href="#do_fetches"><i>Enable Fetches</i></a> in section,
+			    <a href="#gitctrlvwr_repoadvcfg">Adding a Repository via Advanced Setup</a>.
+                The default boolean value for this field is <b>true</b>.
+            </td>
+        </tr>
+        <tr>
+            <td><i>revisionIndexing</i></td>
+            <td>Optional.&nbsp; See <a href="#rev_idx"><i>Revision Indexing</i></a> in section,
+			<a href="#gitctrlvwr_repoadvcfg">Adding a Repository via Advanced Setup</a>.
+            The default boolean value for this field is <b>true</b>.</td>
+        </tr>
+        <tr>
+            <td><i>revisionCacheSize</i></td>
+            <td>Optional.&nbsp; See <a href="#rev_csize"><i>Revision Cache Size</i></a> in section,
+			    <a href="#gitctrlvwr_repoadvcfg">Adding a Repository via Advanced Setup</a>.
+                The default value for this field is <b>10000</b>.
+            </td>
+        </tr>
+        <tr>
+        	<td><i>mainBranch</i></td>
+        	<td>Optional.&nbsp; See <i><a href="#mbranch">Main Branch</a></i> in 
+			section,
+			    <a href="#gitctrlvwr_repoadvcfg">Adding a Repository via Advanced Setup</a>. </td>
+        </tr>
+        <tr>
+            <td><i>username</i>, <i>password</i></td>
+            <td>Optional. &nbsp;See <a href="#h_auth"><i>Use basic http authentication</i></a> in section,
+			<a href="#gitctrlvwr_repoadvcfg">Adding a Repository via
+                Advanced Setup</a>.</td>
+        </tr>
+        <tr>
+        	<td><i>gitViewerEnabled</i></td>
+        	<td>Optional.&nbsp; Setting this field to <b>true</b> will enable the 
+			<a href="#gitctrlvwr_repovwr">Repository Browser</a> feature for
+        	the configured repository.&nbsp; The default value for this field is <b>false</b>.</td>
+        </tr>
+        <tr>
+        	<td><i>projectMapping</i></td>
+        	<td>These are numeric projects IDs associated with the repository.&nbsp; When you
+        	create a new repository and set the field <i>gitViewerEnabled</i>&nbsp; 
+			to <b>true</b>, at least one project 
+			must be associated with it.
+			<ul class="ul-tbl">
+				<li>This field accepts list of comma separated
+					project IDs for project mapping. Trailing spaces are ignored <i>(equivalent 
+				to unchecking the </i><b>Associate to All Projects</b><i> checkbox in the
+				Advanced Setup dialog)</i>.
+				<div class="topt">
+					<i>Example:</i> <b>10000,10100</b></div>
+				<li>If you change an existing repository, leaving this field blank 
+					will use the existing values of the repository configuration.</li>
+				<li>Setting this field to <b>ALL</b> will retain <i>
+				projectMapping</i> settings and sets &quot;All Projects&quot; flag to true
+				<i>(equivalent to checking the </i><b>Associate to All Projects</b><i>
+				checkbox in the Advanced Setup dialog)</i>.</li></li>
+			</ul>
+			<div>If projects are not associated to the repository, you must leave this field blank 
+			and set the <i>gitViewerEnable</i> 
+			field to <b>false</b>.</div></td>
+        </tr>
+        <tr>
+        	<td><i>smartCommitsEnabled</i></td>
+        	<td>Optional. &nbsp;See the <a href="#gitctrlvwr_sc">Smart Commits</a> section.
+                If left blank, the default value for this field is <b>true</b>.
+            </td>
+        </tr>
+        <tr>
+          <td><i>sendCommitEmails</i></td>
+          <td>Optional.&nbsp; Set commit notification emails for this repository.&nbsp; If left
+            blank, the default value for this field is <b>true</b>.</td>
+        </tr>
+        <tr>
+          <td><i>maxMinsToCommitEmail</i></td>
+          <td>Optional.&nbsp; Set the desired value in minutes, as to when commit
+            notifications will be sent.&nbsp; Commit notifications will be e-mailed if the
+            age of the commit is less than or equal to this value.&nbsp;&nbsp;Default
+            value is <b>1440</b> minutes.</td>
+        </tr>
+        <tr>
+            <td><i>changesetFormat</i>, <i>fileAddedFormat</i>, <i>fileModifiedFormat</i>,
+                <i>fileDeletedFormat</i></td>
+            <td>Optional. &nbsp;See the <a href="#gitctrlvwr_weblinking">Web Linking</a> section.</td>
+        </tr>
+        <tr>
+            <td><i>disabled</i></td>
+            <td>Optional. &nbsp;Add this repository into the Git add-on configuration and
+                set its status to updated (<i>enabled</i>) or disabled. &nbsp;If left blank,
+                the default value for this field is <b>false</b>.</td>
+        </tr>
+        <tr>
+        	<td><i>delete</i></td>
+        	<td>Optional. &nbsp;Set <b>"delete"</b> on this column/field as a confirmation to the Git
+			add-on
+                to automatically remove the selected repository from the plugin configuration.
+                &nbsp;If left blank, no changes will occur.</td>
+        </tr>
+    </tbody>
+  </table>
+  
+  <div class="bxnote" id="imbox">
+    <span class="notes ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+  	Take note that the .tsv file is verified by the Git add-on with the following rules:<br>
+  	<ul class="bulst-bx" style="margin-top: 2px; margin-bottom: -5px;">
+  		<li>The header row is required.</li>
+  		<li>The order of fields specified in the header row &ndash; is the order of the fields 
+  			in the following rows.</li>
+  		<li>If a field is omitted from the header row, the Git add-on will use the default
+  			value for a new repository.&nbsp; The Git add-on will keep the current value of
+  			a repository if it already exists in the configured repositories.</li>
+  		<li>If a repository is not listed in the .tsv file, no changes will be made if the
+  			same repository exists in the add-on configuration.</li>
+  	</ul>
+  </div>
+  
+  <li>Save the file to a tab-delimited format:</li>
+  <ul style="list-style-type: disc;">
+  	<li><b>OSX users</b> &ndash; select all data in Numbers and then paste into a text editor and save.
+  		&nbsp; Name the file with the <b>.tsv</b> extension (<i>repo-example-00.tsv</i>).</li>
+  	<li><b>Excel users</b> - save the file as <b>Text (Tab delimited) (*.txt)</b>.&nbsp; Rename 
+	file&#39;s <b>.txt</b> extension to <b>.tsv</b>.</li>
+	<li><font color="#0029AB"><b><a name="gg_drv">Google Drive</a></b></font> - upload the file to this service.&nbsp; Right click the
+	<b>.tsv</b> file then open it with <i>Google Sheets</i>.&nbsp;  Make the necessary 
+	changes then go to <b>File</b> &gt; <b><a class="bkmk" name="skip_upload">Download</a> as</b> &gt; <b>Tab separated
+	values (.tsv)</b> to your local machine.</li>
+  </ul>
+  </ol>
+  
+  <h3><a name="gitctrlvwr_repodel"><u>Removing Existing Repositories via Bulk Change</u></a></h3>
+  <p>To delete multiple repositories from the add-on configuration:</p>
+  <ol class="ordlst">
+  	<li>Open the existing .tsv file that you want to use for this process. See 
+	the
+	<a title="Editing Existing Repositories via Bulk Change" href="#gitctrlvwr_repoeditx">
+	previous section</a> for more information. </li>
+	<li>Under the <b>delete</b> column, enter &quot;<i>delete</i>&quot; for each 
+	repository that you want to remove.</li>
+	<li>Save this file and upload it via <b>Bulk Change</b> &gt; <b>Import Configuration</b>.</li>
+  </ol>
+  
+	<h3><a name="gitctrlvwr_bulkauto"><u>Bulk Change Automation</u></a></h3>
+	<p>To automate the bulk change process via script, see <b>
+	<a target="_blank" href="api-doc.html#bulk">Post Bulk Change API <span class="image012 pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></a></b>.</p>
+  </div> <!-- import step block -->
+
+  <h2><a name="gitctrlvwr_commitnotif">Commit Email Notifications</a></h2>
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div id="wraps">This feature is available starting <b>v2.6.29</b> of the Git Add-on.</div>
+  </div>
+  <h3><a name="notif_acl">Permissions</a></h3>
+  <p>The user must have the following permissions to get notifications:</p>
+  <ul class="bulst">
+    <li>developer access for the project</li>
+    <li>developer access on at least one
+      project which is mapped to the repository</li>
+    <li>developer access on at least one project and
+      the repository is mapped to all projects.</li>
+  </ul>
+  <h3><a name="notif_cfg">Settings</a></h3>
+  <p>Access the settings for this feature via:</p>
+  <ul class="bulst">
+    <li>Git add-on <b>General Settings.</b></li>
+    <li>Connecting to a Repository &nbsp;&gt;&nbsp; <b>Advanced Setup</b> and <b>Edit Repository</b> screens.</li>
+    <li>JIRA User Profile&nbsp;&nbsp;&gt;&nbsp;&nbsp;Git Integration for JIRA preferences&nbsp;&nbsp;&gt;&nbsp;&nbsp;<b>Git
+      Commit Emails</b>.<br>
+      This setting allows an individual user to receive or to stop receving any of the notification emails.</li>
+  </ul>
+  <h3><a name="notif_watch">Watching</a></h3>
+  <p>The user will get notifications when watching an issue or repository.&nbsp; The
+    user will receive repository commit notifications if that repository is being watched by
+    the user.&nbsp; If the user watches an issue, any commit related to the issue will be
+    sent to that user as notifications.</p>
+  <h3><a name="notif_profile">User Profile Settings</a></h3>
+  <p>By default, JIRA email notification format is text-only.</p>
+  <img class="imgfigs" src="docimgs/image060.png" width="560px" alt="[text formatted email notif]">
+  <p>You can change this setting to HTML by
+    going to <b>User Profile</b> &gt; <b>Preferences</b>. Click the <b>Edit</b>
+    <span class="image038 pimg"><img src="docimgs/gpicons.png" alt=""></span> icon.</p>
+  <p>The following dialog is displayed:</p>
+  <img class="imgfigs" src="docimgs/image058.png" width="460px" alt="[User profile update pref settings]">
+  <p>Change the <i><b>Email Type</b></i> to <b>HTML</b>. Click <span class="btnface bfnil">
+    Update</span> to save the changes. The email notifications that you receive will now be in HTML format.</p>
+  <img class="imgfigs" src="docimgs/image059.png" width="520px" alt="[html formatted email notif]">
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    The user will get notifications from own commits if the <b>My Changes</b> setting in
+    the <b>User Profile</b>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<b>Preferences</b> is set to <b><i>Notify me</i></b>.
+  </div>
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div id="wraps">The user can watch repositories in the Repository Browser.</div>
+  </div>
+
+  <h2><a name="gitctrlvwr_gitcloneurl">View Git Clone URL and How to Cache HTTP Credentials</a></h2>
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      The <font color="#0070C0"><u>Clone Repo/Repository</u></font> text links are only shown if at least one JIRA hosted repository exists and the
+      project in context is associated with at least one enabled hosted repository or
+      there's an enabled hosted repository associated with all projects.
+      <img class="topt" src="docimgs/image057.png" width="464px" alt="[Clone repo - jira hosted sample]">
+    </div>
+  </div>
+  <p>Many git users are having trouble locating a git repository's location information
+    for cloning as well as other common git functions.</p>
+  <p>The Clone Repository link is added to the following locations in JIRA:</p>
+  <ul class="bulst topm">
+    <li>under <b>Git Source Code</b> in the panel on the right</li>
+    <li>on the <b>Git Commits</b> tab</li>
+    <li>on the <b>Git Code Review</b> tab</li>
+    <li>the <b>Git</b> menu (Repository Browser menu) - Clone Repository menu item. This only
+    appears when the screen has a project context - such as when viewing an issue or
+    the project summary.</li>
+  </ul>
+  <p>Click the <font color="#0070C0"><u>Clone Repository</u></font> text link to open the
+    <b>Git Repository Connection Information</b>
+  dialog. This dialog displays Git clone URL information, command line git client version
+  requirement, instructions on cloning the repository and password caching.</p>
+
+  <h2><a name="gitctrlvwr_gpcfg">General Settings</a></h2>
+  <p>Change Git add-on settings in the <b>Add-on Management</b> page <i>(<b>Applications</b>
+    page in JIRA 7)</i> to show/hide the <b>Git Code Review</b> and <b>Git Commits</b> issue tabs.</p>
+
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    Starting <b>v2.5.9</b> of the Git Add-on, the option to enable/disable <b>Git Code Review</b>
+    and <b>Git Commits</b> issue tabs has been moved to the <b>Add-on Management</b> &gt;
+    <b>Git Integration Plugin</b> &gt; <b>General</b> page.
+  </div>
+
+  <p>Go to <span class="image005 pimg"><img src="docimgs/gpicons.png" alt=""></span> <b>Administration</b> &gt; <b>Add-ons</b>.&nbsp;
+    Under <i>Git Integration Plugin for JIRA</i>,
+    select <b>General</b>.</p>
+
+  <!-- for jira 7 -->
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="">
+    </span>
+    <div>
+    	If using JIRA 7, go to <b>Administration&nbsp; </b>&gt;
+    	<b>Add-ons</b>. Select <b>Applications</b> on the page tab. Under
+      <i>Git Integration Plugin for JIRA</i> on the sidebar, select <b>General</b>.
+    </div>
+  </div>
+
+  <table id="vtable">
+    <tbody>
+      <tr class="vpane">
+        <td><b>Git Roll Up Issue Tab</b></td>
+      </tr>
+      <tr>
+        <td>
+          <img class="imgfigs botm" width="570px" src="docimgs/image038a.png" alt="[Git rollup tab grp]" />
+        </td>
+      </tr>
+      <tr>
+        <td><b>Do not display</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;This tab is not displayed
+        on the <b>Issue</b> screen for all JIRA projects.</td>
+      </tr>
+      <tr>
+        <td>
+            <b>Show for all projects</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;This
+            tab will be displayed on the issue screen for all JIRA projects.
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <b>Show for selected projects</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;This tab will
+            only be displayed on selected projects.&nbsp; Define one or more required projects
+            into the textbox.
+        </td>
+      </tr>
+      <tr class="vpane">
+        <td><b>Git Commits Issue and Project Tabs</b></td>
+      </tr>
+      <tr>
+        <td>
+          <img class="imgfigs botm" width="570px" src="docimgs/image038b.png" alt="[Git issue/proj tab grp]" />
+        </td>
+      </tr>
+      <tr>
+        <td><b>Do not display</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;This tab is not displayed
+        on the <b>Issue</b> and <b>Project</b> screens for all JIRA projects.</td>
+      </tr>
+      <tr>
+        <td>
+            <b>Show for all projects</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;This tab will be
+            displayed on the issue and project screens for all JIRA projects.
+        </td>
+      </tr>
+      <tr>
+        <td class="nbb">
+            <b>Show for selected projects</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;This tab
+            will only be displayed on the issue and project screens on selected projects.&nbsp; Define
+            one or more required projects into the textbox.
+        </td>
+      </tr>
+      <tr class="vpane">
+        <td><b>Git Code Review Issue Tab</b></td>
+      </tr>
+      <tr>
+        <td>
+          <img class="imgfigs botm" width="570px" src="docimgs/image038c.png" alt="[Git code rvw tab grp]" />
+        </td>
+      </tr>
+      <tr>
+        <td><b>Do not display</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;This tab is not displayed
+        on the <b>Issue</b> screens for all JIRA projects.</td>
+      </tr>
+      <tr>
+        <td>
+            <b>Show for all projects</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;This tab will be
+            displayed on the issue and project screens for all JIRA projects.
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <b>Show for selected projects</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;This tab
+            will only be displayed on the issue screen on selected projects.&nbsp; Define
+            one or more required projects into the textbox.
+        </td>
+      </tr>
+      <tr>
+        <td><b>Code review requires ticket to be resolved</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;Enabling
+          this option will require the issue to be set to <i><b>Resolved</b></i> status
+          before it can be set to the <b>Code Review</b> status.</td>
+      </tr>
+      <tr>
+        <td><b>Code Review Issue Statuses</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;Select one or more issue
+          statuses to set in the provided textbox. Click the textbox to view available status
+          options.</td>
+      </tr>
+      <tr>
+        <td>
+          <img class="imgfigs botm topt" width="438px" src="docimgs/image038d.png" alt="[Git issue upd and repo idx grp]" />
+        </td>
+      </tr>
+      <tr class="vpane">
+        <td><b>JIRA Issue Updates</b></td>
+      </tr>
+      <tr>
+        <td>Enable/disable the setting to allow new commits to change the Last Updated field.&nbsp; Default
+        is <i><b>enabled</b></i>.&nbsp; For more information about this setting, see section
+        <a href="#gitctrlvwr_ridxupd">Reindexing &ndash; Reindex and updatedDate Filter.</a></td>
+      </tr>
+      <tr class="vpane">
+        <td><b>Git Activity Stream</b></td>
+      </tr>
+      <tr>
+        <td>Enable/disable the setting whether to show git commits in the JIRA activity stream
+        (Issue page or dashboard widget) or not.<br>
+        For in-place upgrade of the Git add-on, this setting is turned off by default.&nbsp; For
+        new installation, the default setting is enabled.</td>
+      </tr>
+      <tr class="vpane">
+        <td><b>Commit Notification Emails</b>
+        </td>
+      </tr>
+      <tr>
+        <td>Enable/disable the setting to allow sending of email notifications when a commit
+          is made.&nbsp; This setting defaults to OFF for Git add-on upgrades and ON for new installation
+          of the Git add-on.</td>
+      </tr>
+      <tr class="vpane">
+        <td><b>Repository Reindexing</b></td>
+      </tr>
+      <tr>
+        <td><b>Reindex interval</b> &nbsp;&ndash;&nbsp; Set the automatic reindex interval
+        frequency value in minutes as required.&nbsp; Default value is <i><b>5 minutes</b></i>.</td>
+      </tr>
+      <tr>
+        <td>Configuration of the scheduler jobs are no longer accessible in the JIRA administration
+        page.&nbsp; For this case, the Git add-on offers JIRA administrators this capability
+        via the <b>General</b> screen.&nbsp; Minimum value is 1.&nbsp; Maximum value is 2147483647.&nbsp;
+        Only whole numbers are allowed.</td>
+      </tr>
+      <tr class="vpane">
+        <td><b>Repositories Garbage Collection checker</b></td>
+      </tr>
+      <tr>
+        <td>These settings control Git repositories garbage collection.&nbsp; Garbage
+        collection process will prune all loose objects, pack loose references and repack
+        all reachable objects into new pack files and remove the old ones.</td>
+      </tr>
+      <tr>
+        <td>
+          <img class="imgfigs botm" width="367px" src="docimgs/image038e.png" alt="[Git repo gc chkr grp]" />
+        </td>
+      </tr>
+      <tr>
+        <td><b>GC check interval</b> &nbsp;&ndash;&nbsp; Set the number of minutes that will elapse
+          before a repository is checked to see if it should be garbage collected.&nbsp; The
+          default value is <i><b>1440 minutes</b></i>.</td>
+      </tr>
+      <tr>
+        <td><b>Max loose objects count</b> &nbsp;&ndash;&nbsp; Set the maximum number of loose
+        objects that will be checked before the garbage collection is triggered. The garbage
+        collection is activated if the number of loose objects exceeds this setting.
+        Loose objects are single items that are not compressed into a Git pack file. The default
+        value is <i><b>2000</b></i>.</td>
+      </tr>
+      <tr>
+        <td><b>Max packed files count</b> &nbsp;&ndash;&nbsp; Set the maximum number of packed
+        files that will be checked before the garbage collection is triggered. If the number
+        of packed files count exceeds this setting, the garbage collection is activated. The
+        default value is <i><b>30</b></i>.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="lspc">Click <span class="btnface bfnil">Save</span> to apply the changes.</p>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="">
+    </span>
+    <div>
+    	The higher the change rate of the repository, the more often it would benefit from
+      garbage collection.
+    </div>
+  </div>
+
+  <h2><a name="gitctrlvwr_weblinking">Web Linking</a></h2>
+  <p>The web linking feature adds links to your git
+    hosting provider directly into the <b><i>Git Commits</i></b> tab.&nbsp; Configure web
+    linking options while adding/editing repository settings so that commits can include links
+    to the git host pages.</p>
+
+  <p style="margin-bottom:0px">The following providers are supported:</p>
+  <ul class="slinebul" style="margin-top:5px">
+    <li><b>Beanstalk</b></li>
+    <li><b>BitBucket</b></li>
+    <li><b>BitBucket Server</b></li>
+    <li><b>cgit</b></li>
+    <li><b>CloudForge</b></li>
+    <li><b>Fisheye</b></li>
+    <li><b>Gerrit</b></li>
+    <li><b>Gitblit</b></li>
+    <li><b>GitHub</b></li>
+    <li><b>GitLab</b></li>
+    <li><b>Gitorius</b></li>
+    <li><b>Gitolite</b></li>
+    <li><b>gitweb</b></li>
+    <li><b>Microsoft Team Foundation Server (starting v2013)</b></li>
+    <li><b>Atlassian Stash</b></li>
+  </ul>
+
+  <img src="docimgs/image041.png" width="600px" alt="">
+  <p>Select a git host from the <b>Web Link</b> list.&nbsp; The web linking input box options are
+    automatically filled out with corresponding variables for the selected git host.&nbsp; Change
+    the variables according to the actual URL settings of the git host.&nbsp; Configure server and
+    port and <code>${rev}</code> will be substituted based on the commit ID.</p>
+  <p>You can create several custom configuration to
+    support other git hosting providers. The following five URLs should be 
+    configured for setup:</p>
+  <table style="margin-bottom: 25px;" id=vtable>
+    <thead>
+    <th>Option</th>
+      <th>Description</th>
+        </thead>
+    <tbody>
+      <tr>
+        <td width=138 valign=middle><i>ChangeSet Format </i></td>
+        <td width=438 valign=middle> This is the URL used to display revision. <br>
+          Use the following variable: <code> &nbsp;$(rev) </code> &nbsp;- git revision </td>
+      </tr>
+      <tr>
+        <td><i>File Added Format, <br>
+          File Modified Format, <br>
+          File Deleted Format </i></td>
+        <td> This is the URL to display content of added, modified or deleted 
+          files.<br>
+          Use the following variables:<br>
+          <ul style="margin-top: 2px">
+            <li><code>&nbsp;$(num) </code> - number of change (0, 1, ...)</li>
+            <li><code>&nbsp;$(rev) </code>&nbsp; - git revision</li>
+            <li><code>&nbsp;$(path) </code>&nbsp; - path of the file being changed</li>
+            <li><code>&nbsp;$(parent) </code>&nbsp; - parent git revision</li>
+            <li><code>&nbsp;$(blob) </code>&nbsp; - ID of blob object</li>
+            <li><code>&nbsp;$(parent_blob) </code>&nbsp; - ID of parent blob object</li>
+          </ul></td>
+      </tr>
+      <tr>
+        <td><i>View Format</i></td>
+        <td> <i>Optional</i>.&nbsp; This URL is unused.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      The <b>Git Integration for JIRA</b> add-on supports an unlimited
+      number of repositories.
+    </div>
+  </div>
+
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      Some git hosts require web linking to be configured via the Git add-on add/edit repository
+      screen (Advanced Setup).
+    </div>
+  </div>
+
+  <p>Any Git host that is accessible via SSH, HTTP, HTTPS, git protocol, local and
+    network share is supported.</p>
+
+  <p>Once properly configured, the <b>Git Commits</b> tab on the <b>Issues</b> page will display as follows:</p>
+  <img src="docimgs/image042.png" width="550px" alt="" />
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      The Git add-on supports custom web linking.&nbsp; The commit information is displayed
+      in the <b>Git Commits</b> issue tab if the git host server URL is provided on
+      the <b>Web Linking</b> section in the <b>Advanced Setup</b> for adding/editing repositories.
+    </div>
+  </div>
+
+  <h2><a name="gitctrlvwr_ctabs">Disabling Source and Commits Tabs</a></h2>
+  <p>The <b>Source</b> tab is part of the FishEye Plugin and is used for integration with
+  SVN.&nbsp; The <b>Commits</b> tab is part of the JIRA DVCS Connector Plugin and is used
+  for integration with gits <i>(Git, Mercurial, BitBucket etc.)</i>.</p>
+  <p>Attlassian enables these tabs by default.</p>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line3">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      If either <b>FishEye</b> or <b>JIRA DVCS Connector</b> plugin is not installed, the
+      <b>Source</b> or <b>Commits</b> tab will not be visible on the <b>Issues</b> page.
+    </div>
+  </div>
+
+  <p>To hide the <b>Source</b> tab from the <b>Issues</b> page, disable the <b>FishEye Plugin</b>:</p>
+  <ol class="ordlst">
+    <li>Go to&nbsp; <b> <span class="image005 pimg"><img src="docimgs/gpicons.png" alt=""></span>
+        <i> Administration&nbsp; </i></b>&gt; <i><b>Add-ons</b></i>&nbsp;
+        &gt; <b>Manage Add-ons</b>.</li>
+    <li>Find and click <span class="fisheye pimg"><img src="docimgs/gpicons.png" alt=""></span>
+        <b>FishEye Plugin</b> under the installed add-ons to expand its options.</li>
+    <li>Click <b>Disable</b>.</li>
+  </ol>
+  <p>To hide the <b>Commits</b> tab from the <b>Issues</b> page, disable the <b>JIRA DVCS
+  Connector Plugin</b>:</p>
+  <ol class="ordlst">
+    <li>Go to&nbsp; <b> <span class="image005 pimg"><img src="docimgs/gpicons.png" alt=""></span>
+        <i> Administration&nbsp; </i></b>&gt; <i><b>Add-ons</b></i>&nbsp;
+        &gt; <b>Manage Add-ons</b>.</li>
+    <li>Find and click <span class="fisheye pimg"><img src="docimgs/gpicons.png" alt=""></span>
+        <b>JIRA DVCS Connector Plugin</b> under the installed add-ons to expand its options.</li>
+    <li>Click <b>Disable</b>.</li>
+  </ol>
+
+  <h2><a name="gitctrlvwr_linkcom2issues">Linking Git Commits to JIRA Issues</a></h2>
+  <p>To create a link between your Git commit and a JIRA issue, developers must
+    include the issue key into the commit comment.</p>
+  <div class="example">
+    <p style='margin-left:.5in;margin-right:0.5in'>For example, the &quot;<i>GIT-50
+      fixed issue</i>&quot; comment – this assumes that you have configured a JIRA
+      project with the key &#39;<i>GIT</i>&#39; and someone has created the issue <i>#50</i> within this project.</p>
+  </div>
+  <p>Commits are selected by issue key.&nbsp; Developers should add them to comments every time the
+    commits are made.</p>
+  <p style="margin: 1.2em 0.15in"> <img border="0" src="docimgs/image019.png" width="600"></p>
+  <div class="example">
+    <p style="margin: -12px 0.5in 30px 0.5in">Example Git commit message: "<i>GIT-913 - Plugin
+      version...</i>".&nbsp; In this case, "GIT-913" is the issue key linking the commit
+      message to the JIRA issue.</p>
+  </div>
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	<b>Commits that are part of non-master branches will be included only if the master branch
+      doesn't have them.</b>
+    </div>
+  </div>
+
+  <h2><a name="gitctrlvwr_sc">Smart Commits</a></h2>
+  <p>Smart commits allows your team to perform actions on JIRA issues from a
+    single commit.&nbsp; Users can enter the issue key and the desired action such
+    as time tracking or closing an issue.</p>
+  <img style="margin: 0.5em 0.25in" border="0" src="docimgs/image028.png" width="541" height="167">
+  <p>The Git Integration add-on supports smart commit by adding a simple syntax to
+    a commit message.</p>
+  <p>Smart Commits configuration checklist:</p>
+  <ul class="slinebul topm">
+    <li>The JIRA DVCS Connector Plugin is not required.</li>
+    <li>Your JIRA e-mail address and Git commit e-mail address matches</li>
+    <li>E-mail address is not shared by other JIRA users</li>
+  </ul>
+  <p>As of <b>v2.6.3</b> of the Git add-on, the smart commit processing is <b>active by default</b> and can be enabled/disabled via
+    the repository configuration:</p>
+  <p style='margin-left:0.25in'>
+	<img border="0" src="docimgs/image003.png" width="407" height="93"></p>
+  <p>Examples:</p>
+  <table id="vtable">
+    <thead>
+      <th>Syntax</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+      <tr>
+          <td width="220px"><code class="incfnt nbg">&lt;ISSUE_KEY&gt; #&lt;command&gt; <br>&lt;<i>optional</i> command_params&gt;</code></td>
+          <td>A single action on a single issue.<br>
+            <div class="topt">
+              <b><u>Example:</u></b><br>
+              <code class="incfnt">TEST-100 #time 2w 1d 4h 30m</code><br>
+            </div>
+            <div class="topt">
+              Records the specified #time to the issue, TEST-100.
+            </div>
+          </td>
+      </tr>
+      <tr>
+          <td><code class="incfnt nbg">&lt;ISSUE_KEY&gt; #&lt;command1&gt; <br>&lt;<i>optional</i> command1_params&gt;<br>
+            #&lt;command2&gt; &lt;<i>optional</i> command2_params&gt; ... <br>#&lt;commandN&gt; &lt;<i>optional</i> commandN_params&gt;</code></td>
+          <td>Multiple actions on a single issue.<br>
+            <div class="topt">
+              <b><u>Example:</u></b><br>
+              <code class="incfnt">TEST-100 #time 4h 30m #comment Fixed code #resolve</code><br>
+            </div>
+            <div class="topt">
+              Logs specified #time to the issue, TEST-100; adds the #comment and resolve the issue.
+            </div></td>
+      </tr>
+      <tr>
+          <td><code class="incfnt nbg">&lt;ISSUE_KEY1&gt; &ltISSUE_KEY2&gt; &lt;ISSUE_KEY3&gt;
+            #&lt;command&gt; &lt;<i>optional</i> command_params&gt;</code></td>
+          <td>A single action on multiple issues.<br>
+            <div class="topt">
+              <b><u>Example:</u></b><br>
+              <code class="incfnt">TEST-100 TEST-101 TEST-102 #resolve</code><br>
+            </div>
+            <div class="topt">
+              Resolves specified issues.
+            </div></td>
+      </tr>
+      <tr>
+          <td><code class="incfnt nbg">&lt;ISSUE_KEY1&gt; &lt;ISSUE_KEY2&gt; ... &lt;ISSUE_KEYn&gt;
+            #&lt;command1&gt; &lt;<i>optional</i> command1_params&gt; <br>
+            #&lt;command2&gt; &lt;<i>optional</i> command2_params&gt; ...<br>
+            #&lt;commandN&gt; &lt;<i>optional</i> commandN_params&gt;</code></td>
+          <td>Multiple actions on multiple issues.
+            <div class="topt">
+              <b><u>Example:</u></b><br>
+              <code class="incfnt">TEST-100 TEST-101 TEST-102 #resolve #time 2d 4h #comment Fixed code</code><br>
+            </div>
+            <div class="topt">
+              Resolves specified issues; logs specified #time and adds #comment against the issues.
+            </div></td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top: 30px;">Starting <b>v2.6.33</b> of the Git Integration for JIRA, support for multi-line commit
+    messages for Smart Commits has been implemented. The following examples shows correct usage of
+    the Smart Commit message:</p>
+<pre class="pbc-auto-usage codebox">TST-1 implemented feature 1
+TST-1 #comment some comment
+in JIRA
+on several lines
+TST-1 #resolve
+TST-2 #time 1h 30m
+</pre>
+  <p class="codebox-figtxt topm">In this example, an issue key that is present on every line
+    is a valid multi-line commit message.</p>
+<pre class="pbc-auto-usage codebox">TST-1 implemented feature 1
+#comment some comment
+in JIRA
+on several lines
+#resolve TST-2
+#time 1h 30m
+</pre>
+  <p class="codebox-figtxt topm">This is the equivalent smart commit message based from the above example.</p>
+<pre class="pbc-auto-usage codebox">TEST-3 Background color of settings should be lighter
+TEST-3 #in-progress #time 1h TEST-4 resolve
+TEST-2 #resolve
+</pre>
+  <p class="codebox-figtxt topm">This example, containing several issue keys, is also a valid multi-line smart commit message.</p>
+  <p>To test smart commits:</p>
+  <ol class="ordlst">
+    <li>Open an issue and view the workflow from the context of the issue.</li>
+    <li>Hover a status.</li>
+      <img src="docimgs/workflow-hover.png" width="491px" alt="">
+      <p>When you hover a status - it will highlight available transitions.&nbsp;
+      This is the transition name that is used in Smart Commits and not the status name.</p>
+  </ol>
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div id="wraps">
+      Workflow transition names must be unique.
+    </div>
+  </div>
+
+  <p>Below is an example where the issue is in <span class="btnface bfdef bfstat">OPEN</span> status and
+    want to send it to <span class="btnface bfnil bfstat bfblue">BUSINESS SPEC</span> status:</p>
+<pre class="pbc-auto-usage codebox">&lt;ISSUE_KEY&gt; <b>#to-business-spec</b> or,
+&lt;ISSUE_KEY&gt; <b>#to-business</b> <i>and even</i>,
+&lt;ISSUE_KEY&gt; <b>#to</b> <i>(yes, this works, as long as it does not conflict with another transition name)</i>
+</pre>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      See <i> <a target="_blank" href="https://confluence.atlassian.com/display/JIRACLOUD/Processing+JIRA+issues+with+commit+messages">
+      Processing JIRA Issues with Commit Messages <span class="image012 pimg"><img src="docimgs/gpicons.png" alt=""></span></a></i>
+      for more Smart Commit examples.
+    </div>
+  </div>
+
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      The committers' email address in the git configuration must match with the
+      email address of the corresponding JIRA user (or vice versa) for the smart
+      commit to work.&nbsp;The JIRA user must have the
+      appropriate project permissions to transition issues.
+    </div>
+  </div>
+
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      Every git installation has global config file and .git/config
+      file in every git repository. All settings at the global level can be overridden at the
+      repository level. Therefore, different email addresses can be set for every git repository.<br>
+      <p style="margin-bottom: -1px;">
+        For more details on git configuration, see <i> <a target="_blank" href="http://git-scm.com/book/en/Customizing-Git-Git-Configuration">
+        Customizing Git: Git Configuration <span class="image012 pimg"><img src="docimgs/gpicons.png" alt=""></span></a></i>.
+      </p>
+    </div>
+  </div>
+
+  <h2><a name="gitctrlvwr_repovwr">The Repository Browser</a></h2>
+  <p>The <b>Repository Browser</b> allows users to view git repositories of configured
+  projects via the <b>Git</b> menu on the JIRA dashboard.</p>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	As of <b>version 2.5+</b> of the Git Add-on, the <b>Git</b> dropdown menu is added to
+    	the dashboard.
+    </div>
+  </div>
+
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+       Users must have the <b>View Development Tools</b> <i>project permission</i>
+  		in order to gain access to the <b>Repository Browser</b>. For more information on assigning JIRA permissions, see <a href="https://confluence.atlassian.com/display/JIRA/Managing+Global+Permissions"
+       target="_blank">Managing Permissions in JIRA <span class="image012 pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></a>.
+    </div>
+  </div>
+
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+        The <b>Git</b> <span class="ddc pimg"><img src="docimgs/gpicons.png" alt=""></span> header
+        is hidden for all users if there are no repositories with Repository Browser enabled for
+        that user.&nbsp; The Git add-on will always show the <b>Git</b> <span class="ddc pimg"><img src="docimgs/gpicons.png" alt=""></span>
+        header to JIRA administrators.<br><br>
+        The <b>Git</b> <span class="ddc pimg"><img src="docimgs/gpicons.png" alt=""></span> header
+        is visible to other users who have repositories with Repository Browser enabled and
+        have no history of using the Repository Browser <i>(for example - no previously
+        viewed or favorited repositores).</i>
+    </div>
+  </div>
+
+  <p>To view all repositories, select <b>Git</b> <span class="ddc pimg"><img src="docimgs/gpicons.png" alt=""></span>
+    in the dashboard menu then <b>View all repositories</b>.</p>
+  <img class="imgfigs" src="docimgs/image034.png" alt="">
+  <p style="margin-bottom: -5px;">Available git repositories of configured projects are displayed:</p>
+  <ul class="bulst">
+    <li>Clicking <span class="btnface bfnil">Manage Repositories</span> at the top right of the
+  screen will open the git add-on repositories page.</li>
+    <li>Click a git repository to browse its contents.</li>
+    <li>In repository view, clicking <span class="btnface bfnil">Repositories</span> at the top right of the
+  screen will open the git add-on repositories page.</li>
+  	<li>Select a branch from the dropdown list to browse repository contents for
+	that branch <i>(default view is master branch)</i>.</li>
+  	<li>Click a folder to view its contents. Click a file to view its code diff.</li>
+  	<li>Click on an issue link under <b>Commit message</b> to view that ticket.</li>
+  	<li>Click on the <span class="commitID pimg"><img src="docimgs/gpicons.png" alt=""></span>
+        <b>Latest commit: UUID</b> link to view code diff for that commit.</li>
+    <li>Click on an item link under <b>Latest commit</b> <i>column</i> to view code diff for that
+    particular commit.</li>
+  </ul>
+
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      With <b>v2.6.0</b> of the Git add-on, revisions of the commits are displayed on
+      the Repository Browser in addition to branches and tags. See
+      <a href="#repovw_commits_tab"><b>Repository Browser - Commits tab</b></a>, for
+      further information.
+    </div>
+  </div>
+
+  <p></p>
+
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	If the selected path is a <i><b>root</b></i> of the repository and no files are present,
+        a message will be displayed instead of an empty file list.
+    </div>
+  </div>
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	Administrators can turn off the repository browser via advanced settings of a
+    	repository in the add-on configuration.
+    </div>
+  </div>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	The displayed repositories can be sorted by clicking the corresponding list header.&nbsp; The
+        add-on will remember the sorting choice per user.
+    </div>
+  </div>
+
+  <h3><a name="repovw_commits_tab"><u>Viewing List of Commits via Repository Browser</u></a></h3>
+  <p>In the Repository Browser, click the <b>Commits</b> tab.</p>
+  <p>The list of commits for the currently selected project is displayed in decending order:</p>
+  <ul class="bulst">
+  	<li>Select a branch from the dropdown list to browse commits for
+	    that branch <i>(default view is master branch)</i>.&nbsp; The branches and tags are sorted
+      in reverse alphanumeric order putting the latest tags and branches at the top of the list.</li>
+  	<li>Click on an issue link to view that ticket.</li>
+  	<li>Click on a <span class="commitID pimg"><img src="docimgs/gpicons.png" alt=""></span>
+        <b>commit ID</b> to view commit information and code diffs related to that commit.</li>
+  </ul>
+
+  <h3><a name="repovw_compare_tab"><u>Comparing Commit Branches via Repository Browser</u></a></h3>
+  <p>In the Repository Browser, click the <b>Compare</b> page tab.</p>
+  <p>On this page, two branches from the current repository can be compared. You can also create
+    a pull request and add a code review comment to a line of code in diff view.</p>
+  <p>A diff between the <i><b>base</b></i> branch and the <i><b>compare</b></i> branch
+    is displayed:</p>
+  <img class="imgfigs" src="docimgs/image040.png" width="600px" alt="" />
+  <p>Select or type an issue key on the <b>Select Issue</b> dropdown, since, every pull request
+    should be associated with an issue. This will map the selected issue key to the
+    new pull request.</p>
+  <p>Click <span class="btnface bfdef">Create Pull Request</span> if you want to create a new pull request with the associated
+    issue key.&nbsp; See section, <a href="#gitctrlvwr_createpullrequests">Creating Pull Request</a>,
+    for detailed information on this process.</p>
+
+  <p>The <b>Compare</b> &gt; <b>Summary</b> screen displays the <b><i>Commits</i></b>, <b><i>Aggregated Lines by
+    Developers</i></b> and <i><b>Files</b></i>.&nbsp; Click on a file to view its code diff.</p>
+  <p>Click <b>Commits</b> on the sidebar to view the list of commits resulting from this compare.&nbsp; The
+    adjacent figure indicates the number of commits associated to this compare.</p>
+  <p>Click <b>Diff</b> on the sidebar to view code diffs of the selected range of commits with
+    the path and name of the affected files.</p>
+
+  <h3><a name="gitctrlvwr_onoffrepovwr"><u>Enable/Disable Repository Browser via
+  	Repository Configuration</u></a></h3>
+  <p>Go to&nbsp; <b> <span class="image005 pimg"><img src="docimgs/gpicons.png" alt=""></span>
+  	<i> Administration&nbsp; </i></b>&gt; <i><b>Add-ons</b></i>&nbsp; &gt;&nbsp;
+  	<i>Git Integration Plugin for JIRA</i><b>&nbsp; &gt; Git Repositories</b>.</p>
+
+  <!-- for jira 7 -->
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="">
+    </span>
+    <div>
+    	If using JIRA 7, go to <b>Administration&nbsp; </b>&gt;
+    	<b>Add-ons</b>. Select <b>Applications</b> on the page tab. Under
+      <i>Git Integration Plugin for JIRA</i> on the sidebar, select <b>Git Repositories</b>.
+    </div>
+  </div>
+
+	<p>Click&nbsp; <span class="image015 pimg"><img src="docimgs/gpicons.png" alt=""></span>
+	<b>&nbsp;Actions</b> &gt; <b>Edit</b>&nbsp; to modify required repository settings.&nbsp;
+	The <font color="#4D79FF"><u>Advanced setup</u></font> screen for
+	configuring repositories is displayed.</p>
+	<p>Scroll down to the <i><b>Repository Browser</b></i> option.</p>
+	<img class="imgfigs" src="docimgs/image035.png" width="620px">
+	<p>Select <b>Enabled</b> to activate this function for this repository.
+	Choose <b>Disabled</b> to deactivate this function from this repository.</p>
+	<p>Add one or more existing projects to associate to this git repository in
+	the <b><i>Associate Project Permissions</i></b> field, in order to have <b>
+	Git Code Review</b> and <b>Git Commits</b> tabs appear on the <b>Issue</b>
+	screens of the specified projects.</p>
+	<p>Checking the <b><i>Associate with all projects</i></b> box will hide the
+	existing associated projects in the <b><i>Associate Project Permissions</i></b> field and disable it. All existing associated projects
+	in that field are still retained.</p>
+	<p>Click <span class="btnface bfnil">Update</span> to save configuration changes for this repository.</p>
+
+  <h2><a name="gitctrlvwr_permsreq">Permissions Requirement to Display Commit Information</a></h2>
+  <p>Users must have '<b><i>View Development Tools</i></b>' permission in order
+    to view commit information on the issue page.</p>
+  <p>The user needs to be in the developers group to view code diffs when default permission scheme is used.</p>
+  <p style="margin-left:0.25in;"> <img border="0" src="docimgs/image018.png" width="592"></p>
+  <p>Consider the following criteria when setting permissions:</p>
+  <ul class="bulst">
+    <li>Permission name may be different depending on your version of JIRA.</li>
+    <li> Project permissions are configured on the project administration page. Different 
+      projects may have different permissions. </li>
+    <li> Default permission scheme grants access to add-on to all members of <b><i> administrators </i></b>and <b><i>developers</i></b> groups. No additional configuration is required
+      in this case. </li>
+  </ul>
+
+  <h2><a name="gitctrlvwr_gituserid">Git User Identity</a></h2>
+  <p>A git user can identify himself on his local computer using the following commands:</p>
+
+  <code>$ git config --global user.name "John Doe"</code><br>
+  <code>$ git config --global user.email johndoe@example.com</code>
+
+  <p>Or, for specific repository:</p>
+
+  <code>$ git config user.name "John Doe"</code><br>
+  <code>$ git config user.email johndoe@example.com</code>
+
+  <p>Then every commit is supported by the configured user information.</p>
+  <p>Hosting services <i>(like GitHub and BitBucket, for example)</i> try to match these data in commits
+  with a particular account:</p>
+  <ul class="bulst">
+  	<li><b>If the email is unknown, it just displays the name from the commit.</b>&nbsp;
+	If there is no JIRA user associated with the email, the Git add-on will use the author&#39;s name from the commit and displays this name without
+	any associated links.</li>
+
+	<img class="ul-img" src="docimgs/image036.png">
+
+	<li><b>If an email is configured in the local repository, the account is
+	detected and will be displayed.</b> The Git add-on will use the email from a commit and
+	will search for a JIRA user using this email.&nbsp; If the JIRA user is
+	found, the associated link to his JIRA profile is displayed with the
+	accompanying JIRA avatar beside the name.</li>
+
+	<img class="ul-img" src="docimgs/image037.png">
+  </ul>
+
+  <h2><a name="gitctrlvwr_uicard">JIRA User Information Card</a></h2>
+  <p>As of <b>v2.6.5</b> of the Git add-on, the JIRA user card is available on the following screens:</p>
+  <ul class="bulst-bx">
+    <li>Git Commits tab <i>(Commit author name)</i></li>
+    <li>Git Code Review tab <i>(Aggregated Lines by Developers)</i></li>
+    <li>Repositories list <i>(Last updated by)</i></li>
+    <li>Repository Browser <i>(under Latest commit column)</i></li>
+    <li>Code diff dialog <i>(Commit info)</i></li>
+  </ul>
+
+  <p>Hover the mouse pointer on the name of the user.&nbsp; A small information box containing
+  information such as email, zone & time and avatar for that user will appear.</p>
+
+  <p>Click <b>Activity</b> to view the latest activities performed by that user.</p>
+
+  <p>Click <b>More &gt;</b> to open more options such as:</p>
+    <ul class="bulst topm">
+      <li>view this user's profile,</li>
+      <li>view unresolved issues currently assigned to this user, or</li>
+      <li>go to the administration section for this user.</li>
+    </ul>
+
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	The <a href="#gitctrlvwr_gituserid"><b>Git User Identity</b></a> should be configured
+        for the specific user.&nbsp; Otherwise, the user card information will not be
+        displayed for that user.
+    </div>
+  </div>
+
+  <h2><a name="gitctrlvwr_vwdiffs">Viewing Commit Code Diffs</a></h2>
+  <p>Access the commit code diff dialog via the following:</p>
+  <ul class="bulst">
+    <li>View a file on the <b>Repository Browser</b> <i>(<b>Git</b> > <b>View All Repositories</b>)</i>.</li>
+    <li>On the <b>Compare</b> results screen of the <b>Repository Browser</b>, click a file
+        on the <b>Summary</b> page.</li>
+    <li>Go to <b>Administration</b> &gt; <b>Projects</b>.&nbsp; Select a project.&nbsp; Select
+        the <b>Overview</b> tab then click <b>Git Commits</b>.&nbsp; Click a file on a
+        commit or click <span class="btnface bfnil btxt">View full commit</span>.</li>
+    <li>Open an issue.&nbsp; Select the <b>Git Roll Up</b> tab then click a file under <b><i>Files</i></b>.</li>
+    <li>Open an issue.&nbsp; Select the <b>Git Commits</b> tab then click a file or click
+        <span class="btnface bfnil btxt">View full commit</span>.</li>
+    <li>Open an issue.&nbsp; Select the <b>Git Code Review</b> tab then click the <b>View Diff</b> text link.</li>
+  </ul>
+  <img class="imgfigs" src="docimgs/image039.png" width="585px" />
+
+  <h2><a name="gitctrlvwr_issuetab">The Issue Tab</a></h2>
+  <p>If the add-on is configured and licensed successfully, new tabs are added to each JIRA issue.</p>
+
+  <h3><u><a name="gitctrlvwr_issue_gcv">Git Code Review</a></u></h3>
+  <p>Open an issue then go to the <i><b>Git Code Review</b></i> tab to view Git repository
+    connection information and Compare &gt; Summary of pull requests.</p>
+  <img class="imgfigs" src="docimgs/image055.png" width="560px" alt="[Git Code Review compare summary]">
+  <p class="codebox-figtxt topm">The issue already have closed pull requests.</p>
+  <p>Based on the above example:</p>
+  <p>Click on the <b>Clone Repo</b> text link to open the Git Repository Connection
+  Information dialog.</p>
+  <p>Click on the <b>Pull Request from...</b> text links to open the Compare &gt; Summary page.</p>
+  <img class="imgfigs" src="docimgs/image056.png" width="560px" alt="[Git code review view diff]">
+  <p class="codebox-figtxt topm">The Create Pull Request button is disabled because the
+    issue does not have any pull requests.</p>
+  <p>Based on the above example:</p>
+  <p>Click on the <b>Clone Repo</b> text link to open the Git Repository Connection
+  Information dialog.</p>
+  <p>Click on the <b>View diff</b> text link to open the Compare &gt; Summary page.</p>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      To create a pull request:
+    	<ul class="topt bulst ulxm">
+        <li>the issue status must be: <code>Pre Code Review</code>,
+          <code>Code Review</code>. Your JIRA admin can change this status in settings.</li>
+        <li>the issue must be resolved. Your JIRA admin can change
+          this status in settings.</li>
+        <li>the issue must be resolved and the issue status must
+          be: <code>Pre Code Review</code>, <code>Code Review</code>. Your JIRA admin can
+          change this status in settings.</li>
+      </ul>
+    </div>
+  </div>
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div id="wraps" class="btnwraps">
+      Hover the mouse on the <span class="btnface bfnil bfnorm">Create Pull Request</span> button to
+      view pull request status.
+    </div>
+  </div>
+  <p>If the <span class="btnface bfnil">Create Pull Request</span> option is available, clicking it will
+    open the <b>Create Pull Request</b> dialog.&nbsp; After creating the pull request, the user will be taken to the
+    <b>Compare</b> &gt; <b>Summary</b> page. Select an available branch from the list then click
+    <span class="btnface bfdef">Create Pull Request</span>.&nbsp; For more information on
+    this feature, see section - <a href="#gitctrlvwr_createpullrequests">Creating Pull Requests</a>.</p>
+
+  <h3><u><a name="gitctrlvwr_issue_gru">Git Roll Up</a></u></h3>
+  <p>Open an issue then go to the <i><b>Git Roll Up</b></i> tab to view commit statistics.</p>
+  <img style="margin: 10px 0.16in" border="0" src="docimgs/image026.png" width="590px">
+  <p>This tab displays statistical information of the first and last revision of
+    the commits and the time since the
+    last commit was made. A summary of the files, lines and the developers who made the commit
+    are also displayed.</p>
+  <p>Sort the code statistics by clicking the respective <b>Sort</b> button then
+    selecting the required sorting option.</p>
+  <img class="imgfigs" src="docimgs/image026a.png" alt="" />
+  <p>Select roll up options by clicking the respective <b>Rollup</b> button:</p>
+  <img class="imgfigs" src="docimgs/image026b.png" alt="" />
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      To view the code diff of the file, click the corresponding&nbsp;
+      filename on the <b>Files</b> summary table.
+      A dialog will appear displaying the file diff between the first and last
+      revisions of the commit.
+    </div>
+  </div>
+
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      The <i><b>Git Code Review</b></i> tab feature requires commit messages referencing a branch
+      key of the issue to work.
+    </div>
+  </div>
+  <h3 style="margin-bottom: 5px"><a name="gitctrlvwr_issue_gc"><u>Git Commits</u></a></h3>
+  <img  style="margin: 0.5em 0.15in" border="0" src="docimgs/image019.png" width="590px">
+  <p>Open an issue then go to the <b><i>Git Commits</i></b> tab to view commit information:</p>
+  <table id="vtable">
+    <thead>
+    <th>Information</th>
+      <th>Description</th>
+        </thead>
+    <tbody class="odev">
+      <tr>
+        <td width=138 valign=middle><i>Repository/Indexed</i></td>
+        <td width=438 valign=middle>Name of the repository <i>(as in add-on config)</i> and date of
+          last synchronization with remote repo.</td>
+      </tr>
+      <tr>
+        <td><i>Author/Committer</i></td>
+        <td>User who performed the commit. Hover the mouse pointer on the name to view user card.</td>
+      </tr>
+      <tr>
+        <td><i>Issue key</i></td>
+        <td>This is the JIRA issue with the corresponding commit message.</td>
+      </tr>
+      <tr>
+        <td><i>Repository Name</i></td>
+        <td>This is the name of the repository the commit has been made.&nbsp; Click to browse this
+          repository via Repository Browser.</td>
+      </tr>
+      <tr>
+        <td><i>Branch</i></td>
+        <td>Name of the Git branch.&nbsp; Click to view this branch via Repository Browser.</td>
+      </tr>
+      <tr>
+        <td><i>Commit UID</i></td>
+        <td>UID of the commit and git host link.&nbsp; Click the UID to view the code diffs
+          for this commit.&nbsp; Click the git host link to view this commit via the git host server.</td>
+      </tr>
+      <tr>
+        <td><i>Files Changed</i></td>
+        <td>List of files affected by the commit.&nbsp; Click the file or git host link to
+          view code diff of this commit.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="imbox" class="bxtip" style="margin-top: 25px;">
+    <span class="tips ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      View the whole commit code diff information by clicking the <b>View full
+      commit</b> button to the right of the commit message. <br>
+      <p style="margin-bottom: -1px;">
+        View code diff information of the particular file by clicking the filename
+        for each file adjacent to the rollup counter markers.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-bottom: 5px"><a name="gitctrlvwr_issue_gn"><u>Git Notes</u></a></h3>
+  <p>Starting <b>v2.6.21</b>, the Git add-on displays git notes in the <b>Git Commits</b> tab:</p>
+  <img style="margin: 0.5em 0.15in" border="0" src="docimgs/image053.png" width="564px">
+  <p>For a git repository with several existing commits in it, commit authors can associate
+    issue keys via git notes to these commits without having to edit the commit messages.&nbsp; The
+    Git Integration for JIRA add-on will index issue keys in git notes.</p>
+  <p>Smart commit actions are also supported in git notes.</p>
+  <p>Each commit can only have one git note per namespace.&nbsp; There can be multiple note
+    namespaces per commit.&nbsp; These note namespaces are automatically indexed.</p>
+  <div id="imbox" class="bxinfo" style="margin-top: 25px;">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div id="wraps">
+      Git notes are sorted by name.
+    </div>
+  </div>
+  <p>Guidelines for adding new git notes:</p>
+  <ul class="bulst topm">
+    <li>add git notes to new commits which has not been indexed yet;</li>
+    <li>git notes can be added to old commits which is already indexed - but does not have
+      an issue key.</li>
+  </ul>
+
+  <div id="imbox" class="bxinfo" style="margin-top: 25px;">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      For old commits that are already indexed and have issue key(s) in commit message - see
+      <code>FAQ &gt; Reindex &gt; How do I clear the Git Integration Plugin for JIRA cache manually?</code> topic.
+    </div>
+  </div>
+  <p>Adding a git note to an already reindexed commit:</p>
+  <ol class="ordlst topm">
+    <li><code>git notes add -m 'TST-3 is also fixed' 107af254</code></li>
+    <li><code>git show -s 107af254</code></li>
+    <li><code>git push origin refs/notes/*</code></li>
+  </ol>
+
+  <h3 style="margin-bottom: 5px"><a name="gitctrlvwr_diffcolor"><u>Code Syntax Highlighter</u></a></h3>
+  <p>As of <b>v2.5.5</b> of the Git Add-on, the
+	code diff dialog view is improved.&nbsp; The Git add-on uses the correct syntax 
+	highlighting when viewing the code diff of the file based on its file 
+	extension:</p>
+
+  <table id="vtable" style="margin-bottom: 30px;">
+  	<thead>
+  	  <th>File Extension</th>
+  	  <th>Language ID</th>
+  	</thead>
+  	<tbody class="odev">
+  	  <tr>
+  	    <td width="220px"><b>css</b></td>
+  	    <td width="370px">CSS</td>
+  	  </tr>
+  	  <tr>
+  	    <td><b>js</b></td>
+  	    <td>Javascript</td>
+  	  </tr>
+  	  <tr>
+  	    <td><b>cpp</b></td>
+  	    <td>C++</td>
+  	  </tr>
+  	  <tr>
+  	    <td><b>cs</b></td>
+  	    <td>C&#35;</td>
+  	  </tr>
+  	  <tr>
+  	    <td><b>sh</b></td>
+  	    <td>Bash</td>
+  	  </tr>
+  	  <tr>
+  	    <td><b>java</b></td>
+  	    <td>Java</td>
+  	  </tr>
+  	  <tr>
+  	    <td><b>sql</b></td>
+  	    <td>SQL</td>
+  	  </tr>
+  	  <tr>
+  	    <td><b>py</b></td>
+  	    <td>Phyton</td>
+  	  </tr>
+  	  <tr>
+  	    <td><b>rb</b></td>
+  	    <td>Ruby</td>
+  	  </tr>
+  	  <tr>
+  	    <td><b>php, phtml, php3, php4, php5</b></td>
+  	    <td>PHP</td>
+  	  </tr>
+  	  <tr>
+  	    <td><b>html, html, xhtml, xml</b></td>
+  	    <td>Markup</td>
+  	  </tr>
+  	  <tr>
+  	    <td><b>c, h, m, mm, pl, pm</b></td>
+  	    <td>CLike</td>
+  	  </tr>
+  	</tbody>
+  </table>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	There is no language auto-detection in the diff dialog.&nbsp; The detection is based
+    	on file extension.
+    </div>
+  </div>
+
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+  <div>
+    This feature will only display properly on browsers supported by Atlassian
+	for specific versions of JIRA:<br>
+  
+  <ul class="slinebul" style="margin: 4px 0 0 22px;">
+  	<li>
+	<a href="https://confluence.atlassian.com/display/JIRA051/Supported+Platforms">JIRA
+	5.x supported platforms <span class="image012 pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></a></li>
+  	<li>
+	<a href="https://confluence.atlassian.com/display/JIRA/Supported+Platforms">
+	JIRA 6.x supported platforms <span class="image012 pimg-ul"><img src="docimgs/gpicons.png" alt=""></span></a></li>
+  </ul>
+  </div>
+  </div>
+    
+  <h2><a name="gitctrlvwr_projtab">The Projects Tab</a></h2>
+  <p>The <i> <b>Projects</b></i> tab allows you to manage project related options.</p>
+  <h3><a name="gitctrlvwr_projtab_allver"><u>All Versions</u></a></h3>
+  <p>History of commits can also be viewed within the whole project scope.
+    To do this, select a project then click the <b><i>Git Commits</i></b> tab.
+    The format of commits is similar to that on the ticket page.</p>
+  <img border="0" src="docimgs/image020.png" width="625px">
+
+  <div id="imbox" class="bxtip" style="margin-top: 25px;">
+    <span class="tips ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      To view commit code diff information, click the <b>View full commit</b> button to the right of the commit message.<br>
+      <p style="margin-bottom: -1px;"> To view code diff information of the particular file, click the filename for
+        each file adjacent to the rollup counter markers.</p>
+      <p style="margin-bottom: -1px;"> Click on the <b><i>issue name</i></b> of the commit to open it with the
+        <b>Repository Browser</b>. Related commits for that issue name are displayed.</p>
+      <p style="margin-bottom: -1px;"> Click on a <b><i>GUID name</i></b> to open it with the <b>Repository
+        Browser</b>. Related issues and commits for that GUID are displayed.</p>
+    </div>
+  </div>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+     <div id="wraps">
+    	The <i><b>Git Commits</b></i> tab displays a notification when no
+        commits are present.
+     </div>
+  </div>
+
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+     <div>
+    	If <b>Repository Browser</b> setting is disabled for that project, the user will
+        not be able to view files for commit from any repositories associated with that project.
+     </div>
+  </div>
+
+  <h3><a name="gitctrlvwr_projtab_selver"><u>Commits for Select Version</u></a></h3>
+  <p style="margin-left:0.25in; margin-top: 24px;"> <img border="0" src="docimgs/image021.png" width="624" height="76"> </p>
+  <p>Commits can also be limited using a particular revision. Revision and commits 
+    are connected using the logic below:</p>
+  <ol class="ordlst">
+    <li> All tickets linked with particular revision are selected <i>(using both 
+      &#39;fix version&#39; and &#39;affects version&#39; fields).</i> </li>
+    <li>Commits linked with these tickets are fetched.</li>
+  </ol>
+
+  <h2><a name="gitctrlvwr_codervw_devpanel">Code Review Developer Panel</a></h2>
+  <p>Git links are now available on the developer panel in the following screens:</p>
+  <ul class="bulst">
+    <li>Issue page</li>
+    <li>Search page in detailed view</li>
+    <li>JIRA Agile screen</li>
+  </ul>
+  <img class="imgfigs" src="docimgs/image050.png" width="289px" alt="[Git Source Code panel]">
+  <p>The <span style="color: #3B73AF"><u>236 commits</u></span> refers to an existing Git Commits
+    view, which the issue tab have now.&nbsp; Clicking this text link will reload the page
+    and automatically selects the <b>Git Commits</b> tab to view the commits.</p>
+  <p>The <span style="color: #3B73AF"><u>Roll Up</u></span> refers to an existing <b>Git Roll Up</b>
+    view, which the issue tab have now.&nbsp; Clicking this link will reload the page and
+    automatically selects the <b>Git Roll Up</b> tab to view the git code summary.</p>
+  <p>Click on the <span class="clonerepo pimg"><img src="docimgs/gpicons.png" alt="" /></span> <span style="color: #3B73AF"><u>Clone Repository</u></span> text link to open the Git Repository Connection
+  Information dialog.</p>
+  <p>This button is disabled, if there's no git pull request on the issue. If the <span class="btnface bfnil">Create Pull Request</span> option is available, clicking it will
+    open a Create Pull Request dialog.&nbsp; For more information on this feature, see section
+    - <a href="#gitctrlvwr_createpullrequests">Creating Pull Requests</a>.</p>
+  <p>The <b>Branches</b> section lists the branches names, linking the selected branch to view
+    via the Repository Browser.&nbsp; Only unmerged branches are shown here.</p>
+
+  <p>In <b>Issue</b> and <b>Search</b> pages, the code review panel is visible on the right pane:</p>
+  <img class="imgfigs" src="docimgs/image048.png" width="620px" alt="[Dev panel search and issue pages]">
+  <p>In JIRA Agile screen, click on an issue on the board grid.&nbsp; Scroll down on the right pane
+    to view the code review panel:</p>
+  <img class="imgfigs" src="docimgs/image049.png" width="620px" alt="[Dev panel agile jira scr]">
+  <p>The numbers <b>ahead</b> and <b>behind</b> represent the number of commits that are
+    ahead/behind the main branch:</p>
+  <ul class="bulst">
+    <li><b>Ahead</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;number of commits in the branch which
+      are not merged to the master.</li>
+    <li><b>Behind</b>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;number of commits in the master which
+      are not merged to the branch.</li>
+  </ul>
+  <p>Clicking on the branch text links will open that issue in the Repository Browser.&nbsp; If
+    Repository Browser is disabled for this repository, the text links will be inactive.</p>
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      The <b>Branches</b> section is only visible if commits from this branch are not merged
+      to <b><i>master</i></b>.&nbsp; It's also not displayed if the repository is
+      not associated with a project.
+    </div>
+  </div>
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      If the user does not have the <b>View Development Tools</b> <i>project permission</i>
+      for the project, the developer panel will be unavailable for that user.
+    </div>
+  </div>
+
+  <h2><a name="gitctrlvwr_createpullrequests">Creating Pull Requests</a></h2>
+  <p>This feature is accessible on the following locations:</p>
+  <ul class="slinebul topm">
+    <li>Issue page &gt; Git Code Review</li>
+    <li>Issue page &gt; Code Developer Panel</li>
+  </ul>
+  <p>As previously mentioned in the <a href="#gitctrlvwr_issue_gcv">The Issue Tab &gt; Git Code Review</a>
+  section, certain rules are required to be able to create a pull request:</p>
+  <ul class="bulst topm">
+    <li>The issue status must be in Pre Code Review or Code Review; or</li>
+    <li>The issue must be resolved; or</li>
+    <li>The issue must be resolved and the issue status must be in Pre Code Review or Code Review.</li>
+  </ul>
+  <p>Take note that your JIRA administrator can change this status in settings.&nbsp; Only JIRA
+    issues with commits associated will show the "Create Pull Request" button.</p>
+  <p>When this option is available, clicking it will open the Create Pull Request dialog.</p>
+  <img src="docimgs/create-pull-request-dlg.png" width="602px" alt="[Create pull request dialog]">
+  <p>You can select a <b>Repository</b> and <b>Associated JIRA issue</b>. BigBrassBand
+  recommends to leave them as is.</p>
+  <p>Select <b>Merge</b> branch and <b>Base</b> branch to use. Usually, <i><b>master</b></i>
+  is used as a Base branch.</p>
+  <p>Clicking <span class="btnface bfnil bfnorm">Preview</span> brings the user to the <b>Compare</b>
+    tab showing the commit diff between the selected branches. Then, clicking <span class="btnface bfdef">Create Pull
+    Request</span> on the <b>Compare</b> tab will now create the pull request.</p>
+  <p>On the other hand, clicking <span class="btnface bfdef">Create Pull Request</span> will create the pull
+    request and brings the user to the <b>Compare</b> &gt; <b>Summary</b> page:</p>
+  <img src="docimgs/create-pull-request-01.png" width="619px" alt="[Create pull request compare tab]">
+
+  <h3><a name="create_codereview_comments">Adding Code Review Comments </a></h3>
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+     <div id="wraps">
+     	 Code review comments can only be added within a pull request.
+     </div>
+  </div>
+  <p>This feature allows developers to add comments to the code of the selected <i><b>File</b></i> on
+    the <b>Compare</b> &gt; <b>Summary</b> page.</p>
+  <p>Scroll down to the <b>Files</b> section then click a file to open its diff code dialog.&nbsp; As
+    the mouse pointer is hovered on a line of code, a "plus" icon is shown to the left.</p>
+  <p>To add a code comment, click the "plus" icon for that line of code.</p>
+  <img class="imgfigs" src="docimgs/create-pull-request-02.png" width="505px" alt="[Add a code review]">
+  <p>In the <b>Comment</b> box, type the desired comment with topics related to the selected
+    line of code.&nbsp; The <b><i>New issue</i></b> option will let you automatically create a
+    new subtask, if enabled.</p>
+  <p>Click <span class="btnface bfnil bfnorm">Save comment</span> to save the changes.&nbsp; The new
+    comment is added below the selected line of code. Since the <b><i>New issue</i></b> option
+    was selected, a new subtask GIT-1397 is also added.</p>
+  <img class="imgfigs" src="docimgs/create-pull-request-03.png" width="424px" alt="[Add code comment w/subtask]">
+  <p>Other users can also respond to this comment by clicking this file and clicking
+    <span class="btnface bfnil bfnorm">Reply</span> to respond to this comment.&nbsp; The
+    commenter/reviewer has the option of creating a subtask via the code comment.</p>
+  <img class="imgfigs" src="docimgs/create-pull-request-06.png" width="505px" alt="[reply to code comment]">
+  <p>Open that new subtask in a new browser tab/window to view its content. As shown in the screenshot
+    below, GIT-979 main task now has a subtask called GIT-1397.</p>
+  <img src="docimgs/create-pull-request-04.png" width="635px" alt="[view new subtask]">
+  <p>The Pull Request link is now displayed in the right sidebar of the Issue page:</p>
+  <img class="imgfigs" src="docimgs/create-pull-request-05.png" width="230px" alt="[pull request right sidebar]">
+  <p>Clicking on the <span style="color: #447FCC"><u>Pull Request</u></span> link will open
+    the <b>Compare</b> &gt; <b>Summary</b> page for this pull request.&nbsp; With the pull
+    request still open, the user can see the different stats (commits, files changed, etc.) and
+    can add more code review comments or reply to the previous code comments.</p>
+  <p>Open the parent issue and check the <b>Git Code Review</b> tab for new updates on the pull request.</p>
+  <img src="docimgs/create-pull-request-07.png" width="618px" alt="[Issue git code review tab -
+    pull request update]">
+  <p>To close the pull request, click <span class="btnface bfdef">Close Pull Request</span>
+  on the <b>Compare</b> &gt; <b>Summary</b> page.</p>
+
+  <h2><a name="gitctrlvwr_reindexing">Reindexing</a></h2>
+  <div id="imbox" class="bxalert">
+    <span class="alertx ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+     <div id="wraps">
+     	 You must be a member of the <b>jira-developers</b> <i>group</i> to
+       start reindex.
+     </div>
+  </div>
+  <p>Synchronization between the repository and add-on will start automatically,
+    however, reindexing may be required to manually start the synchronization process.</p>
+  <p>There are two ways to do this:</p>
+  <ol class="ordlst">
+    <li> To start update of all repositories, go to the <b>Git Integration for JIRA</b> add-on <b><i>Git Repositories</i></b> tab then click <b><i>Reindex All</i></b> button. Once synchronization is started, the progress will be displayed on this
+      tab. </li>
+    <li> If a specific repository needs to be synchronized, click the <b> Action </b> <span class="image015 pimg"><img src="docimgs/gpicons.png" alt=""></span>&nbsp;
+      icon then <b>Reindex</b>. </li>
+  </ol>
+  <p>Click the view <span class="image017 pimg"><img src="docimgs/gpicons.png" alt=""></span>
+  icon to see the reindex progress of the selected repository.</p>
+
+  <p></p>
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	 For advanced administrators who want to have more control on reindex, see the
+   	    <a href="api-doc.html#reindex"><i>Git Integration for JIRA Reindex API</i></a>.
+    </div>
+  </div>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line3">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+        As of JIRA 6.3.10, Atlassian added the <b>Scheduler Administration</b> (<i>Administration</i>
+        &gt; <i>System</i> &gt; <i>Scheduler Details</i>) page.&nbsp; This page displays the
+        properties of the JIRA internal scheduler, the scheduled jobs and their triggers.
+    </div>
+  </div>
+
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+    	The Repository Reindex (<i>GitRevisionIndexerJob</i>) can be configured in the
+        <a href="#gitctrlvwr_gpcfg"><b>General Settings</b></a> page of the Git add-on.
+    </div>
+  </div>
+
+  <h3><a name="gitctrlvwr_lastidxrev"><u>Last Indexed Revision</u></a></h3>
+  <p>The add-on stores the ID of the last indexed commit
+    for each branch. This ID is used to limit the processed data upon reindex or
+    update. This way, only new commits will be indexed on the next synchronization.</p>
+  <p>Click the&nbsp;<b>Actions </b> <span class="image015 pimg"><img src="docimgs/gpicons.png" alt=""></span>&nbsp;
+    icon then <b>Reset</b> to
+    reset the <b> <i>Last</i> <i>Indexed</i></b> date. Perform this process whenever an
+    add-on is updated or re-installed.</p>
+
+  <h3><a name="gitctrlvwr_ridxupd"><u>Reindex and updatedDate Filter</u></a></h3>
+  <p>The Git Add-on automatically changes the <b>updatedDate</b> of an issue when a
+     Git commit is added to an issue upon reindex. When the reindex encounters a commit previously
+     modified by the user relating to an issue, that issue will be updated.
+  </p>
+  <p>You can enable or disable this setting in the <a href="#gitctrlvwr_gpcfg"><b>Git Add-on
+  General Settings</b></a> screen.</p>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+     <div id="wraps">
+     	 As of <b>v2.5.16</b>, the add-on updates the <b>"updatedDate"</b> field whenever a commit
+         is made.
+     </div>
+  </div>
+
+  <h2><a name="gitctrlvwr_jqlsrch">JQL Searching</a></h2>
+  <p>The Git Integration for JIRA add-on has added JQL operators and fields to query JIRA
+    using JQL and git context via the JIRA search.</p>
+  <p>The JIRA JQL has been extended as follows:</p>
+  <table id="vtable">
+    <thead>
+      <th>Criteria Name</th>
+      <th>JQL Field Syntax</th>
+      <th>Description</th>
+      <th>Search Result Value Example</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td width="90px">Git Commits Referenced</td>
+        <td><ul class="ul-tbl top0 bot0">
+              <li>gitCommitsReferenced is not empty</li>
+              <li>gitCommitsReferenced is empty</li>
+            </ul></td>
+        <td>
+            <ul class="ul-tbl top0 bot0">
+              <li>True for all issues referenced by a git commit</li>
+              <li>True for all issues not referenced by a git commit</li>
+            </ul>
+        </td>
+        <td>True or "" <i>(emtpy string)</i></td>
+      </tr>
+      <tr>
+        <td>Git Branch</td>
+        <td>gitBranch in (Version-5.2, Version-5.3)</td>
+        <td>True for all issues referenced by a git commit in branch Version-5.2 and branch
+        Version-5.3</td>
+        <td>Version-5.2, Version-5.3</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Examples:</p>
+  <ul>
+    <li>"gitBranch in (master) AND resolution = Unresolved"</li>
+    <li>"gitCommitsReferenced is not empty AND resolution = Unresolved"</li>
+  </ul>
+
+  <h2><a name="gitctrlvwr_webhook">Webhooks</a></h2>
+  <p>Trigger immediate reindex of your repositories from remote systems via webhooks.&nbsp; For
+    more information about this topic, see <a href="https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/web_hooks/web_hooks.md">
+    About GitLab Webhooks <span class="image012 pimg-ul"><img src="docimgs/gpicons.png" alt="newwin_icon12.png">
+    </span></a>.</p>
+  <p>Go to&nbsp; <b> <span class="image005 pimg"><img src="docimgs/gpicons.png" alt=""></span>
+    <i> Administration&nbsp; </i></b>&gt; <i><b>Add-ons</b></i>&nbsp; &gt;&nbsp;
+    <i>Git Integration Plugin for JIRA</i><b>&nbsp;&gt; Web Hooks</b>.</p>
+
+  <!-- for jira 7 -->
+  <div id="imbox" class="bxtip">
+    <span class="tips ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="">
+    </span>
+    <div>
+    	If using JIRA 7, go to <b>Administration&nbsp; </b>&gt;
+    	<b>Add-ons</b>. Select <b>Applications</b> on the page tab. Under
+      <i>Git Integration Plugin for JIRA</i> on the sidebar, select <b>Web Hooks</b>.
+    </div>
+  </div>
+
+  <img border=0 src="docimgs/image044.png" alt="Reindex web hook" width="621px">
+  <p>Enable/disable the webhook feature by clicking on the <b>Enable webhook</b> checkbox.</p>
+  <p>The <b>Secret Key</b> is a secure random-generated alphanumeric string at the time of the Git
+    add-on installation.&nbsp; The user can change this to a different value by generating
+    another secret token according to the Git host.&nbsp; Use this key in the form of
+    <code>&nbsp;&lt;JIRA_BASE_URL&gt;/git/webhook/reindex/<b>&lt;SECRET_KEY&gt;</b>&nbsp;</code>.</p>
+
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      All the repositories will be reindexed if the URL specified above is activated through
+      <code>&nbsp;<b>GET</b>&nbsp;</code>, <code>&nbsp;<b>POST</b>&nbsp;</code>, or
+      <code>&nbsp;<b>PUT</b>&nbsp;</code> and the webhooks are enabled.<br><br>
+      There will be no authentication checking and support for other HTTP methods such as
+      <code>&nbsp;<b>DELETE</b>&nbsp;</code> or <code>&nbsp;<b>HEAD</b>&nbsp;</code>.&nbsp; The
+      body of a <code>&nbsp;POST&nbsp;</code> or <code>&nbsp;PUT&nbsp;</code> is ignored.
+    </div>
+  </div>
+
+  <h2><a name="gitctrlvwr_clusteringsupport">JIRA High Availability and Clustering (Data Center compatibility)</a></h2>
+  <p>As of <b>v2.6.12</b> of the Git add-on, the Data Center version of JIRA is supported.&nbsp; JIRA
+    6.3 or higher is required for Data Center editions of JIRA.</p>
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      <b>Known issue (admins):</b> To provide access for both users for newly created tables,
+        configure default tables and sequences permissions as follows (where <i>jira1</i> &amp;
+        <i>jira2</i> are users):<br>
+        <div class="topt">
+          <code>ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON tables TO jira1;</code><br>
+          <code>ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON tables TO jira2;</code><br>
+          <code>ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON sequences TO jira1;</code><br>
+          <code>ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL PRIVILEGES ON sequences TO jira2;</code>
+        </div>
+    </div>
+  </div>
+  <p>The configured repositories and indexes are located on the shared resource, since the nodes does not
+    contain its own copy of the repositories.</p>
+  <p>The smart commits are processed by the reindex job which run once per cluster.&nbsp; The
+    node updates the index during the scheduled reindex job.</p>
+  <p>The GarbageCollection job should be run once on one node at the same time.</p>
+  <p>Indexing triggers:</p>
+    <ul class="bulst">
+      <li>Indexing is run on newly created repository on other nodes.</li>
+      <li>Entries from index will be removed on other nodes.</li>
+      <li>Reindex all repositories on other nodes when the reindex job is triggered.</li>
+    </ul>
+
+  <h2><a name="gitctrlvwr_lang">Localization</a></h2>
+  <p>Starting v2.6.25 of the Git add-on, unicode characters are now supported and displayed properly.</p>
+  <p>The following language localization for this add-on are available:</p>
+  <ul class="slinebul">
+    <li>German <i>(starting v2.5.7)</i></li>
+    <li>Polish <i>(starting v2.6.30)</i></li>
+    <li>French <i>(starting v2.6.31)</i></li>
+    <li>Russian <i>(starting v2.6.31)</i></li>
+    <li>Japanese <i>(starting v2.6.38)</i></li>
+  </ul>
+  <p>To switch to another language:</p>
+	<ol class="ordlst" style="margin-top: -5px;">
+	  <li>Go to your <b>User Profile</b>.</li>
+	  <li>Under <b>Preferences</b>, click the <span class="image038 pimg"><img src="docimgs/gpicons.png"
+	    alt="jira_edit_icon.png"></span> icon.</li>
+		<li>On the <b>Update User Preferences</b> screen, select one of the supported language
+      from the list.</li>
+		<li>Click <b>Update</b> to apply the new settings.</li>
+	</ol>
+
+  <h2><a name="gitctrlvwr_upgoldver">Upgrading from Old Versions of the Add-on</a></h2>
+  <div id="imbox" class="bxinfo">
+    <span class="infos ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+  	  If the Git add-on is already installed when upgrading JIRA, configured
+      repository settings remain intact.
+    </div>
+  </div>
+  <p>For Git add-on versions 1.0.3 and lower, you
+    need to perform the following steps:</p>
+  <ol class="ordlst">
+    <li> Remove any repositories from the add-on configuration. </li>
+    <li> Stop JIRA then remove old Git add-on from the JIRA plugin manager. </li>
+    <li> Start JIRA then remove the add-on's <b>Git Revision Indexing Service</b>. </li>
+    <li> Stop JIRA then remove old lucene indexes (<code>/var/jira/home/caches/indexes/plugins/jira-git-revisions</code>). </li>
+    <li> Install the updated add-on <i>(see</i> <a href="#gitctrlvwr_inst"><b>Installation</b></a> section for details) then restart JIRA.</li>
+    <li> Verify that the add-on is enabled.</li>
+    <li> Add repositories to the add-on configuration.</li>
+    <li> Verify that each JIRA ticket has <b> <i>Git Commits</i></b> and <i> <b>Git Code Review</b></i> tabs.</li>
+    <li> Verify that initial synchronization has completed.</li>
+  </ol>
+
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      Git log entries may not immediately appear when you open <i><b>Git Commits</b></i> or <b><i>Git
+      Code Review</i></b> tabs
+      right after the add-on installation.
+      You need to wait until the revision indexer job completes the initial synchronization.
+    </div>
+  </div>
+
+  <h2><a name="gitctrlvwr_terms">Terms</a></h2>
+  <h3><a name="terms_urepo"><i>Remote repository</i></a></h3>
+  <p style='margin-left:0.25in'>Remote repository is the central hosting used by 
+    your team for pushing commits and pulling updates.</p>
+  <h3><a name="terms_lrepo"><i>Local repository clone</i></a></h3>
+  <p style='margin-left:0.25in'>Clone of remote repository is located on the same 
+    server as your JIRA service. It is cached locally for performance reasons and 
+    queried everytime the list of git commits is displayed.</p>
+  <h3><a name="terms_lucidx"><i>Lucene indexes</i></a></h3>
+  <p style='margin-left:0.25in'>Lucene is an index service within your JIRA 
+    instance. It ships with JIRA and Git Integration for JIRA also makes use of it. 
+    The add-on keeps a separate index stored in 
+    '<code>home/caches/indexes/plugins/jira-git-revisions</code>'.</p>
+  <p style='margin-left:0.25in'> This database stores information about all commits <i> (comment, author, etc)</i> as well as the branch name which the commit belongs to. </p>
+  <h3><a name="terms_grij"><i>GitRevisionIndexerJob</i></a></h3>
+  <p style='margin-left:0.25in'>Revision indexer is the background job that is 
+    running within your JIRA instance. This background job is executed every several 
+    minutes <i>(delay is configurable in the JIRA services configuration screen)</i>.</p>
+  <p style='margin-left:0.25in'>For every configured repository, 
+    this process do the following:</p>
+  <ul style="margin-left: 0.25in;" class="bulst">
+    <li> Updates the local clone of repository </li>
+    <li> Updates the lucene indexes with commits added recently </li>
+  </ul>
+
+  <div id="imbox" class="bxnote">
+    <span class="notes ibx-fl line2">
+      <img src="docimgs/gpicons.png" alt="" />
+    </span>
+    <div>
+      Due to the async structure of the add-on,
+      commits that have been registered with index become visible after the revision
+      indexer job has been executed. To show commits immediately, you have to start
+      the reindex manually.
+    </div>
+  </div>
+
+  <h2><a name="atlicnote">Licensing Notice</a></h2>
+  <p>The <b>Git Integration for JIRA</b> add-on contains
+    some code that covers this license:</p>
+  <p>Copyright (c) 2013, Atlassian Pty Ltd<br>
+    All rights reserved.</p>
+  <p>Redistribution and use in source and binary forms, with or without<br>
+    modification, are permitted provided that the following conditions are met:</p>
+  <ul class="bulst">
+    <li> Redistributions of source code must retain the above copyright notice, <br>
+      this list of conditions and the following disclaimer.</li>
+    <li> Redistributions in binary form must reproduce the above copyright notice,<br>
+      this list of conditions and the following disclaimer in the documentation<br>
+      and/or other materials provided with the distribution.</li>
+  </ul>
+  <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+    IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+    INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+    BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
+    OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+    ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+  <p>&nbsp;</p>
+</div>
+
+<div class="clear" align="center"> <!-- for IE 8 and lower -->
+    <!--[if lte IE 8]>
+	    <hr style="margin-top: 12px; margin-bottom: 7px;">
+    <![endif]-->
+  <footer>
+  	<a href="about-us.html" title="About Us">About Us</a>
+  	<a href="contact-us.html" title="Contact Us">Contact Us</a>
+    <a href="support.html" title="Support">Support</a>
+    <a href="terms-of-use.html" title="Terms and Conditions">Terms and
+    Conditions</a>
+    <a href="privacy-policy.html" title="Privacy Policy">Privacy Policy</a>
+    <a href="/">2016 &copy; BigBrassBand LLC</a>
+  </footer>
+</div>
+
+<!--[if lte IE 8]>
+    <p style="margin-bottom: 10px;"> </p>
+<![endif]-->
+</body>
+</html>
