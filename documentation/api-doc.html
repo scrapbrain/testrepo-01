@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Git Integration Plugin for JIRA - API Reference</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The JIRA Git Plugin is an add-on for JIRA that combines Git repository data JIRA projects and issues." />
+	<meta name="keywords" content="git, jira, git for jira, jira git add-on, jira git plugin, jira git addon, jira git integration, git integration plugin" />
+
+	<!-- stylesheets -->
+	<link rel="stylesheet" type="text/css" href="css/compiled/theme.css">
+	<link rel="stylesheet" type="text/css" href="css/vendor/animate.css">
+	<link rel="stylesheet" type="text/css" href="css/vendor/8.0/default.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bbb/gpicons.css">
+  <link rel="stylesheet" type="text/css" href="css/bbb/api-doc.css">
+  <link rel="stylesheet" type="text/css" href="css/bbb/bbb-overrides.css">
+  <link rel="shortcut icon" href="favicon.ico" />
+
+	<!-- javascript -->
+	<script src="js/vendor/1.10.2/jquery.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/theme.js"></script>
+	<script src="js/vendor/8.0/highlight.min.js"></script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-42780569-1', 'bigbrassband.com');
+    ga('send', 'pageview');
+  </script>
+
+	<!--[if lt IE 9]>
+      <script src="js/vendor/html5.js"></script>
+    <![endif]-->
+</head>
+<body id="apis" data-spy="scroll" data-target="#guide">
+  <header class="navbar navbar-inverse navbar-fixed-top normal" role="banner">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+		      	<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+		      	</button>
+      			<a href="/" class="navbar-brand bbb">
+              <img class="pull-left image-responsive" src="images/bbb/bbb-logo.png" alt="">
+              <span class="b1">big</span><span class="b2">brass</span><span class="b3">band</span></a>
+    		</div>
+    		<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      			<ul class="nav navbar-nav navbar-right">
+      				<li class="dropdown">
+        				<a href="git-for-jira.html">
+          					Git for JIRA
+          				</a>
+        			</li>
+        			<li class="dropdown">
+        				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          					Support <b class="caret"></b>
+          			</a>
+          			<ul class="dropdown-menu">
+                  <li><a href="support.html">Support Home</a></li>
+                  <li><a target="_blank" href="documentation.html">Documentation</a></li>
+                  <li><a href="api-doc.html">Hook and API Reference</a></li>
+                  <li><a href="faqs.html">Frequently Asked Questions</a></li>
+                </ul> <!-- main dropdown menu -->
+        			</li>
+              <li class="dropdown">
+                <a target="_blank" class="signup" href="https://marketplace.atlassian.com/plugins/com.xiplink.jira.git.jira_git_plugin">
+                  Marketplace
+                </a>
+              </li>
+      			</ul>
+    		</nav>
+  		</div>
+	</header>
+
+	<div id="guide">
+		<h1 class="logo">
+			<a>Hooks &amp; APIs</a>
+		</h1>
+		<ul class="menu nav">
+      <li><a href="#cmhook">Commit-msg Hook</a></li>
+      <li><a href="#sshook">Server-Side Hook</a></li>
+      <li><a href="#webhooks">Web Hooks</a></li>
+      <li role="separator" class="nav-divider"></li>
+      <li>
+			  	<a href="#bulk">Post Bulk Change API</a>
+			  	<ul class="nav">
+			    	<li><a href="#export">Bulk Export Configuration</a></li>
+			    	<li><a href="#import">Bulk Import Configuration</a></li>
+			    	<li><a href="#infos">Getting Bulk Import Information</a></li>
+			  	</ul>
+			</li>
+      <li>
+			  	<a href="#reindex">Reindex REST API</a>
+			</li>
+			<li>
+			  	<a href="#commits">Commits REST API</a>
+          <ul class="nav">
+			    	<li><a href="#commits">Get Commits API</a></li>
+			    	<li><a href="#showFiles">showFiles Commits API</a></li>
+			  	</ul>
+			</li>
+      <li>
+			  	<a href="#branches">Get Branches REST API</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="api-docs">
+		<div id="methods">
+      <div class="method" id="cmhook">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Commit-msg Hook</h3>
+						<p>Every developer must have this hook on his local machine in order to:</p>
+            <ul>
+              <li>Commit codes locally several times then pushes it to the server.</li>
+              <li>Merge auto-commits with auto-messages without referencing to a JIRA ticket.</li>
+            </ul>
+            <p>The commit-msg hook is a python script file and it must be placed in the
+            developer's local repository as: <code>.git/hooks/commit-msg</code>.&nbsp;
+            There is no server-side hook required.</p>
+            <p>The following settings must be configured in the script file:</p>
+            <ul>
+              <li><b>JIRA_XMLRPC</b> -- path to JIRA.</li>
+              (Example: <code>https://jira.example.com/rpc/xmlrpc</code>)
+              <li><b>JIRA_USER</b>, <b>JIRA_PASSWORD</b> -- developer's credentials.</li>
+              <li><b>JIRA_TICKET_PATTERN</b> -- pattern that will search ticket references.</li>
+              (Example: <code>re.compile(r'\[(\w+7-\d+?)\]')</code>)
+            </ul>
+            <p>In Linux and OSX, this file must have executable permissions in the file
+            system; in Windows, setting this permission is not necessary.&nbsp; To use the
+            hook in Windows without python installed, see
+            <a href="https://docs.python.org/2/faq/windows.html#how-do-i-make-an-executable-from-a-python-script" target="_blank">
+            Python on Windows FAQ</a> <span class="image012 pimg-ul"><img src="docimgs/gpicons.png" alt=""></span>.</p>
+            <p>See the commit-msg hook code on the right panel or download the sample
+              <a href="docimgs/commit-msg.zip">commit-msg file</a>, make the necessary changes,
+              and place it in the required folder.</p>
+            <div id="imbox" class="bxinfo">
+              <span class="infos ibx-fl">
+                <img src="docimgs/gpicons.png" alt="">
+              </span>
+              <div id="wraps">
+                The <b>commit-msg</b> hook is a python script file that must be located in
+                the developer's local repository.
+              </div>
+            </div>
+          </div>
+          <div class="method-example">
+<pre style="margin-top: -25px;">
+<code class="python always-visible">#!/usr/bin/python
+#
+# This script is intended to be run as a commit-msg script in a GIT
+# repository and check the presence of JIRA ticket numbers in the log messages.
+#
+#    - NO_JIRA_TICKET_MESSAGE (an error message returned to the user when the
+#      svn commit message doesn't contain a jira ticket);
+#    - INVALID_JIRA_TICKET_MESSAGE (an error message returned to the user when
+#      the svn commit message contains an invalid jira ticket);
+#    - JIRA_XMLRPC (url of the JIRA XML-RPC server);
+#    - JIRA_USER (name of the JIRA user who has permission to look up issues in
+#      the JIRA server);
+#    - JIRA_PASSWORD (password of the JIRA user described above);
+
+import sys
+import re
+import xmlrpclib
+
+NO_JIRA_TICKET_MESSAGE = \
+'No JIRA ticket present in the commit message. \
+Please include the JIRA ticket enclosed in brackets: [ABC-789].'
+INVALID_JIRA_TICKET_MESSAGE = \
+'Proper JIRA ticket syntax was found, but none were valid tickets. \
+Please check the tickets and try again.'
+TOO_MANY_JIRA_TICKETS_MESSAGE = \
+'Only 1 JIRA ticket is allowed per commit. Please commit only 1 change at a time.'
+INVALID_ISSUE_TYPE_MESSAGE = \
+'You may not commit against subtasks or task-splits. \
+Please commit against the parent ticket.'
+
+JIRA_XMLRPC = 'https://jira.example.com/rpc/xmlrpc'
+JIRA_USER = 'user'
+JIRA_PASSWORD = 'password'
+JIRA_TICKET_PATTERN = re.compile(r'\[(\w+?-\d+?)\]')
+
+FAULT_MSG_ISSUE_NOT_FOUND = 'com.atlassian.jira.rpc.exception.RemotePermissionException'
+
+def check_message(message):
+    tickets = JIRA_TICKET_PATTERN.findall(message)
+
+    if not tickets:
+        return NO_JIRA_TICKET_MESSAGE
+
+    if len(tickets) > 1:
+        return TOO_MANY_JIRA_TICKETS_MESSAGE
+
+    ticket = tickets[0]
+
+    try:
+        issue = proxy.jira1.getIssue(auth, ticket)
+    except xmlrpclib.Fault, e:
+        if e.faultString.find(FAULT_MSG_ISSUE_NOT_FOUND) >= 0:
+            return INVALID_JIRA_TICKET_MESSAGE
+        else:
+            raise
+
+    # Check if issue is subtask or task-split
+    if issue['type'] == '8' or issue['type'] == '5':
+        return INVALID_ISSUE_TYPE_MESSAGE
+
+    return None
+
+proxy = xmlrpclib.ServerProxy(JIRA_XMLRPC)
+
+try:
+    auth = proxy.jira1.login(JIRA_USER, JIRA_PASSWORD)
+except:
+    print >> sys.stderr, 'Cannot connect to JIRA: ' + str(sys.exc_info()[1])
+    sys.exit(2)
+
+msg_file = open(sys.argv[1], 'r')
+msg = msg_file.read()
+
+err_msg = check_message(msg)
+
+if err_msg:
+    print >> sys.stderr, 'Error: %s\nCommit message:\n%s' % (err_msg, msg)
+    sys.exit(1)</code></pre>
+					</div>
+        </div>  <!-- methods -->
+      </div>
+
+      <div class="method" id="sshook">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Server-Side Hook</h3>
+            <p>In addition to the commit-msg hook, you can use server-side hooks to apply
+            policies for your project.&nbsp; The server runs these scripts before and after
+            the push.&nbsp; The server-side hook, like commit-msg hook, requires Python to
+            be installed.</p>
+            <p>In Linux and OSX, hook scripts must have executable permissions in the file system.</p>
+            <p>For information about the local hook that should be installed, see
+              <a href="http://git-scm.com/book/ch7-3.html" target="_blank" title="Customizing Git: Git Hooks">
+              Customizing Git – Hooks</a> <span class="image012 pimg-ul"><img src="docimgs/gpicons.png" alt=""></span>.&nbsp; For
+              further information about git hooks, see
+              <a href="http://githooks.com/" target="_blank">githooks.com</a>
+              <span class="image012 pimg-ul"><img src="docimgs/gpicons.png" alt=""></span>.</p>
+            <p>When the server handles the push from a client, the <b>pre-receive</b> script
+              is run first.&nbsp; When commits does not have proper JIRA issue tagging, an
+              error message from client to server is raised.</p>
+            <p>The <b>pre-receive</b> server-side hook requires git administrators to:</p>
+            <ol>
+              <li>Copy the <b>pre-receive</b> script file from the <code>hooks/</code> folder
+                in the git repository to the Git server repository <code>hooks/</code> folder.</li>
+              <li>Configure <b>JIRA_XMLRPC</b>, <b>JIRA_USER</b>, <b>JIRA_PASSWORD</b> and
+                <b>PROJECT_KEYS</b> in the pre-receive file.</li>
+            </ol>
+            <div id="imbox" class="bxinfo">
+              <span class="infos ibx-fl">
+                <img src="docimgs/gpicons.png" alt="">
+              </span>
+              <div>
+              	<div>The PROJECT_KEYS setting defines an array of project keys which is compared to a
+              	ticket key from the commit message.&nbsp; When JIRA is not available, the hook
+              	simply checks the commit message if it contains the string pattern satisfying
+              	its declared conditions.</div>
+              	<div style="margin-top: 8px;">
+              		<b>Pattern example:</b><br>
+            		    <code>(PROJECT_KEY1|PROJECT_KEY2|...)-\d+</code>
+              	</div>
+              </div>
+            </div>
+            <div id="imbox" class="bxnote">
+              <span class="notes ibx-fl">
+                <img src="docimgs/gpicons.png" alt="">
+              </span>
+              <div>
+                The PROJECT_KEYS variable is only used when JIRA is not available, otherwise, this
+              	setting in the <b>pre-receive</b> file is ignored. The hook will not perform
+              	any checks if the PROJECT_KEY array is empty and JIRA is not available.
+              </div>
+            </div>
+            <p>See the server-side hook script on the right panel or download the sample
+            <a href="docimgs/pre-receive.zip">pre-receive file</a> – make the necessary
+            changes, and place it in the required folder.</p>
+            <div id="imbox" class="bxalert">
+              <span class="alertx ibx-fl">
+                <img src="docimgs/gpicons.png" alt="">
+              </span>
+              <div id="wraps">
+                The server-side hook script enforces users to include correct JIRA tags.
+              </div>
+            </div>
+          </div>
+          <div class="method-example">
+<pre style="margin-top: -28px;">
+<code class="ruby always-visible">#!/usr/bin/python
+import sys
+import os
+import xmlrpclib
+import subprocess
+import sys
+import re
+
+JIRA_XMLRPC = 'https://jira.example.com/rpc/xmlrpc'
+JIRA_USER = 'user'
+JIRA_PASSWORD = 'password'
+
+PROJECT_KEYS = ['EXAMPLE', 'EXAMPLE']
+
+NO_JIRA_TICKET_MESSAGE = \
+'No JIRA ticket present in the commit message. \
+Please include the JIRA ticket key.'
+INVALID_JIRA_TICKET_MESSAGE = \
+'Proper JIRA ticket syntax was found, but none were valid tickets. \
+Please check the tickets and try again.'
+INVALID_ISSUE_TYPE_MESSAGE = \
+'You may not commit against subtasks or task-splits. \
+Please commit against the parent ticket.'
+
+FAULT_MSG_ISSUE_NOT_FOUND = 'com.atlassian.jira.rpc.exception.RemotePermissionException'
+
+proxy = xmlrpclib.ServerProxy(JIRA_XMLRPC)
+
+def git(args, **kwargs):
+    environ = os.environ.copy()
+    if 'repo' in kwargs:
+        environ['GIT_DIR'] = kwargs['repo']
+    if 'work' in kwargs:
+        environ['GIT_WORK_TREE'] = kwargs['work']
+    proc = subprocess.Popen(args, stdout=subprocess.PIPE, env=environ)
+    return proc.communicate()
+
+def get_log(a, b, **kw):
+    entries = {}
+    (results, code) = git(('git', 'log', '--pretty=oneline', "%s..%s" % (a, b)), **kw)
+    lines = results.splitlines()
+    for line in lines:
+        (commit, msg)=line.split(' ', 1)
+        entries[commit] = msg
+
+    return entries
+
+def check_message(auth, message, ticket_re_pattern):
+    tickets = ticket_re_pattern.findall(message)
+
+    if not tickets:
+        return NO_JIRA_TICKET_MESSAGE
+
+    if auth == None:
+        return None
+
+    for ticket in tickets:
+        try:
+            issue = proxy.jira1.getIssue(auth, ticket)
+        except xmlrpclib.Fault, e:
+            if e.faultString.find(FAULT_MSG_ISSUE_NOT_FOUND) >= 0:
+                return INVALID_JIRA_TICKET_MESSAGE
+            else:
+                raise
+
+    # Check if issue is subtask or task-split
+    if issue['type'] == '8' or issue['type'] == '5':
+        return INVALID_ISSUE_TYPE_MESSAGE
+
+    return None
+
+def build_ticket_re(auth):
+    projects = proxy.jira1.getProjectsNoSchemes(auth)
+    return build_ticket_re_for_project_list(map(lambda project: project['key'], projects));
+
+def build_ticket_re_for_project_list(projects):
+    pattern_string = '\\b('
+    for idx, project in enumerate(projects):
+        if (idx>0):
+            pattern_string +='|'
+        pattern_string +=project
+        pattern_string +='-\d+?'
+
+    pattern_string +=')\\b';
+
+    return re.compile(pattern_string)
+
+def login():
+    try:
+        auth = proxy.jira1.login(JIRA_USER, JIRA_PASSWORD)
+    except:
+        print >> sys.stderr, 'Cannot connect to JIRA: ' + str(sys.exc_info()[1])
+        sys.exit(2)
+
+    return auth
+
+try:
+    auth = login()
+    isAuthenticated = True
+except:
+    isAuthenticated = False
+
+if isAuthenticated:
+    ticket_re_pattern = build_ticket_re(auth)
+else:
+    ticket_re_pattern = build_ticket_re_for_project_list(PROJECT_KEYS);
+
+repo = os.getcwd()
+basedir = os.path.join(repo, "..")
+
+line = sys.stdin.read()
+(base, commit, ref) = line.strip().split()
+commits = get_log(base, commit)
+
+for c, msg in commits.iteritems():
+    err_msg = check_message(auth if isAuthenticated else None, msg, ticket_re_pattern)
+
+    if err_msg:
+        print >> sys.stderr, 'Error: %s\nCommit message:\n%s' % (err_msg, msg)
+        print >> sys.stderr, 'Install pre-commit hook (https://bigbrassband.com/api-doc.html#cmhook) to run this check at the commit time'
+        sys.exit(1)</code></pre>
+  				</div>
+        </div>
+      </div>
+
+      <div class="method" id="webhooks">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Webhooks</h3>
+            <p>Trigger immediate reindex of your repositories from remote systems via webhooks.&nbsp; For
+              more information about this topic, see <a href="https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/web_hooks/web_hooks.md">
+              About GitLab Webhooks <span class="image012 pimg-ul"><img src="docimgs/gpicons.png" alt="newwin_icon12.png">
+              </span></a>.</p>
+            <p>Go to&nbsp; <b> <span class="image005 pimg"><img src="docimgs/gpicons.png" alt=""></span>
+              <i> Administration&nbsp; </i></b>&gt; <i><b>Add-ons</b></i>&nbsp; &gt;&nbsp;
+              <span class="image024 pimg"><img src="docimgs/gpicons.png" alt=""></span> <i>Git
+              Integration Plugin for JIRA</i><b>&nbsp;&gt; Web Hooks</b>.</p>
+
+            <!-- for jira 7 -->
+            <div id="imbox" class="bxtip">
+              <span class="tips ibx-fl line2">
+                <img src="docimgs/gpicons.png" alt="">
+              </span>
+              <div>
+              	If using JIRA 7, go to <b>Administration&nbsp; </b>&gt;
+              	<b>Add-ons</b>. Select <b>Applications</b> on the page tab. Under
+                <span class="image024 pimg"><img src="docimgs/gpicons.png" alt=""></span>
+                <i>Git Integration Plugin for JIRA</i> on the sidebar, select <b>Web Hooks</b>.
+              </div>
+            </div>
+            <!--
+            <img border=0 src="docimgs/image044.png" alt="Reindex web hook" width="385px"> -->
+            <p>Enable/disable the webhook feature by clicking on the <b>Enable webhook</b> checkbox.</p>
+            <p>The <b>Secret Key</b> is a secure random-generated alphanumeric string at the
+              time of the Git add-on installation.&nbsp; The user can change this to a
+              different value by generating another secret token according to your Git
+              host. &nbsp; Use this key in the form of <code>&nbsp;&lt;JIRA_BASE_URL&gt;/git/webhook/reindex/<b>&lt;SECRET_KEY&gt;</b>&nbsp;</code>.</p>
+
+            <div id="imbox" class="bxinfo">
+              <span class="infos ibx-fl">
+                <img src="docimgs/gpicons.png" alt="" />
+              </span>
+              <div>
+                All the repositories will be reindexed if the URL specified above is activated through
+                <code>&nbsp;<b>GET</b>&nbsp;</code>, <code>&nbsp;<b>POST</b>&nbsp;</code>, or
+                <code>&nbsp;<b>PUT</b>&nbsp;</code> and the webhooks are enabled.<br><br>
+                There will be no authentication checking and support for other HTTP methods such as
+                <code>&nbsp;<b>DELETE</b>&nbsp;</code> or <code>&nbsp;<b>HEAD</b>&nbsp;</code>.&nbsp; The
+                body of a <code>&nbsp;POST&nbsp;</code> or <code>&nbsp;PUT&nbsp;</code> is ignored.
+              </div>
+            </div>
+					</div>
+					<div class="method-example">
+<pre style="margin-top: 5px;">
+<code class="ruby always-visible">
+
+&lt;JIRA_BASE_URL&gt;/git/webhook/reindex/&lt;SECRET_KEY&gt;
+</code></pre>
+					</div>
+				</div>
+			</div>
+
+      <div class="method" id="bulk">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Post Bulk Change API</h3>
+						<p>
+              The post bulk change API extends the possibility of importing and exporting
+              repository configuration by automating the process via scripts.</p>
+            <p>To use the API, users must:</p>
+            <ul>
+              <li>install the <a href="http://docs.python-requests.org/en/latest/user/install/#install" target="_blank">Requests</a> Python package.</li>
+              <li>declare <code>JIRA_BASE</code>, <code>JIRA_USER</code>, and
+                <code>JIRA_PASSWORD</code> in the <code>configuration_conf.py</code>
+                file.&nbsp; The <code>JIRA_USER</code> defined in this file must have JIRA
+                Admin global permissions.<i>(Download <a href="docimgs/configuration_conf.zip" target="_self">sample file</a> as a zip file.)</i></li>
+            </ul>
+            <div id="imbox" class="bxnote">
+              <span class="notes ibx-fl">
+                <img src="docimgs/gpicons.png" alt="">
+              </span>
+              <div>
+                <u>HTTP Status code response:</u>
+                <ul id="export">
+                  <li><b>200</b>&nbsp;&nbsp;–&nbsp;&nbsp;success</li>
+                  <li><b>401</b>&nbsp;&nbsp;–&nbsp;&nbsp;user is unauthorized</li>
+                  <li><b>403</b>&nbsp;&nbsp;–&nbsp;&nbsp;lack of privileges <i>(The user doesn't have JIRA Admin global permission)</i></li>
+                </ul>
+              </div>
+            </div>
+
+            <table class="pbc-table">
+            <thead>
+              <th>Bulk Export Configuration</th>
+            </thead>
+            <tbody>
+              <tr class="itemhdr">
+                <td>url</td>
+              </tr>
+              <tr>
+                <td><code>/rest/gitplugin/1.0/configuration</code><br><br>
+                The API returns a file with the plugin configuration.</td>
+              </tr>
+              <tr class="itemhdr">
+                <td>method</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+              </tr>
+              <tr class="itemhdr">
+                <td>parameters</td>
+              </tr>
+              <tr>
+                <td><i>None</i></td>
+              </tr>
+              <tr class="itemhdr">
+                <td>response</td>
+              </tr>
+              <tr>
+                <td>Generates a tab-separated values (.tsv) file.</td>
+              </tr>
+              <tr class="dlhdr">
+                <td>Download sample file</td>
+              </tr>
+              <tr>
+                <td><a href="docimgs/configuration_get.zip">configuration_get.py</a></td>
+              </tr>
+            </tbody>
+          </table>
+					</div>
+					<div class="method-example">
+<pre style="margin-top: 5px;">
+<code class="ruby always-visible">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Usage:
+user@home:~$ python configuration_get.py > conf.tsv
+</code></pre>
+					</div>
+				</div>
+			</div> <!-- post bulk api title -->
+
+      <div class="method" id="import">
+				<div class="method-section clearfix">
+					<div class="method-description api-sub">
+            <table class="pbc-table">
+              <thead>
+                <th>Bulk Import Configuration</th>
+              </thead>
+              <tbody>
+                <tr class="itemhdr">
+                  <td>url</td>
+                </tr>
+                <tr>
+                  <td><code>/rest/gitplugin/1.0/configuration.json</code><br><br>
+                  Starts the process of importing configuration and returns the result at once.</td>
+                </tr>
+                <tr class="itemhdr">
+                  <td>method</td>
+                </tr>
+                <tr>
+                  <td>POST</td>
+                </tr>
+                <tr class="itemhdr">
+                  <td>parameters</td>
+                </tr>
+                <tr>
+                  <td><code>file</code><br>
+                  Input the path to the tab-separated values (.TSV) file.</td>
+                </tr>
+                <tr>
+                  <td><code>confirmed-delete[ ]</code><br>
+                  <b><i>Optional</i></b>.&nbsp; Accepts multiple repository IDs confirmed for
+                    deletion.&nbsp; Input one or more repositories to delete, separated by commas.<br><br>
+                    <i>Repositories won't be deleted if it's not in this list.</i></td>
+                </tr>
+                <tr class="itemhdr">
+                  <td>response</td>
+                </tr>
+                <tr>
+                  <td><i>JSON</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  Returns the ID of the importing thread.</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div id="imbox" class="bxalert" style="margin-top: 5px;">
+                      <span class="alertx ibx-fl line2">
+                        <img src="docimgs/gpicons.png" alt="">
+                      </span>
+                      <div id="wraps">
+                        The Git Add-on will ignore fields with blank entries.
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="dlhdr">
+                  <td>Download sample file</td>
+                </tr>
+                <tr>
+                  <td><a href="docimgs/configuration_post.zip">configuration_post.py</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div> <!-- method desc -->
+          <div class="method-example">
+<pre style="margin-top: 5px;">
+<code class="ruby always-visible">
+
+Example:
+http://jira.example.org/rest/gitplugin/1.0/configuration.json
+
+
+
+
+Response example:
+{
+  "success":false,
+  "threadId":142
+}
+
+
+
+
+Usage:
+<span class="ulinedsh">Importing configuration from conf.tsv file:</span>
+
+user@home:~$ python configuration_post.py conf.tsv
+{"success":false,"reposToDelete":[{"id":14,"description":"test-repo"},
+{"id":15,"description":"test-repo"}]}
+
+<span class="ulinedsh">Importing configuration from conf.tsv file with confirm delete:</span>
+
+user@home:~$ python configuration_post.py conf.tsv 14,15
+{"success":false,"threadId":1058}</code></pre>
+					</div>
+				</div>
+			</div> <!-- method example -->
+
+      <div class="method" id="infos">
+				<div class="method-section clearfix">
+					<div class="method-description api-sub">
+            <table class="pbc-table">
+              <thead>
+                <th>Getting Bulk Import Information</th>
+              </thead>
+              <tbody>
+                <tr class="itemhdr">
+                  <td>url</td>
+                </tr>
+                <tr>
+                  <td><code>/rest/gitplugin/1.0/configuration/progress.json</code><br><br>
+                  Obtains information about the importing thread.&nbsp; Use the following
+                  path format to access bulk import information.</td>
+                </tr>
+                <tr class="itemhdr">
+                  <td>method</td>
+                </tr>
+                <tr>
+                  <td>GET</td>
+                </tr>
+                <tr class="itemhdr">
+                  <td>parameters</td>
+                </tr>
+                <tr>
+                  <td><code>thread_id</code><br>
+                   	<i><b>Required</b></i>.&nbsp; Input a thread ID to access information
+                    about the specific thread process.</td>
+                </tr>
+                <tr class="itemhdr">
+                  <td>response</td>
+                </tr>
+                <tr>
+                  <td><i>JSON</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  Returns the status information of the import process.</td>
+                </tr>
+                <tr class="dlhdr">
+                  <td>Download sample file</td>
+                </tr>
+                <tr>
+                  <td><a href="docimgs/configuration_progress.zip">configuration_progress.py</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div> <!-- method desc -->
+          <div class="method-example">
+<pre style="margin-top: 5px;">
+<code class="ruby always-visible">
+
+Example:
+http://jira.example.org/rest/gitplugin/1.0/configuration/progress.json?thread_id=123
+
+
+Response example:
+{
+  "success":false,
+  "finished":true,
+  "progressEntries":[{
+    "prcntDouble":0.0,
+    "prcntInteger":0,
+    "error":false,
+    "message":"Creating repository git@github.com:user/test-repo.git"
+   },{
+    "error":true,
+    "message": "java.lang.NullPointerException"
+   },{
+    "prcntDouble":100.0,
+    "prcntInteger":1042,
+    "error":false,
+    "message":"Resolving deltas"
+   }
+  ]
+}
+
+
+Usage:
+user@home:~$ python configuration_progress.py 1058
+{"success":false,"finished":true,"progressEntries":[{
+...</code></pre>
+					</div>
+				</div>
+			</div> <!-- method example -->
+
+			<div class="method" id="reindex">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Reindex REST API</h3>
+						<p>
+							Call the Reindex REST API to have more control on indexing:
+						</p>
+
+            <table class="pbc-table">
+            <thead>
+              <th colspan="2">Reindex API</th>
+            </thead>
+            <tbody>
+              <tr class="itemhdr">
+                <td>url</td>
+              </tr>
+              <tr>
+                <td><code>/rest/gitplugin/1.0/index.json</code><br><br>
+                Starts the reindex process
+                in a separate thread and returns the result immediately.</td>
+              </tr>
+              <tr class="itemhdr">
+                <td>method</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+              </tr>
+              <tr class="itemhdr">
+                <td>parameters</td>
+              </tr>
+              <tr>
+                <td><code>repoId</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Repository ID (long)</td>
+              </tr>
+              <tr  class="uline">
+                <td>
+                  <i><b>Optional</b></i>.&nbsp; If not specified, all repositories will be indexed.
+                </td>
+              </tr>
+              <tr>
+                <td><code>threadId</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID of thread to track (long)</td>
+              </tr>
+              <tr>
+                <td>
+                  <b><i>Optional.</i></b>&nbsp; Use to track messages for particular
+                  thread. &nbsp;This parameter is not required to start reindex.</td>
+              </tr>
+              <tr>
+                <td><i>Repositories won't be deleted if it's not in this list.</i></td>
+              </tr>
+              <tr class="itemhdr">
+                <td colspan="2">response</td>
+              </tr>
+              <tr>
+                <td>JSON</td>
+              </tr>
+              <tr>
+                <td>Returns the status of the reindex process.</td>
+              </tr>
+            </tbody>
+          </table>
+					</div>
+					<div class="method-example">
+<pre style="margin-top: 5px;">
+<code class="ruby always-visible">
+
+
+
+
+
+Example:
+http://andrl:2990/jira/rest/gitplugin/1.0/index.json
+
+
+
+
+
+
+
+
+
+Response:
+{
+  "success":true,
+  "finished":true,
+  "threadId":172,
+  "messages": {
+    "Indexing test-repo":100.0
+    },
+  "errors": {},
+  "lastOperationPercent":100.0
+}</code>
+</pre>
+					</div>
+				</div>
+			</div>
+			<div class="method" id="commits">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Commits REST APIs</h3>
+						<p>
+							Call the Get Commits API to obtain commit information associated with an issue.
+						</p>
+            <table class="pbc-table">
+              <thead>
+                <th>Get Commits REST API</th>
+              </thead>
+              <tbody>
+                <tr class="itemhdr">
+                  <td>url</td>
+                </tr>
+                <tr>
+                  <td><code>/rest/gitplugin/1.0/issues/{issueKey}/commits</code></td>
+                </tr>
+                <tr class="itemhdr">
+                  <td>method</td>
+                </tr>
+                <tr>
+                  <td>GET</td>
+                </tr>
+                <tr class="itemhdr">
+                  <td>parameters</td>
+                </tr>
+                <tr>
+                  <td><code>issuekey</code></td>
+                </tr>
+                <tr>
+                  <td><b><i>Required</i></b>.&nbsp; Jira issue key<br><b>Example:</b>&nbsp;&nbsp;TST-234</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="method-example">
+<pre style="margin-top: -50px;">
+<code class="ruby always-visible">
+Example:
+http://jira.yourorg.com/rest/gitplugin/1.0/issues/TST-234/commits
+
+Returns the following example result:
+
+{
+  "commits":[
+    {
+    "author": "msmith <mark@bigbrassband.com>",
+    "commitId": "34efa20372f0e2f0c9b705aacc57d7ad82e01426",
+    "date": "2015-05-18T10:52:54.000+0000",
+    "message": "TST-234 Update link in documentation"
+    "notes": {
+        "refs/notes/commits": "TST-1 fixed also"
+      },
+    },
+    {
+    "author": "msmith <mark@bigbrassband.com>",
+    "commitId": "52696c2d963be8986c7a2444b6473ea785632dce",
+    "date": "2015-05-18T17:41:58.000+0000",
+    "message": "TST-234 Remove libtiff dependency"
+    }
+  ]
+}</code></pre>
+					</div>
+				</div>
+			</div>  <!-- method child -->
+
+      <div class="method" id="showFiles">
+				<div class="method-section clearfix">
+					<div class="method-description">
+            <p>
+							Extend the Commits API to review which files changed related to a
+              specific JIRA issue by adding <code>?showfiles=[true|false]</code> as an optional parameter.
+						</p>
+            <table class="pbc-table">
+              <thead>
+                <th>showFiles Commits REST API</th>
+              </thead>
+              <tbody>
+                <tr class="itemhdr">
+                  <td>url</td>
+                </tr>
+                <tr>
+                  <td><code>/rest/gitplugin/1.0/issues/{issueKey}/commits{?showFiles=[true|false]}</code></td>
+                </tr>
+                <tr class="itemhdr">
+                  <td>method</td>
+                </tr>
+                <tr>
+                  <td>GET</td>
+                </tr>
+                <tr class="itemhdr">
+                  <td>parameters</td>
+                </tr>
+                <tr>
+                  <td><code>issuekey</code></td>
+                </tr>
+                <tr>
+                  <td><b><i>Required</i></b>.&nbsp; Jira issue key<br><b>Example:</b>&nbsp;&nbsp;TST-123</td>
+                </tr>
+              </tbody>
+            </table>
+					</div>
+					<div class="method-example">
+<pre style="margin-top: -50px;">
+<code class="ruby always-visible">
+Usage:
+http://jira.yourorg.com/jira/rest/gitplugin/1.0/issues/TST-123/commits?showFiles=true
+
+Returns the following example result, if showFiles=true:
+
+{
+  "commits": [
+    {
+      "author": "msmith <mark@bigbrassband.com>",
+      "commitId": "257b4a8490270014922f3b821d61c86e76166dd9",
+      "date": "2015-12-07 10:54:56 +0600",
+      "message": "message with TST-123",
+      "notes": {
+        "refs/notes/commits": "TST-1 fixed also"
+      },
+      "files": [
+        {
+          "path": "testFile2.txt",
+          "linesAdded": 1,
+          "linesChanged": 0,
+          "linesDeleted": 0,
+          "added": true,
+          "deleted": false,
+        }
+      ]
+    }
+  ]
+}</code></pre>
+					</div>
+				</div>
+			</div>  <!-- method child -->
+
+      <div class="method" id="branches">
+				<div class="method-section clearfix">
+					<div class="method-description">
+						<h3>Get Branches REST API</h3>
+						<p>
+							Uses the branches associated to a ticket.
+						</p>
+            <table class="pbc-table">
+              <thead>
+                <th>Get Branches REST API</th>
+              </thead>
+              <tbody>
+                <tr class="itemhdr">
+                  <td>url</td>
+                </tr>
+                <tr>
+                  <td>rest/gitplugin/1.0/issues/branches?key={issuekey}</td>
+                </tr>
+                <tr class="itemhdr">
+                  <td>method</td>
+                </tr>
+                <tr>
+                  <td>GET</td>
+                </tr>
+                <tr class="itemhdr">
+                  <td>parameters</td>
+                </tr>
+                <tr>
+                  <td><code>key</code></td>
+                </tr>
+                <tr>
+                  <td><b><i>Optional</i></b>.&nbsp; Jira issue key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Example: "TST-435"</td>
+                </tr>
+                <tr class="itemhdr">
+                  <td>result</td>
+                </tr>
+                <tr>
+                  <td>If <i>optional query</i> is not defined, it will return all indexed git branches.</td>
+                </tr>
+              </tbody>
+            </table>
+
+					</div>
+					<div class="method-example">
+<pre style="margin-top: -50px;">
+<code class="ruby always-visible">
+
+
+
+
+
+
+
+
+
+
+Example: http://jira.yourorg.com/rest/gitplugin/1.0/issues/branches?key="TST-435"
+
+
+
+
+
+
+Result:
+{
+    "success":true,
+    "branches":["master","release","TST-435"]
+}</code></pre>
+					</div>
+				</div>
+			</div>  <!-- get branches -->
+
+		</div>
+    <div id="footer2">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-9 menu">
+            <ul>
+       				<li><a href="about-us.html">About Us</a></li>
+         			<li><a href="contact-us.html">Contact Us</a></li>
+         			<li><a href="support.html">Support</a></li>
+         			<li><a href="terms-of-use.html">Terms of Use</a></li>
+         			<li><a href="privacy-policy.html">Privacy Policy</a></li>
+      			</ul>
+          </div>
+          <div class="col-sm-3 copyright">
+             <a href="/">2016 &copy; BigBrassBand LLC</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	</div>  <!-- apidocs -->
+
+	<script type="text/javascript">
+		$(function () {
+			hljs.configure({
+			  tabReplace: '  ',
+			  classPrefix: ''
+			})
+			hljs.initHighlightingOnLoad();
+
+
+			// language toggle
+			var $languages = $(".languages .language");
+			$languages.click(function (e) {
+				e.preventDefault();
+				var lang = $(this).data("lang");
+				$languages.removeClass("selected");
+				$(this).addClass("selected");
+
+				$("pre code").hide();
+				$("pre code." + lang).css("display", "block");
+			});
+		});
+	</script>
+
+  <script type='text/javascript'>var fc_CSS=document.createElement('link');fc_CSS.setAttribute('rel','stylesheet');var isSecured = (window.location && window.location.protocol == 'https:');var rtlSuffix = ((document.getElementsByTagName('html')[0].getAttribute('lang')) === 'ar') ? '-rtl' : '';fc_CSS.setAttribute('type','text/css');fc_CSS.setAttribute('href',((isSecured)? 'https://d36mpcpuzc4ztk.cloudfront.net':'http://assets1.chat.freshdesk.com')+'/css/visitor'+rtlSuffix+'.css');document.getElementsByTagName('head')[0].appendChild(fc_CSS);var fc_JS=document.createElement('script'); fc_JS.type='text/javascript';fc_JS.src=((isSecured)?'https://d36mpcpuzc4ztk.cloudfront.net':'http://assets.chat.freshdesk.com')+'/js/visitor.js';(document.body?document.body:document.getElementsByTagName('head')[0]).appendChild(fc_JS);window.freshchat_setting= 'eyJ3aWRnZXRfc2l0ZV91cmwiOiJiaWdicmFzc2JhbmQuZnJlc2hkZXNrLmNvbSIsInByb2R1Y3RfaWQiOm51bGwsIm5hbWUiOiJCaWdCcmFzc0JhbmQiLCJ3aWRnZXRfZXh0ZXJuYWxfaWQiOm51bGwsIndpZGdldF9pZCI6IjVmZjJhZDNhLTgyNGItNDE1Ny1hYmE5LTEzNjY5Mzg2MDI3OSIsInNob3dfb25fcG9ydGFsIjp0cnVlLCJwb3J0YWxfbG9naW5fcmVxdWlyZWQiOmZhbHNlLCJpZCI6MTAwMDAwNTc3MSwibWFpbl93aWRnZXQiOnRydWUsImZjX2lkIjoiMTc0OTcyOWQ4NTc1YTE2YTNjMTRlNTA1YmE1NGFkZjkiLCJzaG93IjoxLCJyZXF1aXJlZCI6MiwiaGVscGRlc2tuYW1lIjoiQmlnQnJhc3NCYW5kIiwibmFtZV9sYWJlbCI6Ik5hbWUiLCJtYWlsX2xhYmVsIjoiRW1haWwiLCJtZXNzYWdlX2xhYmVsIjoiTWVzc2FnZSIsInBob25lX2xhYmVsIjoiUGhvbmUgTnVtYmVyIiwidGV4dGZpZWxkX2xhYmVsIjoiVGV4dGZpZWxkIiwiZHJvcGRvd25fbGFiZWwiOiJEcm9wZG93biIsIndlYnVybCI6ImJpZ2JyYXNzYmFuZC5mcmVzaGRlc2suY29tIiwibm9kZXVybCI6ImNoYXQuZnJlc2hkZXNrLmNvbSIsImRlYnVnIjoxLCJtZSI6Ik1lIiwiZXhwaXJ5IjoxNDM3NDk0OTkzMDAwLCJlbnZpcm9ubWVudCI6InByb2R1Y3Rpb24iLCJkZWZhdWx0X3dpbmRvd19vZmZzZXQiOjMwLCJkZWZhdWx0X21heGltaXplZF90aXRsZSI6IkNoYXQgaW4gcHJvZ3Jlc3MiLCJkZWZhdWx0X21pbmltaXplZF90aXRsZSI6IkxldCdzIHRhbGshIiwiZGVmYXVsdF90ZXh0X3BsYWNlIjoiWW91ciBNZXNzYWdlIiwiZGVmYXVsdF9jb25uZWN0aW5nX21zZyI6IldhaXRpbmcgZm9yIGFuIGFnZW50IiwiZGVmYXVsdF93ZWxjb21lX21lc3NhZ2UiOiJIaSEgSG93IGNhbiB3ZSBoZWxwIHlvdSB0b2RheT8iLCJkZWZhdWx0X3dhaXRfbWVzc2FnZSI6Ik9uZSBvZiB1cyB3aWxsIGJlIHdpdGggeW91IHJpZ2h0IGF3YXksIHBsZWFzZSB3YWl0LiIsImRlZmF1bHRfYWdlbnRfam9pbmVkX21zZyI6Int7YWdlbnRfbmFtZX19IGhhcyBqb2luZWQgdGhlIGNoYXQiLCJkZWZhdWx0X2FnZW50X2xlZnRfbXNnIjoie3thZ2VudF9uYW1lfX0gaGFzIGxlZnQgdGhlIGNoYXQiLCJkZWZhdWx0X2FnZW50X3RyYW5zZmVyX21zZ190b192aXNpdG9yIjoiWW91ciBjaGF0IGhhcyBiZWVuIHRyYW5zZmVycmVkIHRvIHt7YWdlbnRfbmFtZX19IiwiZGVmYXVsdF90aGFua19tZXNzYWdlIjoiVGhhbmsgeW91IGZvciBjaGF0dGluZyB3aXRoIHVzLiBJZiB5b3UgaGF2ZSBhZGRpdGlvbmFsIHF1ZXN0aW9ucywgZmVlbCBmcmVlIHRvIHBpbmcgdXMhIiwiZGVmYXVsdF9ub25fYXZhaWxhYmlsaXR5X21lc3NhZ2UiOiJPdXIgYWdlbnRzIGFyZSB1bmF2YWlsYWJsZSByaWdodCBub3cuIFNvcnJ5IGFib3V0IHRoYXQsIGJ1dCBwbGVhc2UgbGVhdmUgdXMgYSBtZXNzYWdlIGFuZCB3ZSdsbCBnZXQgcmlnaHQgYmFjay4iLCJkZWZhdWx0X3ByZWNoYXRfbWVzc2FnZSI6IldlIGNhbid0IHdhaXQgdG8gdGFsayB0byB5b3UuIEJ1dCBmaXJzdCwgcGxlYXNlIHRlbGwgdXMgYSBiaXQgYWJvdXQgeW91cnNlbGYuIiwiYWdlbnRfdHJhbnNmZXJlZF9tc2ciOiJZb3VyIGNoYXQgaGFzIGJlZW4gdHJhbnNmZXJyZWQgdG8ge3thZ2VudF9uYW1lfX0iLCJhZ2VudF9yZW9wZW5fY2hhdF9tc2ciOiJ7e2FnZW50X25hbWV9fSByZW9wZW5lZCB0aGUgY2hhdCIsInZpc2l0b3Jfc2lkZV9pbmFjdGl2ZV9tc2ciOiJUaGlzIGNoYXQgaGFzIGJlZW4gaW5hY3RpdmUgZm9yIHRoZSBwYXN0IDIwIG1pbnV0ZXMuIiwiYWdlbnRfZGlzY29ubmVjdF9tc2ciOiJ7e2FnZW50X25hbWV9fSBoYXMgYmVlbiBkaXNjb25uZWN0ZWQiLCJzaXRlX2lkIjoiMTc0OTcyOWQ4NTc1YTE2YTNjMTRlNTA1YmE1NGFkZjkiLCJhY3RpdmUiOnRydWUsIndpZGdldF9wcmVmZXJlbmNlcyI6eyJ3aW5kb3dfY29sb3IiOiIjMDA3OEZGIiwid2luZG93X3Bvc2l0aW9uIjoiQm90dG9tIFJpZ2h0Iiwid2luZG93X29mZnNldCI6IjMwIiwidGV4dF9wbGFjZSI6IllvdXIgTWVzc2FnZSIsImNvbm5lY3RpbmdfbXNnIjoiV2FpdGluZyBmb3IgYW4gYWdlbnQiLCJhZ2VudF9sZWZ0X21zZyI6IiQgaGFzIGxlZnQgdGhlIGNoYXQiLCJhZ2VudF9qb2luZWRfbXNnIjoiJCBoYXMgam9pbmVkIHRoZSBjaGF0IiwibWluaW1pemVkX3RpdGxlIjoiTGV0J3MgdGFsayEiLCJtYXhpbWl6ZWRfdGl0bGUiOiJDaGF0IGluIHByb2dyZXNzIiwid2VsY29tZV9tZXNzYWdlIjoiSGkhIEhvdyBjYW4gd2UgaGVscCB5b3UgdG9kYXk/IiwidGhhbmtfbWVzc2FnZSI6IlRoYW5rIHlvdSBmb3IgY2hhdHRpbmcgd2l0aCB1cy4gSWYgeW91IGhhdmUgYWRkaXRpb25hbCBxdWVzdGlvbnMsIGZlZWwgZnJlZSB0byBwaW5nIHVzISIsIndhaXRfbWVzc2FnZSI6IkFsbCBvdXIgYWdlbnRzIGFyZSBidXN5IGNoYXR0aW5nIHJpZ2h0IG5vdy4gUGxlYXNlIGhhbmcgb24gZm9yIGEgY291cGxlIG9mIG1pbnV0ZXMuIn0sInJvdXRpbmciOm51bGwsInByZWNoYXRfZm9ybSI6dHJ1ZSwicHJlY2hhdF9tZXNzYWdlIjoiV2UgY2FuJ3Qgd2FpdCB0byB0YWxrIHRvIHlvdS4gQnV0IGZpcnN0LCBwbGVhc2UgdGFrZSBhIGNvdXBsZSBvZiBtb21lbnRzIHRvIHRlbGwgdXMgYSBiaXQgYWJvdXQgeW91cnNlbGYuIiwicHJlY2hhdF9maWVsZHMiOnsibmFtZSI6eyJ0aXRsZSI6Ik5hbWUiLCJzaG93IjoiMiJ9LCJwaG9uZSI6eyJ0aXRsZSI6IlBob25lIiwic2hvdyI6IjAifSwiZW1haWwiOnsidGl0bGUiOiJFbWFpbCIsInNob3ciOiIwIn0sInRleHRmaWVsZCI6eyJ0aXRsZSI6Ik1lc3NhZ2UiLCJzaG93IjoiMCJ9LCJkcm9wZG93biI6eyJ0aXRsZSI6IkRyb3BEb3duIiwic2hvdyI6IjAiLCJsaXN0IjpbIiJdfX0sImJ1c2luZXNzX2NhbGVuZGFyIjpudWxsLCJub25fYXZhaWxhYmlsaXR5X21lc3NhZ2UiOnsidGV4dCI6IiIsImN1c3RvbUxpbmsiOiIwIiwiY3VzdG9tTGlua1VybCI6IiJ9LCJwcm9hY3RpdmVfY2hhdCI6ZmFsc2UsInByb2FjdGl2ZV90aW1lIjoxNSwic2l0ZV91cmwiOiJiaWdicmFzc2JhbmQuZnJlc2hkZXNrLmNvbSIsImV4dGVybmFsX2lkIjpudWxsLCJkZWxldGVkIjpmYWxzZSwib2ZmbGluZV9jaGF0Ijp7InNob3ciOiIwIiwiZm9ybSI6eyJuYW1lIjoiTmFtZSIsImVtYWlsIjoiRW1haWwiLCJtZXNzYWdlIjoiTWVzc2FnZSJ9LCJtZXNzYWdlcyI6eyJ0aXRsZSI6IkxlYXZlIHVzIGEgbWVzc2FnZSEiLCJ0aGFuayI6IlRoYW5rIHlvdSBmb3Igd3JpdGluZyB0byB1cy4gV2Ugd2lsbCBnZXQgYmFjayB0byB5b3Ugc2hvcnRseS4iLCJ0aGFua19oZWFkZXIiOiJUaGFuayB5b3UhIn19LCJtb2JpbGUiOnRydWUsImNyZWF0ZWRfYXQiOiIyMDE0LTA5LTExVDA3OjEwOjE5LjAwMFoiLCJ1cGRhdGVkX2F0IjoiMjAxNS0wNy0xNlQyMTozNzozMC4wMDBaIn0=';</script>
+</body>
+</html>
