@@ -1,0 +1,365 @@
+#apis #guide {
+  background: #F4F8FA;
+  border-right: 1px solid #DADFE5;
+  left: 0;
+  top: 0;
+  position: fixed;
+  overflow: hidden;
+  overflow-y: auto;
+  width: 210px;
+  z-index: 25;
+  height: 100%;
+  padding-bottom: 40px; /**/
+  margin-top: 70px; }   /**/
+  #apis #guide .logo {
+    margin-top: 0;
+    font-size: 29px; }
+    #apis #guide .logo a {
+      color: #2E2E2E;
+      font-family: Myriad Pro, Lato, Helvetica Neue, Arial;
+      padding: 20px 0 15px 23px;
+      display: block;
+      border-bottom: 1px solid #D6DCE0;
+      box-shadow: 0px 1px #FFF;
+      -webkit-transition: color 0.15s linear;
+      -moz-transition: color 0.15s linear;
+      -ms-transition: color 0.15s linear;
+      -o-transition: color 0.15s linear;
+      transition: color 0.15s linear; }
+      #apis #guide .logo a:hover {
+        text-decoration: none; }
+  #apis #guide .menu > li.active > .nav {
+    display: block; }
+  #apis #guide .menu > li.active > a {
+    background: #DEEAF1; }
+  #apis #guide .menu > li a {
+    color: #3391C9;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 10px 15px 10px 25px;
+    -webkit-transition: all 0.15s linear;
+    -moz-transition: all 0.15s linear;
+    -ms-transition: all 0.15s linear;
+    -o-transition: all 0.15s linear;
+    transition: all 0.15s linear; }
+    #apis #guide .menu > li a:hover {
+      background: #DEEAF1; }
+  #apis #guide .menu > li > .nav {
+    margin-bottom: 7px;
+    display: none; }
+    #apis #guide .menu > li > .nav li a {
+      font-weight: 400;
+      color: #48A0D6;
+      padding: 6px 15px 5px 35px; }
+#apis #api-docs {
+  background: #FFF;
+  margin-left: 210px;
+  min-width: 750px; }
+  #apis #api-docs #methods {
+    background: #292E33;
+    position: relative;
+    margin-left: 50%; }
+    #apis #api-docs #methods .method:first-child .method-section .method-description {
+      margin-top: 0px;
+      border-top: 0;
+      padding-top: 80px; }
+    #apis #api-docs #methods .method:first-child .method-section .method-example {
+      padding-top: 100px;
+      border-top: 0;
+      box-shadow: none; }
+    #apis #api-docs #methods .method:last-child .method-section {
+      padding-bottom: 70px; }
+    #apis #api-docs #methods .method .method-section {
+      margin-left: -100%;
+      position: relative;
+      padding-top: 50px; } /* 50 */
+      #apis #api-docs #methods .method .method-section .api-sub {
+        padding-top: 30px !important; }
+      #apis #api-docs #methods .method .method-section .method-description {
+        position: relative;
+        width: 50%;
+        float: left;
+        padding: 0 25px;
+        border-top: 1px solid #E5E7EB;
+        padding-top: 50px; /**/
+        margin-top: 0; }  /**/
+        #apis #api-docs #methods .method .method-section .method-description h3 {
+          font-size: 21px;
+          margin-top: 0;
+          margin-bottom: 20px; }
+        #apis #api-docs #methods .method .method-section .method-description p {
+          font-size: 13px;
+          color: #666;
+          line-height: 21px;
+          margin-bottom: 20px; }
+        #apis #api-docs #methods .method .method-section .method-description ul,
+        #apis #api-docs #methods .method .method-section .method-description ol {
+          font-size: 13px;
+          color: #666;
+          line-height: 21px;
+          margin-bottom: 20px;
+          margin-top: -15px; }
+          #apis #api-docs #methods .method .method-section .method-description ol li,
+          #apis #api-docs #methods .method .method-section .method-description ul li {
+            margin: 8px 0; }
+        #apis #api-docs #methods .method .method-section .method-description table {
+          width: 100%;
+          min-width: 325px; }
+        #apis #api-docs #methods .method .method-section .method-description .info {
+          margin-top: 45px;
+          margin-bottom: 40px; }
+          #apis #api-docs #methods .method .method-section .method-description .info h4 {
+            font-size: 14px;
+            border-bottom: 1px solid #E4E4E4;
+            padding-bottom: 15px; }
+          #apis #api-docs #methods .method .method-section .method-description .info .field {
+            margin-top: 17px;
+            font-size: 13px; }
+            #apis #api-docs #methods .method .method-section .method-description .info .field .key {
+              width: 40%;
+              float: left;
+              text-align: right;
+              padding-right: 10px;
+              font-weight: bold;
+              color: #333; }
+            #apis #api-docs #methods .method .method-section .method-description .info .field .desc {
+              width: 60%;
+              float: right;
+              padding-left: 10px;
+              color: #555;
+              line-height: 21px; }
+              #apis #api-docs #methods .method .method-section .method-description .info .field .desc strong {
+                display: block;
+                color: #333;
+                margin-bottom: 5px; }
+      #apis #api-docs #methods .method .method-section .method-example {
+        margin-left: 50%;
+        width: 50%;
+        padding: 75px 25px 0;
+        border-top: 1px solid #000;
+        box-shadow: inset 0px 1px rgba(255, 255, 255, 0.17);
+        color: #fff; }
+        #apis #api-docs #methods .method .method-section .method-example pre {
+          background: none;
+          border: none;
+          margin: 0;
+          padding: 0; }
+          #apis #api-docs #methods .method .method-section .method-example pre code {
+            background: none;
+            font-family: Monaco, Consolas, Menlo;
+            font-size: 12px;
+            display: none;
+            color: #DAE4F2; }
+            #apis #api-docs #methods .method .method-section .method-example pre code.always-visible {
+              display: block !important; }
+            #apis #api-docs #methods .method .method-section .method-example pre code.ruby {
+              display: block; }
+            #apis #api-docs #methods .method .method-section .method-example pre code > * {
+              color: #DAE4F2;
+              line-height: 20px; }
+          #apis #api-docs #methods .method .method-section .method-example pre .ruby {
+            color: #DAE4F2; }
+            #apis #api-docs #methods .method .method-section .method-example pre .ruby > * {
+              color: #DAE4F2;
+              line-height: 20px; }
+            #apis #api-docs #methods .method .method-section .method-example pre .ruby [class*=keyword] {
+              color: #9AB4DB; }
+            #apis #api-docs #methods .method .method-section .method-example pre .ruby [class*=string] {
+              color: #DAD0C6; }
+            #apis #api-docs #methods .method .method-section .method-example pre .ruby [class*=comment] {
+              color: #B4B4B4; }
+            #apis #api-docs #methods .method .method-section .method-example pre .ruby [class*=constant] {
+              color: #FFDF9D; }
+            #apis #api-docs #methods .method .method-section .method-example pre .ruby [class*=symbol] {
+              color: #9ECBEE; }
+          #apis #api-docs #methods .method .method-section .method-example pre .python {
+            color: #DAE4F2; }
+            #apis #api-docs #methods .method .method-section .method-example pre .python > * {
+              color: #DAE4F2;
+              line-height: 20px; }
+            #apis #api-docs #methods .method .method-section .method-example pre .python [class*=keyword] {
+              color: #9AB4DB; }
+            #apis #api-docs #methods .method .method-section .method-example pre .python [class*=string] {
+              color: #DAD0C6; }
+            #apis #api-docs #methods .method .method-section .method-example pre .python [class*=comment] {
+              color: #B4B4B4; }
+            #apis #api-docs #methods .method .method-section .method-example pre .python [class*=class] {
+              color: #FFDF9D; }
+            #apis #api-docs #methods .method .method-section .method-example pre .python [class*=params] {
+              color: #9ECBEE; }
+          #apis #api-docs #methods .method .method-section .method-example pre .php {
+            color: #DAE4F2; }
+            #apis #api-docs #methods .method .method-section .method-example pre .php > * {
+              color: #DAE4F2;
+              line-height: 20px; }
+            #apis #api-docs #methods .method .method-section .method-example pre .php [class*=keyword] {
+              color: #9AB4DB; }
+            #apis #api-docs #methods .method .method-section .method-example pre .php [class*=string] {
+              color: #DAD0C6; }
+            #apis #api-docs #methods .method .method-section .method-example pre .php [class*=comment] {
+              color: #B4B4B4; }
+
+table.pbc-table {
+  border-bottom: 2px solid #1B67A6;
+  margin: 25px auto -10px auto;
+  font-family: 'Lucida Grande', Geneva, sans-serif; }
+table.pbc-table thead {
+  text-align: left;
+  color: white;
+  background-color: #1B67A6;
+  background-image: -moz-linear-gradient(center top , #2280CE, #1B67A6);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#2280CE), to(#1B67A6));
+  background-image: -webkit-linear-gradient(top, #2280CE, #1B67A6);
+  background-image: -moz-linear-gradient(top, #2280CE, #1B67A6);
+  background-image: -ms-linear-gradient(top, #2280CE, #1B67A6);
+  background-image: -o-linear-gradient(top, #2280CE, #1B67A6);
+  background-image: linear-gradient(top, #2280CE, #1B67A6);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+  display: table-header-group;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#2280CE, endColorstr=#1B67A6);
+  border: 1px solid #437BAD;
+  text-shadow: 0px -1px 0px #135EA4; }
+table.pbc-table tbody tr.itemhdr {
+  line-height: 18px;
+  height: 18px;
+  font-size: 13px;
+  background-color: #F4F8FA;
+  color: #616161;
+  border-right: 1px solid #F1F6F9;
+  letter-spacing: 1px;
+  background-image: -moz-linear-gradient(center top , #F4F8FA, #F1F6F9);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#F4F8FA), to(#F1F6F9));
+  background-image: -webkit-linear-gradient(top, #F4F8FA, #F1F6F9);
+  background-image: -moz-linear-gradient(top, #F4F8FA, #F1F6F9);
+  background-image: -ms-linear-gradient(top, #F4F8FA, #F1F6F9);
+  background-image: -o-linear-gradient(top, #F4F8FA, #F1F6F9);
+  background-image: linear-gradient(top, #F4F8FA, #F1F6F9);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+  display: table-row;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F4F8FA, endColorstr=#F1F6F9);
+  border: 1px solid #DFF7FB;
+  text-shadow: 0px -1px 0px #F1F6F9; }
+table.pbc-table thead th,
+table.pbc-table tbody tr.itemhdr td,
+table.pbc-table tbody tr.dlhdr td {
+  font-weight: bold;
+  vertical-align: middle;
+  padding: 7px 8px;
+  text-align: left; }
+table.pbc-table tbody tr.dlhdr {
+  line-height: 18px;
+  height: 18px;
+  font-size: 13px;
+  background-color: #E6E6E6;
+  color: #16551F;
+  border-right: 1px solid #F0F0F0;
+  background-image: -moz-linear-gradient(center top , #F7F7F7, #E6E6E6);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#F7F7F7), to(#E6E6E6));
+  background-image: -webkit-linear-gradient(top, #F7F7F7, #E6E6E6);
+  background-image: -moz-linear-gradient(top, #F7F7F7, #E6E6E6);
+  background-image: -ms-linear-gradient(top, #F7F7F7, #E6E6E6);
+  background-image: -o-linear-gradient(top, #F7F7F7, #E6E6E6);
+  background-image: linear-gradient(top, #F7F7F7, #E6E6E6);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+  display: table-row;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F7F7F7, endColorstr=#E6E6E6);
+  border: 1px solid #EBEBEB;
+  text-shadow: 0px -1px 0px #E6E6E6; }
+table.pbc-table thead th {
+  line-height: 22px;
+  height: 22px;
+  font-size: 14px;
+  color: #FDFDFD; }
+.ulinedsh {
+  border-bottom: 1px dotted; }
+span.txtsh {
+  text-shadow: 1px 1px 0px #FAFAFA; }
+.cmdmsg {
+  color: #949494; }
+table.pbc-table tbody tr td {
+  border-spacing: 2px;
+  line-height: 18px;
+  height: 18px;
+  font-size: 12px;
+  padding: 7px 8px;
+  vertical-align: baseline; }
+table.pbc-table tr.uline td {
+  border-bottom: 1px solid #E3E3E3; }
+
+#imbox {
+  color: #666;
+	font-size: 12px;
+	line-height: 1.45;
+  margin: 22px auto;
+ 	width: auto;
+	padding: 10px 15px 10px 66px;
+	min-height: 40px; /* 66px; */
+	vertical-align: middle;
+	text-align: justify;
+  border-bottom: 1px solid #DBDBDB; }
+  #apis #api-docs #methods .method .method-section .method-description #imbox ul {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    text-align: left; }
+  #apis #api-docs #methods .method .method-section .method-description #imbox ul li {
+    color: #666;
+    line-height: 16px;
+    margin: 5px 0; }
+#wraps { /* 1line imbox reqs nstd div */
+  padding-top: 7px;
+  padding-bottom: 8px; }
+  @media (min-width: 1021px) {
+    #imbox #wraps {
+      padding-top: 3px;
+      padding-bottom: 2px; } }
+  @media (max-width: 1086px) {
+    .infos.ibx-fl {
+      margin-top: 1px; }
+    .alertx.ibx-fl {
+      margin-top: -3px; } }
+  @media (min-width: 1087px) {
+    .alertx.ibx-fl {
+      margin-top: 1px; }
+    .infos.ibx-fl {
+      margin-top: 2px; }
+    #imbox #wraps {
+      min-height: 40px;
+      padding-top: 3px;
+      padding-bottom: 5px; } }
+  @media (min-width: 1554px) {
+    #imbox #wraps {
+      min-height: 40px;
+      padding-top: 12px;
+      padding-bottom: 5px; } }
+.bxinfo {
+  background: #FAFFFF;
+  border-top: 8px solid #c8dbff; }
+.bxnote {
+  background: #F6FFFF;
+  border-top: 8px solid #d5f3fb; }
+.bxtip {
+  background: #f6fff6;
+  border-top: 8px solid #c2f7ba; }
+.bxalert {
+  background: #FFFFF3;
+  border-top: 8px solid #FFF3B3; }
+.tblinfo {
+  font-size: 12px;
+  line-height: 1.25;
+  margin: 8px 10px 2px 12px;
+  background-color: #faffff;
+  padding: 8px 15px 7px 42px;
+  border-top: 5px solid #c8dbff;
+  border-bottom: 1px solid #DBDBDB;
+  min-height: 20px;
+  vertical-align: middle;
+  text-align: justify; }
+.line2up {
+  line-height: 1.5;
+  margin-top: 10px; }
+.nav .nav-divider {
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #D5EBFB;
+    box-shadow: 0px 1px #FFF; }

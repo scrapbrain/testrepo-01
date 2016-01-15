@@ -1,0 +1,112 @@
+.image001, .image022, .image005, .image015,
+.image024, .image017, .gpj_new_icon, .image038,
+.image002, .image009, .image007, .image012,
+.ddc, .alertx, .tips, .infos, .notes, .info-sm,
+.fisheye, .commitID, .clonerepo {
+  position: relative;
+  overflow: hidden;
+}
+
+.image001 img, .image022 img, .image005 img,
+.image015 img, .image024 img, .image017 img,
+.gpj_new_icon img, .image038 img, .image002 img,
+.image009 img, .image007 img, .image012 img,
+.ddc img, .alertx img, .tips img, .infos img,
+.notes img, .info-sm img, .fisheye img, .commitID img,
+.clonerepo img {
+  position: relative;
+  font-size: 0;
+}
+
+.plogo {
+  margin: 0 0 0 0;
+  padding: 0;
+  border: none;
+}
+
+.pimg, .plogo {
+   display: inline-block;
+   vertical-align: middle;
+}
+
+.pimg {
+  margin: -2px 3px 1px 3px;
+}
+
+.pimg-ul {
+  margin: 0;
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.ibx-fl, .ibx-sm {
+  display: block;
+  float: left;
+}
+
+.ibx-fl {
+  margin: 0 0 0 -54px;
+}
+
+.ibx-sm {
+  margin: 0 0 0 -32px;
+}
+
+.line2 {
+  margin-top: -3px;
+}
+
+.image001 { width: 72px; height: 72px; }
+.image001 img { left: 0px; top: -134px; }
+
+.image022 { width: 63px; height: 16px; }
+.image022 img { left: 0px; top: 0px; }
+
+.image005 { width: 35px; height: 20px; }
+.image005 img { left: -73px; top: 0px; }
+
+.image015 { width: 29px; height: 16px; }
+.image015 img { left: -82px; top: -190px; }
+
+.image024, .fisheye { width: 16px; height: 16px; }
+.image024 img { left: -82px; top: -134px; }
+.fisheye img { left: -123px; top: -13px; }
+
+.image017 { width: 19px; height: 12px; }
+.image017 img { left: -104px; top: -99px; }
+
+.gpj_new_icon { width: 16px; height: 14px; }
+.gpj_new_icon img { left: -104px; top: -75px; }
+
+.image038 { width: 13px; height: 13px; }
+.image038 img { left: -104px; top: -52px; }
+
+.image002 { width: 13px; height: 12px; }
+.image002 img { left: -104px; top: -30px; }
+
+.image009 { width: 12px; height: 12px; }
+.image009 img { left: -108px; top: -121px; }
+
+.image007 { width: 10px; height: 12px; }
+.image007 img { left: -112px; top: -163px; }
+
+.image012 { width: 10px; height: 10px; }
+.image012 img { left: -112px; top: -143px; }
+
+.ddc { width: 8px; height: 4px; }
+.ddc img { left: -118px; top: 0px; }
+
+.alertx, .infos, .notes, .tips { width: 42px; height: 42px; }
+.alertx img { left: 0px; top: -78px; }
+.infos img { left: -52px; top: -30px; }
+.notes img { left: -52px; top: -82px; }
+.tips img { left: 0px; top: -26px; }
+
+.info-sm { width: 20px; height: 20px; }
+.info-sm img { left: -82px; top: -160px; }
+
+.commitID { width: 14px; height: 14px; }
+.commitID img { left: -125px; top: -39px; }
+
+.clonerepo { width: 16px; height: 16px; }
+.clonerepo img { left: -123px; top: -62px; }
